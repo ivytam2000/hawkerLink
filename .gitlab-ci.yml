@@ -1,0 +1,19 @@
+stages:
+    - compile
+    - test
+    - deploy
+
+build:
+  stage: compile
+  script:
+    - echo "Compiling..."
+
+test:
+  stage: test
+  script:
+    - echo "Testing..."
+
+deploy-to-vm:
+  stage: deploy
+  script:
+    - echo "Deploying to vm..."
