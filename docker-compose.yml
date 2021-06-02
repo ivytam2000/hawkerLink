@@ -32,9 +32,9 @@ services:
             - /var/run/docker.sock:/var/run/docker.sock
         command: docker run hello-world
 
-volumes:
-    node-modules:
+# volumes:
+#     node-modules:
 
-networks:
-    frontend:
-        driver: bridge
+# networks:
+#     frontend:
+#         driver: bridge
