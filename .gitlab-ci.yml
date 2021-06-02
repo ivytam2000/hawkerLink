@@ -14,6 +14,7 @@ test:
     - echo "Testing..."
 
 deploy-to-vm:
+  image: docker/compose
   stage: deploy
   script:
     - docker-compose up

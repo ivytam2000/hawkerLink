@@ -27,7 +27,7 @@ services:
     #     networks:
     #         - frontend
     test:
-        image: docker/compose
+        image: docker
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
         command: docker run hello-world
