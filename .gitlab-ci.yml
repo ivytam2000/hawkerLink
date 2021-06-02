@@ -16,4 +16,4 @@ test:
 deploy-to-vm:
   stage: deploy
   script:
-    - echo "Deploying to vm..."
+    - docker-compose up
