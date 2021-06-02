@@ -1,40 +1,35 @@
 services:
-    # api:
-    #     build: ./api
-    #     command: ["flask","run", "--host=0.0.0.0", "--port=5000"]
-    #     volumes:
-    #         - ./api:/api
-    #     environment:
-    #         - FLASK_ENV=development
-    #         - FLASK_APP=api.py
-    #     ports:
-    #         - '5000:5000'
-    #     networks:
-    #         - frontend
-    
-    # client:
-    #     build: ./client
-    #     command: ["npm", "start"]
-    #     volumes:
-    #         - ./client:/client
-    #         - node-modules:/client/node_modules
-    #     environment:
-    #         - NODE_ENV=development
-    #     ports:
-    #         - '3000:3000'
-    #     depends_on:
-    #         - api
-    #     networks:
-    #         - frontend
-    test:
-        image: docker
+    api:
+        build: ./api
+        command: ["flask","run", "--host=0.0.0.0", "--port=5000"]
         volumes:
-            - /var/run/docker.sock:/var/run/docker.sock
-        command: docker run hello-world
+            - ./api:/api
+        environment:
+            - FLASK_ENV=development
+            - FLASK_APP=api.py
+        ports:
+            - '5000:5000'
+        networks:
+            - frontend
+    
+    client:
+        build: ./client
+        command: ["npm", "start"]
+        volumes:
+            - ./client:/client
+            - node-modules:/client/node_modules
+        environment:
+            - NODE_ENV=development
+        ports:
+            - '3000:3000'
+        depends_on:
+            - api
+        networks:
+            - frontend
 
-# volumes:
-#     node-modules:
+volumes:
+    node-modules:
 
-# networks:
-#     frontend:
-#         driver: bridge
+networks:
+    frontend:
+        driver: bridge
