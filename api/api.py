@@ -48,8 +48,6 @@ def get_accounts():
         abort(400)
     language_query = request.json['languages']
     location_query = request.json['location']
-    # language_query = "West"
-    # location_query = "English"
     all_accounts = Hawkers.query.filter(and_(Hawkers.languages == language_query, 
                                              Hawkers.region == location_query))
 

@@ -38,7 +38,7 @@ export function HawkerSearchBar({searchHawker}) {
   
 
   function handleSubmit(e) {
-    //e.preventDefault(); // prevents browser refresh
+    e.preventDefault(); // prevents browser refresh
     // trim() gets rid of string whitespace
     searchHawker(location.name, language.name);
     // if (location.name.trim()) {
@@ -62,7 +62,7 @@ export function HawkerSearchBar({searchHawker}) {
         value={language.name}
         onChange={handleLangInputChange}
       />
-      <Button type="submit">Search</Button>
+      <Button type="submit" onClick={handleSubmit}>Search</Button>
     </form>
   );
 }
