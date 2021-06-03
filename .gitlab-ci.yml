@@ -16,5 +16,7 @@ test:
 deploy-to-vm:
   stage: deploy
   script:
-    - docker-compose down
+    - echo "POSTGRES_USER=$PROD_POSTGRES_USER" >> .env
+    - echo "POSTGRES_PASSWORD=$PROD_POSTGRES_PASSWORD" >> .env
+    - docker-compose down --remove-orphans
     - docker-compose up -d --build
