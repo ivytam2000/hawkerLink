@@ -1,6 +1,6 @@
 import time
 import os
-from flask import Flask
+from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 # Environment variables
@@ -9,8 +9,15 @@ POSTGRES_USER = os.environ.get('POSTGRES_USER')
 POSTGRES_PASSWORD = os.environ.get('POSTGRES_PASSWORD')
 DATABASE_ADDRESS = os.environ.get('DATABASE_ADDRESS') # Defined by network in docker-compose
 
+# Use postgresql if in production
+if not POSTGRES_DB or not POSTGRES_USER or not POSTGRES_PASSWORD or not DATABASE_ADDRESS:    
+    DATABASE_URI = 'sqlite:///local.db'
+else:
+    DATABASE_URI = 'postgresql://{}:{}@{}/{}'.format(POSTGRES_USER, POSTGRES_PASSWORD, DATABASE_ADDRESS, POSTGRES_DB)
+
+# Set up database
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://{}:{}@{}/{}'.format(POSTGRES_USER, POSTGRES_PASSWORD, DATABASE_ADDRESS, POSTGRES_DB)
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 db = SQLAlchemy(app)
 
 class User(db.Model):
@@ -34,11 +41,13 @@ def get_current_time():
 def get_accounts():
     all_accounts = User.query.all()
 
-    return {
-        'id': all_accounts[0].user_id,
-        'username': all_accounts[0].username,
-        'email': all_accounts[0].email
-    }
+    accounts = []
+    for acc in all_accounts:
+        accounts.append({'id': acc.user_id,
+                         'username': acc.username,
+                         'email': acc.email})
+
+    return jsonify(accounts)
 
 @app.route('/create')
 def create():
