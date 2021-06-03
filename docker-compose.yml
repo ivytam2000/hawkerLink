@@ -7,11 +7,13 @@ services:
         environment:
             - FLASK_ENV=development
             - FLASK_APP=api.py
+            - DB_CONNECTION_STRING=${PROD_DB_CONNECTION_STRING}
         ports:
             - '5000:5000'
         networks:
             - frontend
-    
+            - backend
+            
     client:
         build: ./client
         command: ["npm", "start"]
@@ -26,10 +28,26 @@ services:
             - api
         networks:
             - frontend
+    
+    database:
+        image: postgres:11
+        environment:
+            - POSTGRES_DB=postgres
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+        ports: 
+            - '5432:5432'
+        volumes:
+            - ./data:/var/lib/postgresql/data
+        networks:
+            - backend
 
 volumes:
     node-modules:
+    data: {}
 
 networks:
     frontend:
+        driver: bridge
+    backend:
         driver: bridge

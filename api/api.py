@@ -33,3 +33,8 @@ def get_accounts():
         'username': all_accounts[0].username,
         'email': all_accounts[0].email
     }
+
+@app.route('/create')
+def create():
+    db.create_all()
+    return "success"
