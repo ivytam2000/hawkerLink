@@ -1,0 +1,23 @@
+stages:
+    - compile
+    - test
+    - deploy
+
+build:
+  stage: compile
+  script:
+    - echo "Compiling..."
+
+test:
+  stage: test
+  script:
+    - echo "Testing..."
+
+deploy-to-vm:
+  stage: deploy
+  script:
+    - echo "POSTGRES_DB=$PROD_POSTGRES_DB" >> .env
+    - echo "POSTGRES_USER=$PROD_POSTGRES_USER" >> .env
+    - echo "POSTGRES_PASSWORD=$PROD_POSTGRES_PASSWORD" >> .env
+    - docker-compose down --remove-orphans
+    - docker-compose up -d --build
