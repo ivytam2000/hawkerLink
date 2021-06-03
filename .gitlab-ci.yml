@@ -8,10 +8,16 @@ build:
   script:
     - echo "Compiling..."
 
-test:
+frontend-test:
   stage: test
   script:
-    - echo "Testing..."
+    - echo "Testing frontend..."
+
+backend-test:
+  stage: test
+  script:
+    - echo "Testing backend..."
+    - pytest
 
 deploy-to-vm:
   stage: deploy
