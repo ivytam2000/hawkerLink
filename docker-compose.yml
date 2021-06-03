@@ -7,7 +7,8 @@ services:
         environment:
             - FLASK_ENV=development
             - FLASK_APP=api.py
-            - DB_CONNECTION_STRING=${PROD_DB_CONNECTION_STRING}
+            # - DB_CONNECTION_STRING=${PROD_DB_CONNECTION_STRING}
+            - DB_CONNECTION_STRING='postgresql://postgres:postgres@database/drp_db'
         ports:
             - '5000:5000'
         networks:
