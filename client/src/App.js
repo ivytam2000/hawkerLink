@@ -1,10 +1,23 @@
 import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { HawkerSearchBar } from './HawkerSearchBar';
+
 
 function App() {
+
   /* Returns a getter and setter for this state. */
   const [currentTime, setCurrentTime] = useState(0);
+  const [storeName, setStoreName] = useState(0);
+  const [location, setLocation] = useState(0);
+  const [language, setLanguage] = useState(0);
+  const [languageName, setLanguageName] = useState(0);
+  const [locationName, setLocationName] = useState(0);
+  
+  function searchHawker(locationName, languageName) {
+    setLocationName(locationName);
+    setLanguageName(languageName);
+  }
 
   useEffect(() => {
     fetch('/time').then(res => res.json())
@@ -12,7 +25,27 @@ function App() {
     });
   }, []); // Empty list here so that this function only called on initial rendering
 
+  useEffect(() =>{
+    fetch('/hawkers',{
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        languages: "English",
+        location: "QueensTown"
+      })
+    }).then(res => res.json())
+    .then(data => {setStoreName(data.storeName)});
+    // .then(data => {setLocation(data.location)})
+    // .then(data => {setLanguage(data.languages)});
+  }, []);
+
+  
+
   return (
+
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
@@ -27,7 +60,10 @@ function App() {
         >
           Learn React
         </a>
-        <p>Hello world update! The current time is {currentTime}.</p>
+        <HawkerSearchBar searchHawker={searchHawker}/>
+        <p>The store name is {storeName}. 
+          The location is {location}. 
+          The language spoken is {language}. </p>);
       </header>
 
     </div>

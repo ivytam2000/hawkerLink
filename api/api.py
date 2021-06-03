@@ -1,6 +1,6 @@
 import time
 import os
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, abort
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_
 
@@ -44,18 +44,21 @@ def get_current_time():
 
 @app.route('/hawkers', methods=['POST'])
 def get_accounts():
-    language_query = request.form['language']
-    location_query = request.form['location']
-    all_accounts = Hawkers.query.filter(and_(Hawkers.languages.contains(language_query), 
+    if not request.json:
+        abort(400)
+    language_query = request.json['languages']
+    location_query = request.json['location']
+    # language_query = "West"
+    # location_query = "English"
+    all_accounts = Hawkers.query.filter(and_(Hawkers.languages == language_query, 
                                              Hawkers.region == location_query))
 
     accounts = []
     for acc in all_accounts:
-        acc_languages = acc.languages.split(',')
         accounts.append({'id': acc.id,
                          'store_name': acc.store_name,
-                         'region': acc.region,
-                         'languages': acc_languages})
+                         'location': acc.region,
+                         'languages': acc.languages})
 
     return jsonify(accounts)
 
