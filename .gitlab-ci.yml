@@ -9,7 +9,7 @@ build:
   script:
     - echo "Compiling..."
     # Compile python files, do not recurse into sub-directories
-    - python -m compileall api -l 
+    - python3 -m compileall api -l 
     # Compile node files and check types
     # - npm run flow
 
