@@ -36,4 +36,7 @@ deploy-to-vm:
     - echo "POSTGRES_PASSWORD=$PROD_POSTGRES_PASSWORD" >> .env
     - docker-compose down --remove-orphans
     - docker-compose up -d --build
-  when: manual
+  # Additional options if we want to
+  # when: manual
+  # only:
+  #   - master
