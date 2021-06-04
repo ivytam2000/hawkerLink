@@ -16,8 +16,8 @@ frontend-test:
 backend-test:
   stage: test
   script:
-    - echo "Testing backend..."
-    - pytest
+    - docker build -t backend-test-docker-image api/
+    - docker run backend-test-docker-image pytest
 
 deploy-to-vm:
   stage: deploy
