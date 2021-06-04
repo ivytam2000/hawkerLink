@@ -12,6 +12,8 @@ frontend-test:
   stage: test
   script:
     - echo "Testing frontend..."
+    - docker build -t frontend-test-docker-image client/
+    - cd client && docker run frontend-test-docker-image npm test -- --watchAll=false
 
 backend-test:
   stage: test
