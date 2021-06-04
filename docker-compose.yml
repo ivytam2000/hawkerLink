@@ -5,6 +5,7 @@ services:
         volumes:
             - ./api:/api
         environment:
+            - PYTHONDONTWRITEBYTECODE=1
             - FLASK_ENV=development
             - FLASK_APP=api.py
             - POSTGRES_DB=${POSTGRES_DB}
