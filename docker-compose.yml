@@ -6,7 +6,7 @@ services:
             - ./api:/api
         environment:
             - PYTHONDONTWRITEBYTECODE=1
-            - FLASK_ENV=development
+            - FLASK_ENV=production
             - FLASK_APP=api.py
             - POSTGRES_DB=${POSTGRES_DB}
             - POSTGRES_USER=${POSTGRES_USER}
@@ -25,7 +25,7 @@ services:
             - ./client:/client
             - node-modules:/client/node_modules
         environment:
-            - NODE_ENV=development
+            - NODE_ENV=production
         ports:
             - '3000:3000'
         depends_on:
