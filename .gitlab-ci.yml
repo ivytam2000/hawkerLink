@@ -4,9 +4,14 @@ stages:
     - deploy
 
 build:
+  image: 
   stage: compile
   script:
     - echo "Compiling..."
+    # Compile python files, do not recurse into sub-directories
+    - python -m compileall api -l 
+    # Compile node files and check types
+    # - npm run flow
 
 frontend-test:
   stage: test
