@@ -1,26 +1,11 @@
 import { Button, TextField } from "@material-ui/core";
 import React, { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
+import './App.css';
+import InfoText from "./InfoText";
 
-
-function InfoText(props) {
-  return (<p> The store name is {props.storeName}. 
-  The location is {props.location}. 
-  The language spoken is {props.language}. </p>
-  );
-}
 
 class HawkerSearchBar extends React.Component {
-// export function HawkerSearchBar({searchHawker}) {
-
-//   const data = [
-//     {Language: 'English', id: 1},
-//     {Language: 'Mandarin', id:2},
-//     {Language: 'Hokkien', id:3},
-//     {Language: 'Teochew', id:4},
-//     {Language: 'Malay', id:5},
-//     {Language: 'Tamil', id:6}
-// ]
 
   constructor(props, func) {
     super(props);
@@ -72,6 +57,8 @@ class HawkerSearchBar extends React.Component {
   render() {
   return (
     <div>
+
+    <div className="search-bar">
     <form className="subject-form" onSubmit={this.handleSubmit}>
       <TextField
         label="Location"
@@ -89,7 +76,12 @@ class HawkerSearchBar extends React.Component {
       />
       <Button type="submit" onClick={this.handleSubmit}>Search</Button>
     </form>
+    </div>
+
+    <div className="search-results">
     {this.renderText()}
+    </div>
+
     </div>
   );}
 }
