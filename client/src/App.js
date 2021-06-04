@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { HawkerSearchBar } from './HawkerSearchBar';
-import Welcome from './BottomTextComponent';
+import HawkerSearchBar from './HawkerSearchBar';
 
 function App() {
 
@@ -10,9 +9,6 @@ function App() {
   // const [currentTime, setCurrentTime] = useState(0);
 
   //for results
-  const [storeName, setStoreName] = useState(0);
-  const [location, setLocation] = useState(0);
-  const [language, setLanguage] = useState(0);
 
   // useEffect(() => {
   //   fetch('/time').then(res => res.json())
@@ -20,8 +16,10 @@ function App() {
   //   });
   // }, []); // Empty list here so that this function only called on initial rendering
 
-  function searchHawker(locationName, languageName) {
-    fetch('/hawkers',{
+
+  async function searchHawker(locationName, languageName) {
+  
+    const response = await fetch('/hawkers',{
           method: 'POST',
           headers: {
             Accept: 'application/json',
@@ -31,14 +29,11 @@ function App() {
             location: locationName,
             languages: languageName            
           })
-        }).then(res => res.json())
-        .then(data => {setStoreName(data.storeName);
-          setLocation(data.location);
-          setLanguage(data.languages)});
+        });
 
-    return (<p>The store name is {storeName}. 
-      The location is {location}. 
-      The language spoken is {language}. </p>);
+    const data = await response.json();
+    
+    return data;
   }
 
   return (
@@ -58,7 +53,6 @@ function App() {
           Learn React
         </a>
         <HawkerSearchBar searchHawker={searchHawker}/>
-        <Welcome storeName=""/>
       </header>
 
     </div>

@@ -54,9 +54,9 @@ def get_accounts():
     accounts = []
     for acc in all_accounts:
         accounts.append({'id': acc.id,
-                         'store_name': acc.store_name,
+                         'storeName': acc.store_name,
                          'location': acc.region,
-                         'languages': acc.languages})
+                         'language': acc.languages})
 
     return jsonify(accounts)
 
