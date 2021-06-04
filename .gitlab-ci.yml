@@ -4,20 +4,29 @@ stages:
     - deploy
 
 build:
+  image: 
   stage: compile
   script:
     - echo "Compiling..."
+    # Compile python files, do not recurse into sub-directories
+    - python3 -m compileall api -l 
+    # Compile node files and check types
+    # - npm run flow
 
 frontend-test:
   stage: test
   script:
     - echo "Testing frontend..."
+    # Build docker image and run tests using npm test
+    - docker build -t frontend-test-docker-image client/
+    - cd client && docker run frontend-test-docker-image npm test -- --watchAll=false
 
 backend-test:
   stage: test
   script:
-    - echo "Testing backend..."
-    - pytest
+    # Build docker image and run pytest
+    - docker build -t backend-test-docker-image api/
+    - docker run backend-test-docker-image pytest
 
 deploy-to-vm:
   stage: deploy
@@ -27,3 +36,7 @@ deploy-to-vm:
     - echo "POSTGRES_PASSWORD=$PROD_POSTGRES_PASSWORD" >> .env
     - docker-compose down --remove-orphans
     - docker-compose up -d --build
+  # Additional options if we want to
+  # when: manual
+  # only:
+  #   - master
