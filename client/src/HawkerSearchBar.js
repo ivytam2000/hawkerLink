@@ -1,6 +1,5 @@
 import { Button, TextField } from "@material-ui/core";
 import React, { useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
 import './App.css';
 import InfoText from "./InfoText";
 
@@ -23,22 +22,15 @@ class HawkerSearchBar extends React.Component {
   }
 
   handleLocInputChange = (e) => {
-    // e.target.value contains new input from onChange
-    // event for input elements
-    // setLocation({ ...location, name: e.target.value });
     this.setState({location: e.target.value});
   }
 
   handleLangInputChange = (e) => {
-    // e.target.value contains new input from onChange
-    // event for input elements
-    // setLanguage({ ...language, name: e.target.value });
     this.setState({language: e.target.value});
   }
 
   handleSubmit = (e) => {
     e.preventDefault(); // prevents browser refresh
-    // trim() gets rid of string whitespace
     var data = this.props.searchHawker(this.state.location, this.state.language);
     
     data.then((result) => {
@@ -46,12 +38,12 @@ class HawkerSearchBar extends React.Component {
         this.setState({locationResult: result[0].location});
         this.setState({storeNameResult: result[0].storeName});
         this.setState({languageResult: result[0].language});
+      } else {
+        this.setState({locationResult: 'not found'});
+        this.setState({storeNameResult: 'not found'});
+        this.setState({languageResult: 'not found'});
       }
     });
-
-    // if (location.name.trim()) {
-    //   setSubject({ ...location, name: "" });
-    // }
   }
 
   render() {
