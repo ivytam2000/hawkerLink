@@ -17,12 +17,14 @@ frontend-test:
   stage: test
   script:
     - echo "Testing frontend..."
+    # Build docker image and run tests using npm test
     - docker build -t frontend-test-docker-image client/
     - cd client && docker run frontend-test-docker-image npm test -- --watchAll=false
 
 backend-test:
   stage: test
   script:
+    # Build docker image and run pytest
     - docker build -t backend-test-docker-image api/
     - docker run backend-test-docker-image pytest
 
@@ -34,3 +36,4 @@ deploy-to-vm:
     - echo "POSTGRES_PASSWORD=$PROD_POSTGRES_PASSWORD" >> .env
     - docker-compose down --remove-orphans
     - docker-compose up -d --build
+  when: manual
