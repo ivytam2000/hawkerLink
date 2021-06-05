@@ -34,7 +34,7 @@ import HawkerSearchBar from './HawkerSearchBar';
 
             <nav className="main-nav" id="nav">
                 <ul className="main-nav-links">
-                    <li><a className="header" href="/">resources-test</a></li>
+                    <li><a className="header" href="/">resources</a></li>
                     <li><a className="header" href="/">suggest a hawker</a></li>
                     <li className="current"><a className="header" href="/">assist a hawker</a></li>
                     <li><a className="header" href="/">about us</a></li>
