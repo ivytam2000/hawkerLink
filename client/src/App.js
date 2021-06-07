@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
 import HawkerSearchBar from './HawkerSearchBar';
+import { LanguageSearchBar } from './LanguageSearchBar';
 
  export function App() {
 
@@ -44,6 +45,7 @@ import HawkerSearchBar from './HawkerSearchBar';
 
         <section className="content"> 
           <p class = "text-alt-l"><HawkerSearchBar searchHawker={SearchHawker}/></p>
+          <LanguageSearchBar/>
         </section>
 
 	</body>
