@@ -1,25 +1,43 @@
 import React, { useState } from "react";
-import {Multiselect} from 'multiselect-react-dropdown';
+import { Multiselect } from "multiselect-react-dropdown";
 
-export function LanguageSearchBar(){
-    const data = [
-        {Language: 'English', id: 1},
-        {Language: 'Mandarin', id:2},
-        {Language: 'Hokkien', id:3},
-        {Language: 'Teochew', id:4},
-        {Language: 'Malay', id:5},
-        {Language: 'Tamil', id:6}
-    ]
+class LanguageSearchBar extends React.Component {
+  constructor(props, func) {
+    super(props);
+    this.state = {
+      options: [
+        { Language: "English", id: 1 },
+        { Language: "Mandarin", id: 2 },
+        { Language: "Hokkien", id: 3 },
+        { Language: "Teochew", id: 4 },
+        { Language: "Malay", id: 5 },
+        { Language: "Tamil", id: 6 },
+      ],
+      languages: [],
+    };
+  }
 
-    const [options] = useState(data);
+  onSelect = (selectedList, selectedItem) => {
+    this.setState((state) => {
+      state.languages = selectedList.map((lang) => lang.Language);
+      console.log(state.languages);
+    });
+  };
 
-    return(
-        <div style = {{width:"90%", justifyContent: "center", display: "flex"}}>
-        <div className= "LanguageSearchBar">
-            <h3 style = {{color:"red"}}>Languages</h3>
-            <Multiselect options={options} displayValue="Language"/>
+  render() {
+    return (
+      <div style={{ width: "90%", justifyContent: "center", display: "flex" }}>
+        <div className="LanguageSearchBar">
+          <Multiselect
+            options={this.state.options}
+            onSelect={this.onSelect}
+            onRemove={this.onSelect}
+            displayValue="Language"
+          />
         </div>
-        </div>
+      </div>
     );
-
+  }
 }
+
+export default LanguageSearchBar;
