@@ -1,8 +1,7 @@
 import { Button, TextField } from "@material-ui/core";
 import React, { useState } from "react";
-import './App.css';
-import InfoText from "./InfoText";
-
+import '../App.css';
+import InfoText from "../InfoText";
 
 class HawkerSearchBar extends React.Component {
 

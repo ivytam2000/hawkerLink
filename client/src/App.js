@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
-import HawkerSearchBar from './HawkerSearchBar';
-import LanguageSearchBar from './LanguageSearchBar';
+import HawkerSearchBar from './components/HawkerSearchBar';
+import LanguageSearchBar from './components/LanguageSearchBar';
 import {SearchHawker} from './services/AssistHawker';
 
  export function App() {
