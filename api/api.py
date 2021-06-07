@@ -1,7 +1,8 @@
 import time
 import os
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request, abort
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import and_
 
 # Environment variables
 POSTGRES_DB = os.environ.get('POSTGRES_DB')
@@ -16,16 +17,18 @@ if not POSTGRES_DB or not POSTGRES_USER or not POSTGRES_PASSWORD or not DATABASE
 else:
     DATABASE_URI = 'postgresql://{}:{}@{}/{}'.format(POSTGRES_USER, POSTGRES_PASSWORD, DATABASE_ADDRESS, POSTGRES_DB)
 
-# Set up database
+# Set up database and flask app
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-class User(db.Model):
-    __tablename__ = 'accounts'
-    user_id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(30), unique=True)
-    email = db.Column(db.String(120), unique=True)
+class Hawkers(db.Model):
+    __tablename__ = 'hawker_directory'
+    id = db.Column(db.Integer, primary_key=True)
+    store_name = db.Column(db.String(100), unique=True)
+    region = db.Column(db.String(100))
+    languages = db.Column(db.String(200), unique=True) # CSV of languages
 
     def __init__(self, username, email) -> None:
         self.username = username
@@ -38,15 +41,21 @@ class User(db.Model):
 def get_current_time():
     return {'time': time.time()}
 
-@app.route('/accounts')
+@app.route('/hawkers', methods=['POST'])
 def get_accounts():
-    all_accounts = User.query.all()
+    if not request.json:
+        abort(400)
+    language_query = request.json['languages']
+    location_query = request.json['location']
+    all_accounts = Hawkers.query.filter(and_(Hawkers.languages == language_query, 
+                                             Hawkers.region == location_query))
 
     accounts = []
     for acc in all_accounts:
-        accounts.append({'id': acc.user_id,
-                         'username': acc.username,
-                         'email': acc.email})
+        accounts.append({'id': acc.id,
+                         'storeName': acc.store_name,
+                         'location': acc.region,
+                         'language': acc.languages})
 
     return jsonify(accounts)
 

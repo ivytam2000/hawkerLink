@@ -1,36 +1,53 @@
 import React, {useState, useEffect} from 'react';
-import logo from './logo.svg';
 import './App.css';
+import HawkerSearchBar from './HawkerSearchBar';
 
-function App() {
-  /* Returns a getter and setter for this state. */
-  const [currentTime, setCurrentTime] = useState(0);
+ export function App() {
 
-  useEffect(() => {
-    fetch('/time').then(res => res.json())
-                  .then(data => {setCurrentTime(data.time);
-    });
-  }, []); // Empty list here so that this function only called on initial rendering
+  async function SearchHawker(locationName, languageName) {
+  
+    const response = await fetch('/hawkers',{
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            location: locationName,
+            languages: languageName            
+          })
+        });
+
+    const data = await response.json();
+    
+    return data;
+  }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <p>Hello world update! The current time is {currentTime}.</p>
-      </header>
 
-    </div>
+    <body>
+
+        <header className="page-header">
+            <div className="header-logo">
+                <p className="header-text">hawkerlink</p>
+            </div>
+
+            <nav className="main-nav" id="nav">
+                <ul className="main-nav-links">
+                    <li><a className="header" href="/">resources</a></li>
+                    <li><a className="header" href="/">suggest a hawker</a></li>
+                    <li className="current"><a className="header" href="/">assist a hawker</a></li>
+                    <li><a className="header" href="/">about us</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section className="content"> 
+          <p class = "text-alt-l"><HawkerSearchBar searchHawker={SearchHawker}/></p>
+        </section>
+
+	</body>
+
   );
 }
 
