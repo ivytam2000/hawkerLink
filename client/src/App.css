@@ -1,7 +1,5 @@
 @import url("./fonts.css");
-
-body
-{
+body {
     font-family: 'librebaskerville-regular', serif;
     font-size: 1.6rem;
     line-height: 1.875;
@@ -9,7 +7,6 @@ body
     background-size: cover;
     background-attachment: fixed;
     background-color: #2c2c2c;
-
     -webkit-font-smoothing: antialiased;
 }
 
@@ -40,7 +37,6 @@ body
     line-height: 72px;
     color: #C5343B;
 }
-
 
 .main-nav {
     font-family: "montserrat-bold", sans-serif;
@@ -152,32 +148,31 @@ body
 } */
 
 .content {
-  padding-top: 8rem;
-  padding-left: 25%;
-  padding-right: 23%;
-
-  animation: fadein ease 0.5s;
+    padding-top: 8rem;
+    padding-left: 25%;
+    padding-right: 23%;
+    animation: fadein ease 0.5s;
 }
 
 .content-mob {
-  display: none;
+    display: none;
 }
 
 .text-alt-l {
-  font-family: "montserrat-regular", sans-serif;
-  font-size: 1.9rem;
-  line-height: 1.2;
-  color: #ffffff;
+    font-family: "montserrat-regular", sans-serif;
+    font-size: 1.9rem;
+    line-height: 1.2;
+    color: #ffffff;
 }
 
 .search-bar {
-  background: #ffffff;
-  width: 50%;
-  text-align: center;
+    background: #ffffff;
+    width: 50%;
+    text-align: center;
 }
 
 .search-result {
-  text-align: center;
+    text-align: center;
 }
 
 /* @media screen and (max-width: 600px) {
