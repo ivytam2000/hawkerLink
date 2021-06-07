@@ -2,27 +2,9 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 import HawkerSearchBar from './HawkerSearchBar';
 import LanguageSearchBar from './LanguageSearchBar';
+import {SearchHawker} from './services/AssistHawker';
 
  export function App() {
-
-  async function SearchHawker(locationName, languageName) {
-  
-    const response = await fetch('/hawkers',{
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            location: locationName,
-            languages: languageName            
-          })
-        });
-
-    const data = await response.json();
-    
-    return data;
-  }
 
   return (
 
