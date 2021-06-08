@@ -6,9 +6,9 @@ export function App() {
 
   return (
     <div>
-      {/* <AssistHawkerPage /> */}
+      <AssistHawkerPage />
       {/* UNCOMMENT IF U WANT TO SWITCH PAGES */}
-      <SignUpPage />
+      {/* <SignUpPage /> */}
     </div>
   );
 }
