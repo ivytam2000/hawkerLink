@@ -1,6 +1,6 @@
 
 
-export async function SearchHawker(locationName, languageName) {
+export async function SearchHawker(locations, languages) {
 
     const response = await fetch('/hawkers', {
         method: 'POST',
@@ -9,8 +9,8 @@ export async function SearchHawker(locationName, languageName) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            location: locationName,
-            languages: languageName
+            location: locations,
+            languages: languages
         })
     });
 

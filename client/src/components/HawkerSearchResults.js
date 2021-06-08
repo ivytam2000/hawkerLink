@@ -16,14 +16,14 @@ const useStyles = makeStyles((theme) => ({
 
 /* Each card should contain image, store name, location, languages */
 
-export function HawkerSearchResults() {
+export function HawkerSearchResults(data) {
   const classes = useStyles();
 
   // sample data
-  var data = [{ image: '', storeName: 'hello', location: 'Queenstown', languages: 'English, Chinese' },
-  { image: '', storeName: 'hello', location: 'Queenstown', languages: 'English, Chinese' },
-  { image: '', storeName: 'WORLD', location: 'Queenstown', languages: 'English, Chinese' },
-  { image: '', storeName: 'hehe', location: 'Queenstown', languages: 'English, Chinese' }]
+  // var data = [{ image: '', storeName: 'hello', location: 'Queenstown', languages: 'English, Chinese' },
+  // { image: '', storeName: 'hello', location: 'Queenstown', languages: 'English, Chinese' },
+  // { image: '', storeName: 'WORLD', location: 'Queenstown', languages: 'English, Chinese' },
+  // { image: '', storeName: 'hehe', location: 'Queenstown', languages: 'English, Chinese' }]
   function infoToCard(info) {
     return <Grid item xs={4}> <InfoCard storeName={info.storeName}
       location={info.location}

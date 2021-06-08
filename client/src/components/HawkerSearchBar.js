@@ -3,13 +3,12 @@ import React, { useState } from "react";
 import './HawkerSearchBar.css'
 import { InfoCard } from "./InfoCard";
 import { Multiselect } from "multiselect-react-dropdown";
+import { HawkerSearchResults } from "./HawkerSearchResults";
 
 class HawkerSearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      location: null,
-      language: null,
       storeNameResult: null,
       locationResult: null,
       languageResult: null,
@@ -29,7 +28,8 @@ class HawkerSearchBar extends React.Component {
         { Language: "Tamil", id: 6 },
       ],
       languages: [],
-      locations: []
+      locations: [],
+      data:[]
     };
   }
 
@@ -58,21 +58,21 @@ class HawkerSearchBar extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault(); // prevents browser refresh
     var data = this.props.searchHawker(
-      this.state.location,
-      this.state.language
+      this.state.locations,
+      this.state.languages
     );
 
     data.then((result) => {
       if (Array.isArray(result) && result.length) {
-        this.setState({ locationResult: result[0].location });
-        this.setState({ storeNameResult: result[0].storeName });
-        this.setState({ languageResult: result[0].language });
-      } else {
-        this.setState({ locationResult: "not found" });
-        this.setState({ storeNameResult: "not found" });
-        this.setState({ languageResult: "not found" });
+        this.setState({ data: result});
       }
+      // else {
+      //   this.setState({ locationResult: "not found" });
+      //   this.setState({ storeNameResult: "not found" });
+      //   this.setState({ languageResult: "not found" });
+      // }
     });
+
   };
 
   render() {
@@ -112,6 +112,8 @@ class HawkerSearchBar extends React.Component {
             </Button>
           </form>
         </div>
+
+        <HawkerSearchResults/>
 
       </div>
     );
