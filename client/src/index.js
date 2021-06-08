@@ -3,13 +3,31 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+import { AssistHawkerPage } from './pages/AssistHawker/AssistHawker';
+import { SignUpPage } from './pages/SignUp/SignUp';
+
+ const rootElement = document.getElementById("root");
+ ReactDOM.render(
+   <BrowserRouter>
+     <div className="route-wrapper">
+    {/* <AssistHawkerPage /> */}
+    <Switch>
+     <Route exact path="/" component={AssistHawkerPage} />
+     <Route path="/page2" component={SignUpPage} />
+   </Switch>
+   </div>
+   </BrowserRouter>,
+   rootElement
+ );
+
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>,
+//   document.getElementById('root')
+// );
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
