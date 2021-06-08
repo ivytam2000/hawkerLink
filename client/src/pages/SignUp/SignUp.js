@@ -1,6 +1,5 @@
 import {GenericLayout} from '../Layout';
 import HawkerSearchBar from '../../components/HawkerSearchBar';
-import LanguageSearchBar from '../../components/LanguageSearchBar';
 import {SearchHawker} from '../../services/AssistHawker';
 import './Form.css';
 
