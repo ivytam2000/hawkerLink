@@ -1,11 +1,11 @@
 import { Button, TextField } from "@material-ui/core";
 import React, { useState } from "react";
-import "./HawkerSearchBar.css";
-import InfoText from "./InfoText";
+import './HawkerSearchBar.css'
+import { InfoCard } from "./InfoCard";
 import { Multiselect } from "multiselect-react-dropdown";
 
 class HawkerSearchBar extends React.Component {
-  constructor(props, func) {
+  constructor(props) {
     super(props);
     this.state = {
       location: null,
@@ -29,25 +29,23 @@ class HawkerSearchBar extends React.Component {
         { Language: "Tamil", id: 6 },
       ],
       languages: [],
+      locations: []
     };
   }
 
-  onSelect = (selectedList, selectedItem) => {
+  onSelectLocation = (selectedList, selectedItem) => {
+    this.setState((state) => {
+      state.locations = selectedList.map((loc) => loc.Location);
+      console.log(state.locations);
+    });
+  }
+
+  onSelectLanguage = (selectedList, selectedItem) => {
     this.setState((state) => {
       state.languages = selectedList.map((lang) => lang.Language);
       console.log(state.languages);
     });
   };
-
-  renderText() {
-    return (
-      <InfoText
-        location={this.state.locationResult}
-        storeName={this.state.storeNameResult}
-        language={this.state.languageResult}
-      />
-    );
-  }
 
   handleLocInputChange = (e) => {
     this.setState({ location: e.target.value });
@@ -81,13 +79,20 @@ class HawkerSearchBar extends React.Component {
     return (
       <div>
         <div className="search-bar">
+
+          <div className="region">
+               <p className="region-text"> Select a Region </p>
+          </div>
+
+          <div className="language">
+               <p> Select a Language </p>
+          </div>
           
             <div className="location-search">
-    
               <Multiselect
                 options={this.state.locationoptions}
-                onSelect={this.onSelect}
-                onRemove={this.onSelect}
+                onSelect={this.onSelectLocation}
+                onRemove={this.onSelectLocation}
                 displayValue="Location"
               />
             </div>
@@ -95,20 +100,19 @@ class HawkerSearchBar extends React.Component {
         
               <Multiselect
                 options={this.state.options}
-                onSelect={this.onSelect}
-                onRemove={this.onSelect}
+                onSelect={this.onSelectLanguage}
+                onRemove={this.onSelectLanguage}
                 displayValue="Language"
               />
             </div>
           
             <form className="subject-form" onSubmit={this.handleSubmit}>
-            <Button type="submit" onClick={this.handleSubmit}>
+            <Button type="submit" style={{background: 'gray', color: 'white'}} onClick={this.handleSubmit}>
               Search
             </Button>
           </form>
         </div>
 
-        <div className="search-results">{this.renderText()}</div>
       </div>
     );
   }

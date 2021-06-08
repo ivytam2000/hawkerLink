@@ -1,20 +1,22 @@
-/* multiselectContainer {
-  width: 120%;
-} */
-/* .searchBox {
-  border: none;
-  font-size: 10px;
-  min-height: 50px;
-} */
 
+.region{
+    color:#c5343b;
+    display: flex;
+    line-height: 72px;
+    float:left;
+    
+}
+
+.language{
+    color:#c5343b;
+    display: flex;
+    line-height: 72px;
+    margin-left: 50%;
+}
 .location-search{
    width: 50%; 
    display: flex;
-   float: left;
-  
-   /* width: 50%; */
-
-   
+   float: left;   
 }
 
 .language-search{
@@ -40,15 +42,17 @@
 }
 .option {
   color: rgb(82, 82, 87);
-  padding: 10px;
 }
 .groupHeading {
 }
 
 .search-bar {
-  background: #ffffff;
-  width: 50%;
+  background-color: #ffffff;
+  width: 120%;
   text-align: center; 
+  border-radius: 25px;
+  border: 3px solid #c5343b;
+  padding: 20px;
 }
 .search-results {
   text-align: center;

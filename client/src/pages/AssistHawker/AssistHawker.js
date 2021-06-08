@@ -1,7 +1,11 @@
 import {GenericLayout} from '../Layout';
 import HawkerSearchBar from '../../components/HawkerSearchBar';
 import {SearchHawker} from '../../services/AssistHawker';
+<<<<<<< HEAD
 import {Link } from "react-router-dom";
+=======
+import {HawkerSearchResults} from '../../components/HawkerSearchResults';
+>>>>>>> f31497883fd7a2d98302cda2abc7213100443265
 import './AssistHawker.css';
 import LinkButton from '../../components/LinkButton'
 
@@ -19,7 +23,14 @@ export function AssistHawkerPage() {
   </div>
         </section>
 
+<<<<<<< HEAD
 
+=======
+        <div className="results">
+          <HawkerSearchResults/>
+        </div>
+        
+>>>>>>> f31497883fd7a2d98302cda2abc7213100443265
         </body>
     );
 }
