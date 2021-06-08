@@ -28,7 +28,8 @@ class Hawkers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     store_name = db.Column(db.String(100), unique=True)
     region = db.Column(db.String(100))
-    languages = db.Column(db.String(200), unique=True) # CSV of languages
+    location = db.Column(db.String(200))
+    languages = db.Column(db.String(200)) # CSV of languages
 
     def __init__(self, username, email) -> None:
         self.username = username
@@ -46,15 +47,15 @@ def get_accounts():
     if not request.json:
         abort(400)
     language_query = request.json['languages']
-    location_query = request.json['location']
+    region_query = request.json['location']
     all_accounts = Hawkers.query.filter(and_(Hawkers.languages == language_query, 
-                                             Hawkers.region == location_query))
+                                             Hawkers.region == region_query))
 
     accounts = []
     for acc in all_accounts:
         accounts.append({'id': acc.id,
                          'storeName': acc.store_name,
-                         'location': acc.region,
+                         'location': acc.location,
                          'language': acc.languages})
 
     return jsonify(accounts)
