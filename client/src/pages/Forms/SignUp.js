@@ -23,7 +23,7 @@ export function SignUpPage() {
             <form action="/action_page.php">
             <span class="label" for="name">Name</span>
             <input type="text" id="name" name="name"></input>
-            <p><span class="label" for="contact">Contact Number</span>
+            <p><span class="label" for="contact">Contact number</span>
             <input type="text" id="contact" name="contact"></input></p>
             <p><span class="label" for="ID">ID(s) of hawkers you're interested in helping</span>
             <input type="text" id="ID" name="ID"></input></p>
