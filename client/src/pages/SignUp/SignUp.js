@@ -1,7 +1,6 @@
 import {GenericLayout} from '../Layout';
-import HawkerSearchBar from '../../components/HawkerSearchBar';
-import {SearchHawker} from '../../services/AssistHawker';
 import './Form.css';
+import {Link } from "react-router-dom";
 
 export function SignUpPage() {
     return (
@@ -34,6 +33,11 @@ export function SignUpPage() {
             <p><input type="text" id="other" name="other" value="Y/N"></input></p>
             <input type="submit" value="Submit"></input>
             </form> 
+            <div>
+          <Link to="/"><button>
+              Back to Search
+            </button>  </Link>
+  </div>
         </section>
 
         </body>
