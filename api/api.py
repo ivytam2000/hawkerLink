@@ -2,7 +2,9 @@ import time
 import os
 from flask import Flask, jsonify, request, abort
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import and_
+from sqlalchemy import *
+from sqlalchemy.sql.expression import union_all
+from sqlalchemy.orm import Session
 
 # Environment variables
 POSTGRES_DB = os.environ.get('POSTGRES_DB')
@@ -19,24 +21,7 @@ else:
 
 # Set up database and flask app
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-
-class Hawkers(db.Model):
-    __tablename__ = 'hawker_directory'
-    id = db.Column(db.Integer, primary_key=True)
-    store_name = db.Column(db.String(100), unique=True)
-    region = db.Column(db.String(100))
-    location = db.Column(db.String(200))
-    languages = db.Column(db.String(200)) # CSV of languages
-
-    def __init__(self, username, email) -> None:
-        self.username = username
-        self.email = email
-
-    def __repr__(self) -> str:
-        return '<User %r' % self.username
 
 @app.route('/time')
 def get_current_time():
@@ -48,19 +33,44 @@ def get_accounts():
         abort(400)
     language_query = request.json['languages']
     region_query = request.json['region']
-    all_accounts = Hawkers.query.filter(and_(Hawkers.languages == language_query, 
-                                             Hawkers.region == region_query))
 
-    accounts = []
-    for acc in all_accounts:
-        accounts.append({'id': acc.id,
-                         'storeName': acc.store_name,
-                         'location': acc.location,
-                         'language': acc.languages})
+    engine = create_engine(DATABASE_URI)
+    metadata = MetaData()
+    hawkers = Table('hawker_directory', metadata, autoload_with=engine)
 
-    return jsonify(accounts)
+    # Create multiple queries to match on the cross product of languages and regions
+    all_queries = []
+    for language in language_query:
+        for region in region_query:
+            all_queries.append(select(['*']).where(and_(hawkers.c.region == region, hawkers.c.languages.contains(language))))
+
+    unionized = union(*all_queries)
+
+    result = []
+    hawkers = []
+
+    with Session(engine) as session:
+        result = session.execute(unionized)
+
+        
+        for acc in result:
+            hawkers.append({'id': acc.id,
+                            'storeName': acc.store_name,
+                            'location': acc.location,
+                            'language': acc.languages})
+
+    return jsonify(hawkers)
 
 @app.route('/create')
 def create():
-    db.create_all()
+    db.create_all() 
     return "success"
+
+
+
+# languages = ['English', 'Chinese']
+# regions = ['West', 'East']
+
+# matches = [(English, East), (English, West)]
+
+# query1 = Hawkers.filter()
