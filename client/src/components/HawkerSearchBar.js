@@ -1,11 +1,11 @@
 import { Button, TextField } from "@material-ui/core";
 import React, { useState } from "react";
-import "./HawkerSearchBar.css";
-import InfoText from "./InfoText";
+import './HawkerSearchBar.css'
+import { InfoCard } from "./InfoCard";
 import { Multiselect } from "multiselect-react-dropdown";
 
 class HawkerSearchBar extends React.Component {
-  constructor(props, func) {
+  constructor(props) {
     super(props);
     this.state = {
       location: null,
@@ -39,16 +39,6 @@ class HawkerSearchBar extends React.Component {
     });
   };
 
-  renderText() {
-    return (
-      <InfoText
-        location={this.state.locationResult}
-        storeName={this.state.storeNameResult}
-        language={this.state.languageResult}
-      />
-    );
-  }
-
   handleLocInputChange = (e) => {
     this.setState({ location: e.target.value });
   };
@@ -81,34 +71,33 @@ class HawkerSearchBar extends React.Component {
     return (
       <div>
         <div className="search-bar">
-          
-            <div className="location-search">
-    
-              <Multiselect
-                options={this.state.locationoptions}
-                onSelect={this.onSelect}
-                onRemove={this.onSelect}
-                displayValue="Location"
-              />
-            </div>
-            <div className="language-search">
-        
-              <Multiselect
-                options={this.state.options}
-                onSelect={this.onSelect}
-                onRemove={this.onSelect}
-                displayValue="Language"
-              />
-            </div>
-          
-            <form className="subject-form" onSubmit={this.handleSubmit}>
+
+          <div className="location-search">
+
+            <Multiselect
+              options={this.state.locationoptions}
+              onSelect={this.onSelect}
+              onRemove={this.onSelect}
+              displayValue="Location"
+            />
+          </div>
+          <div className="language-search">
+
+            <Multiselect
+              options={this.state.options}
+              onSelect={this.onSelect}
+              onRemove={this.onSelect}
+              displayValue="Language"
+            />
+          </div>
+
+          <form className="subject-form" onSubmit={this.handleSubmit}>
             <Button type="submit" onClick={this.handleSubmit}>
               Search
             </Button>
           </form>
         </div>
 
-        <div className="search-results">{this.renderText()}</div>
       </div>
     );
   }
