@@ -18,10 +18,6 @@ afterEach(() => {
   container = null;
 });
 
-// it("renders with correct fields", () => {
-//   act(() => {
-//     render(<InfoCard location="West" storeName="Abangs Chicken Rice" language="Hokkien" />, container);
-//   });
-//   expect(container.textContent).toBe(" The store name is Abangs Chicken Rice. The location is West. The language spoken is Hokkien. ");
+it("renders with correct fields", () => {
 
-// });
+});

@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 export function HawkerSearchResults(props) {
   const classes = useStyles();
 
-  data = props.data;
+  const data = props.data;
 
   function infoToCard(info) {
     return <Grid item xs={4}> <InfoCard storeName={info.storeName}
