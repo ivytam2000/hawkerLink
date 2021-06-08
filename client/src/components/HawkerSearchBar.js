@@ -72,27 +72,34 @@ class HawkerSearchBar extends React.Component {
       <div>
         <div className="search-bar">
 
-          <div className="location-search">
-
-            <Multiselect
-              options={this.state.locationoptions}
-              onSelect={this.onSelect}
-              onRemove={this.onSelect}
-              displayValue="Location"
-            />
-          </div>
-          <div className="language-search">
-
-            <Multiselect
-              options={this.state.options}
-              onSelect={this.onSelect}
-              onRemove={this.onSelect}
-              displayValue="Language"
-            />
+          <div className="region">
+               <p className="region-text"> Select a Region </p>
           </div>
 
-          <form className="subject-form" onSubmit={this.handleSubmit}>
-            <Button type="submit" onClick={this.handleSubmit}>
+          <div className="language">
+               <p> Select a Language </p>
+          </div>
+          
+            <div className="location-search">
+              <Multiselect
+                options={this.state.locationoptions}
+                onSelect={this.onSelect}
+                onRemove={this.onSelect}
+                displayValue="Location"
+              />
+            </div>
+            <div className="language-search">
+        
+              <Multiselect
+                options={this.state.options}
+                onSelect={this.onSelect}
+                onRemove={this.onSelect}
+                displayValue="Language"
+              />
+            </div>
+          
+            <form className="subject-form" onSubmit={this.handleSubmit}>
+            <Button type="submit" style={{background: 'gray', color: 'white'}} onClick={this.handleSubmit}>
               Search
             </Button>
           </form>
