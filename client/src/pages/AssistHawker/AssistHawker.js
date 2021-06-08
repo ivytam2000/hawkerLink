@@ -20,7 +20,6 @@ export function AssistHawkerPage() {
         </section>
 
         <div className="results">
-          <HawkerSearchResults/>
         </div>
         
         </body>
