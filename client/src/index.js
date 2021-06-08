@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { AssistHawkerPage } from './pages/AssistHawker/AssistHawker';
-import { SignUpPage } from './pages/SignUp/SignUp';
+import { SignUpPage } from './pages/Forms/SignUp';
 
  const rootElement = document.getElementById("root");
  ReactDOM.render(
