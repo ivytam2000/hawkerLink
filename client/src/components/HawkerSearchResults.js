@@ -22,7 +22,9 @@ export function HawkerSearchResults(props) {
   const data = props.data;
 
   function infoToCard(info) {
-    return <Grid item xs={4}> <InfoCard storeName={info.storeName}
+    return <Grid item xs={4}> <InfoCard 
+      id={info.id}
+      storeName={info.storeName}
       location={info.location}
       languages={info.language} /> </Grid>;
   }
