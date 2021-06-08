@@ -29,10 +29,18 @@ class HawkerSearchBar extends React.Component {
         { Language: "Tamil", id: 6 },
       ],
       languages: [],
+      locations: []
     };
   }
 
-  onSelect = (selectedList, selectedItem) => {
+  onSelectLocation = (selectedList, selectedItem) => {
+    this.setState((state) => {
+      state.locations = selectedList.map((loc) => loc.Location);
+      console.log(state.locations);
+    });
+  }
+
+  onSelectLanguage = (selectedList, selectedItem) => {
     this.setState((state) => {
       state.languages = selectedList.map((lang) => lang.Language);
       console.log(state.languages);
@@ -76,8 +84,8 @@ class HawkerSearchBar extends React.Component {
 
             <Multiselect
               options={this.state.locationoptions}
-              onSelect={this.onSelect}
-              onRemove={this.onSelect}
+              onSelect={this.onSelectLocation}
+              onRemove={this.onSelectLocation}
               displayValue="Location"
             />
           </div>
@@ -85,8 +93,8 @@ class HawkerSearchBar extends React.Component {
 
             <Multiselect
               options={this.state.options}
-              onSelect={this.onSelect}
-              onRemove={this.onSelect}
+              onSelect={this.onSelectLanguage}
+              onRemove={this.onSelectLanguage}
               displayValue="Language"
             />
           </div>
