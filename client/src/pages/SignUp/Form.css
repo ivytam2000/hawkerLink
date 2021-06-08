@@ -1,0 +1,10 @@
+.info{
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    background-image: url("img/hawker-auntie.jpg");
+    background-position: 40%;
+    background-size: cover;
+    background-color: black;
+    overflow-x: hidden;
+}
