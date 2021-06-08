@@ -65,7 +65,7 @@ class HawkerSearchBar extends React.Component {
     data.then((result) => {
       if (Array.isArray(result) && result.length) {
         this.setState({ data: result});
-        console.log(this.state.data);
+        // console.log(this.state.data);
       }
       // else {
       //   this.setState({ locationResult: "not found" });
