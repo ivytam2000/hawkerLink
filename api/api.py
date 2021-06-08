@@ -1,9 +1,7 @@
 import time
 import os
 from flask import Flask, jsonify, request, abort
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import *
-from sqlalchemy.sql.expression import union_all
 from sqlalchemy.orm import Session
 
 # Environment variables
@@ -23,18 +21,38 @@ else:
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+@app.before_first_request
+def setup():
+    global engine
+    engine = create_engine(DATABASE_URI)
+
 @app.route('/time')
 def get_current_time():
+    """
+    Returns the current time as a sanity check for the backend.
+    """
     return {'time': time.time()}
 
 @app.route('/hawkers', methods=['POST'])
 def get_accounts():
+    """
+    Receives POST requests in the following format:
+        {
+            'languages': [...]
+            'regions': [...]
+        }
+
+    Returns a json file in the following format:
+        [{'id': id,
+          'storeName': name,
+          'location': loc,
+          'languages': [lang1, lang2]}]
+    """
     if not request.json:
         abort(400)
     language_query = request.json['languages']
     region_query = request.json['region']
 
-    engine = create_engine(DATABASE_URI)
     metadata = MetaData()
     hawkers = Table('hawker_directory', metadata, autoload_with=engine)
 
@@ -51,7 +69,6 @@ def get_accounts():
 
     with Session(engine) as session:
         result = session.execute(unionized)
-
         
         for acc in result:
             hawkers.append({'id': acc.id,
@@ -60,17 +77,3 @@ def get_accounts():
                             'language': acc.languages})
 
     return jsonify(hawkers)
-
-@app.route('/create')
-def create():
-    db.create_all() 
-    return "success"
-
-
-
-# languages = ['English', 'Chinese']
-# regions = ['West', 'East']
-
-# matches = [(English, East), (English, West)]
-
-# query1 = Hawkers.filter()
