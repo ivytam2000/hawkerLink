@@ -15,6 +15,11 @@ export function AssistMainPage() {
         <body>
         <GenericLayout />
         <div className="title">
+            <p>There are many invisible hawkers in Singapore who are unable to get on food delivery sites and have seen their business plummet. We 
+                here are HawkerLink hope to connect young volunteers with these hawkers to help guide them through the signup process. 
+            </p>
+        </div>
+        <div className="title">
             <p>Here's how you can get involved ♥</p>
         </div>
 
