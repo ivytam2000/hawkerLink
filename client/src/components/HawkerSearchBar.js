@@ -114,7 +114,9 @@ class HawkerSearchBar extends React.Component {
           </form>
         </div>
 
-        <HawkerSearchResults data={this.state.data}/>
+        <div>
+          <HawkerSearchResults data={this.state.data}/>
+        </div>
 
       </div>
     );
