@@ -13,9 +13,9 @@ export function AssistHawkerPage() {
         <section className="content"> 
           <div class = "text-alt-l"><HawkerSearchBar searchHawker={SearchHawker}/></div>
           <div>
-          <Link to="/page2">
+          {/* <Link to="/page2">
             <button>Sign up</button> 
-          </Link>
+          </Link> */}
           </div>
         </section>
 

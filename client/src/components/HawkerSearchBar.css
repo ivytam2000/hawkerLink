@@ -48,11 +48,17 @@
 
 .search-bar {
   background-color: #ffffff;
-  width: 130%;
+  width: 60%;
   text-align: center; 
   border-radius: 25px;
   border: 3px solid #c5343b;
   padding: 20px;
+  position: fixed;
+  /* center the element */
+  right: 0;
+  left: 0;
+  margin-right: auto;
+  margin-left: auto;
 }
 .search-results {
   text-align: center;
