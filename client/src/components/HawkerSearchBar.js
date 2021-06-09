@@ -95,6 +95,7 @@ class HawkerSearchBar extends React.Component {
                 onSelect={this.onSelectLocation}
                 onRemove={this.onSelectLocation}
                 displayValue="Location"
+                placeholder="Region(s)"
               />
             </div>
             <div className="language-search">
@@ -104,11 +105,12 @@ class HawkerSearchBar extends React.Component {
                 onSelect={this.onSelectLanguage}
                 onRemove={this.onSelectLanguage}
                 displayValue="Language"
+                placeholder="Language(s)"
               />
             </div>
           
-            <form className="subject-form" onSubmit={this.handleSubmit}>
-            <Button type="submit" style={{background: 'gray', color: 'white'}} onClick={this.handleSubmit}>
+            <form className="submit" onSubmit={this.handleSubmit}>
+            <Button className="submit" type="submit" style={{background: 'gray', color: 'white'}} onClick={this.handleSubmit}>
               Search
             </Button>
           </form>

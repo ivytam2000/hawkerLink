@@ -4,7 +4,17 @@
     display: flex;
     line-height: 72px;
     float:left;
+    padding-top: 2px;
+    padding-bottom: 0px;
     
+}
+
+.region-text{
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-size: 100%;
+  text-align: center;
+  font-weight: bold;
+  padding:5px;
 }
 
 .language{
@@ -15,14 +25,20 @@
 }
 .location-search{
    width: 50%; 
-   display: flex;
+   /* display: flex; */
    float: left;   
 }
 
 .language-search{
     width: 50%;
-    display: flex;
-    margin-left: 50%;
+    /* display: flex; */
+    float: left;
+    /* margin-left: 50%; */
+ }
+
+ .submit{
+  float:right; 
+  /* margin-left: 50%; */
  }
 
 /* .hawker-search-bar{
@@ -42,16 +58,22 @@
 }
 .option {
   color: rgb(82, 82, 87);
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-size:60%;
+  placeholder: "Select a Language";
 }
 .groupHeading {
+
 }
 
 .search-bar {
   background-color: #ffffff;
+  width: 65%;
   text-align: center; 
   border-radius: 25px;
   border: 3px solid #c5343b;
   padding: 20px;
+  position: fixed;
   /* center the element */
   right: 0;
   left: 0;
