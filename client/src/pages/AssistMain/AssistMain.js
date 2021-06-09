@@ -16,23 +16,23 @@ export function AssistMainPage() {
         <table className="icons">
             <tr>
                 <td class="icon">
-                    <img src="../assist-icons/register.png" alt= "Register"width="100px"></img>
+                    <img src="./assist-icons/register.png" alt= "Register"width="100px"></img>
                     <p className="caption">1. Find hawkers suitable for you and sign up to help them</p>
-                </td>
+                </td> 
                 <td class="icon">
-                    <img src="../assist-icons/meet.png" alt="Meet" width="100px"></img>
+                    <img src="./assist-icons/meet.png" alt="Meet" width="100px"></img>
                     <p className="caption">2. Arrange a meeting with your allocated hawker</p>
                 </td>
                 <td class="icon">
-                    <img src="../assist-icons/choose.png" alt="Choose" width="100px"></img>
+                    <img src="./assist-icons/choose.png" alt="Choose" width="100px"></img>
                     <p className="caption">3. Help them to choose a food delivery service</p>
                 </td>
                 <td class="icon">
-                    <img src="../assist-icons/signup.png" alt="Signup" width="100px"></img>
+                    <img src="./assist-icons/signup.png" alt="Signup" width="100px"></img>
                     <p className="caption">4. Register their business with the chosen food delivery service</p>
                 </td>
                 <td class="icon">
-                    <img src="../assist-icons/hours.png" alt="Hours" width="100px"></img>
+                    <img src="./assist-icons/hours.png" alt="Hours" width="100px"></img>
                     <p className="caption">5. Claim your CIP hours (if applicable)</p>
                 </td>
             </tr>
