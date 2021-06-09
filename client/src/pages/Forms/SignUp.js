@@ -2,7 +2,7 @@ import {GenericLayout} from '../Layout';
 import './Form.css';
 import {Link } from "react-router-dom";
 
-export function SignUpPage() {
+export function SignUpPage(props) {
     return (
         <body>
         <GenericLayout />
@@ -26,13 +26,13 @@ export function SignUpPage() {
             <p><span class="label" for="contact">Contact number</span>
             <input type="text" id="contact" name="contact"></input></p>
             <p><span class="label" for="ID">ID(s) of hawkers you're interested in helping</span>
-            <input type="text" id="ID" name="ID"></input></p>
+            <input type="text" id="ID" name="ID" value={props.location.id}></input></p>
             <p><span class="label" for="availability">Your availability</span>
-            <input type="text" id="availability" name="availability" value="e.g. 4-7 p.m. on Mondays and Tuesdays"></input></p>
+            <input type="text" id="availability" name="availability"  placeholder="e.g. 4-7 p.m. on Mondays and Tuesdays"></input></p>
             <p><span class="label" for="language">What languages, including dialects, can you speak?</span>
-            <input type="text" id="language" name="language" value="e.g. English, Mandarin, Hokkien"></input></p>
+            <input type="text" id="language" name="language" placeholder="e.g. English, Mandarin, Hokkien"></input></p>
             <p><span class="label" for="other">Are you comfortable with us asking you to help another hawker, if the hawkers you chose are unavailable?</span>
-            <input type="text" id="other" name="other" value="Y/N"></input></p>
+            <input type="text" id="other" name="other" placeholder="Y/N"></input></p>
             <input type="submit" value="Submit"></input>
             </form> 
             <div>

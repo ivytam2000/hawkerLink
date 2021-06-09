@@ -82,11 +82,11 @@ class HawkerSearchBar extends React.Component {
         <div className="search-bar">
 
           <div className="region">
-               <p className="region-text"> Select a Region </p>
+               <p className="region-text"> Select a region and language(s) you can speak to find hawkers that you can help! </p>
           </div>
 
           <div className="language">
-               <p> Select a Language </p>
+               <p> </p>
           </div>
           
             <div className="location-search">
