@@ -1,0 +1,29 @@
+.title {
+    margin-top: 150px;
+    animation: fadein ease 0.5s;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-weight: bold;
+    color:white;
+    text-align: center;
+}
+
+.icons {
+    margin-top: 60px;
+    margin-left: 10%;
+    margin-right: 10%;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 1rem;
+    animation: fadein ease 0.5s;
+    color:white;
+    text-align: center;
+    padding: 10px;
+}
+
+.exp {
+    margin-top: 50px;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 1.2rem;
+    animation: fadein ease 0.5s;
+    color:white;
+    text-align: center;
+}

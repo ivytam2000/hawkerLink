@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
+import { AssistMainPage } from './pages/AssistMain/AssistMain';
 import { AssistHawkerPage } from './pages/AssistHawker/AssistHawker';
 import { SignUpPage } from './pages/Forms/SignUp';
 
@@ -14,7 +15,8 @@ import { SignUpPage } from './pages/Forms/SignUp';
      <div className="route-wrapper">
     {/* <AssistHawkerPage /> */}
     <Switch>
-     <Route exact path="/" component={AssistHawkerPage} />
+     <Route exact path="/" component={AssistMainPage} />
+     <Route exact path="/findhawker" component={AssistHawkerPage} />
      <Route path="/page2" component={SignUpPage} />
    </Switch>
    </div>
