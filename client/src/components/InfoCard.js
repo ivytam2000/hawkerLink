@@ -61,7 +61,7 @@ export function InfoCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.card}>
-      <Link to={{pathname:"/page2", id: props.id}}>
+      <Link to={{pathname:"/page2", id: props.id, storeName: props.storeName, userLanguages:props.userLanguages}}>
         <Button size="small" color="primary">
           Help this Hawker
           </Button>

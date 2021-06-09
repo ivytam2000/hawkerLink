@@ -3,6 +3,10 @@ import './Form.css';
 import {Link } from "react-router-dom";
 
 export function SignUpPage(props) {
+
+    const defaultIdField = props.location.id + ' (' + props.location.storeName + ')';
+    console.log(defaultIdField);
+
     return (
         <body>
         <GenericLayout />
@@ -21,16 +25,16 @@ export function SignUpPage(props) {
 
         <section className="form-content"> 
             <form action="/action_page.php">
+            <p><span class="label" for="ID">ID(s) of hawkers you're interested in helping</span>
+            <input type="text" id="ID" name="ID" defaultValue={defaultIdField}></input></p>
             <span class="label" for="name">Name</span>
             <input type="text" id="name" name="name"></input>
             <p><span class="label" for="contact">Contact number</span>
             <input type="text" id="contact" name="contact"></input></p>
-            <p><span class="label" for="ID">ID(s) of hawkers you're interested in helping</span>
-            <input type="text" id="ID" name="ID" value={props.location.id}></input></p>
             <p><span class="label" for="availability">Your availability</span>
             <input type="text" id="availability" name="availability"  placeholder="e.g. 4-7 p.m. on Mondays and Tuesdays"></input></p>
             <p><span class="label" for="language">What languages, including dialects, can you speak?</span>
-            <input type="text" id="language" name="language" placeholder="e.g. English, Mandarin, Hokkien"></input></p>
+            <input type="text" id="language" name="language" placeholder="e.g. English, Mandarin, Hokkien" defaultValue={props.location.userLanguages}></input></p>
             <p><span class="label" for="other">Are you comfortable with us asking you to help another hawker, if the hawkers you chose are unavailable?</span>
             <input type="text" id="other" name="other" placeholder="Y/N"></input></p>
             <input type="submit" value="Submit"></input>

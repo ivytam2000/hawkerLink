@@ -28,7 +28,8 @@ export function HawkerSearchResults(props) {
       id={info.id}
       storeName={info.storeName}
       location={info.location}
-      languages={info.language} /> </Grid>;
+      languages={info.language}
+      userLanguages={props.userLanguages} /> </Grid>;
   }
 
   function cardRowToGridRow(cardRow) {
