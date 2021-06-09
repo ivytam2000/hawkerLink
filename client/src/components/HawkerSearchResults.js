@@ -6,6 +6,8 @@ import { InfoCard } from './InfoCard';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    position: 'relative',
+    top:350,
   },
   paper: {
     padding: theme.spacing(1),
