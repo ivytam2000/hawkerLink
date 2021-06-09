@@ -53,7 +53,15 @@
     display: block;
 }
 
-input[type=text] {
+.yn-radio{
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 1rem;
+    line-height: 1.3rem;
+    display: block;
+    float:left;
+}
+
+input[type=form-text] {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -76,4 +84,8 @@ input[type=submit] {
 
 input[type=submit]:hover {
     background-color: #8f181e;
+}
+
+.availability{
+    display:flex
 }

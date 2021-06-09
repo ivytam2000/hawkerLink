@@ -83,6 +83,7 @@
 .search-results {
   top: 20px;
   text-align: center;
+  display:flex;
 }
 
 .content {

@@ -94,6 +94,7 @@ class HawkerSearchBar extends React.Component {
                 options={this.state.locationoptions}
                 onSelect={this.onSelectLocation}
                 onRemove={this.onSelectLocation}
+                showCheckbox={true}
                 displayValue="Location"
                 placeholder="Region(s)"
               />
@@ -104,6 +105,7 @@ class HawkerSearchBar extends React.Component {
                 options={this.state.options}
                 onSelect={this.onSelectLanguage}
                 onRemove={this.onSelectLanguage}
+                showCheckbox={true}
                 displayValue="Language"
                 placeholder="Language(s)"
               />
