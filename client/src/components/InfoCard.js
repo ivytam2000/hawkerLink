@@ -1,12 +1,3 @@
-// import React from "react";
-
-// export default function InfoText(props) {
-//   return (<p> The store name is {props.storeName}.
-//     The location is {props.location}.
-//     The language spoken is {props.language}. </p>
-//   );
-// }
-
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -37,12 +28,14 @@ const useStyles = makeStyles({
 export function InfoCard(props) {
   const classes = useStyles();
 
+  const imageLink = "hawker_cards/" + props.id + ".jpg";
+
   return (
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="/static/images/cards/contemplative-reptile.jpg"
+          image={imageLink}
           title={props.storeName}
         />
         <CardContent>
