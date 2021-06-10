@@ -1,3 +1,4 @@
+import {Link} from "react-router-dom";
 
 export function GenericLayout(props) {
     return (
@@ -13,7 +14,9 @@ function Header() {
     return (
         <header className="page-header">
             <div className="header-logo">
+            <Link to="/">
                 <p className="header-text">hawkerlink</p>
+                </Link>
             </div>
 
             <nav className="main-nav" id="nav">

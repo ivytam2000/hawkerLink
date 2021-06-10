@@ -82,11 +82,11 @@ class HawkerSearchBar extends React.Component {
         <div className="search-bar">
 
           <div className="region">
-               <p className="region-text"> Select a Region </p>
+               <p className="region-text"> Select a region and language(s) you can speak to find hawkers that you can help! </p>
           </div>
 
           <div className="language">
-               <p> Select a Language </p>
+               <p> </p>
           </div>
           
             <div className="location-search">
@@ -94,7 +94,9 @@ class HawkerSearchBar extends React.Component {
                 options={this.state.locationoptions}
                 onSelect={this.onSelectLocation}
                 onRemove={this.onSelectLocation}
+                showCheckbox={true}
                 displayValue="Location"
+                placeholder="Region(s)"
               />
             </div>
             <div className="language-search">
@@ -103,18 +105,20 @@ class HawkerSearchBar extends React.Component {
                 options={this.state.options}
                 onSelect={this.onSelectLanguage}
                 onRemove={this.onSelectLanguage}
+                showCheckbox={true}
                 displayValue="Language"
+                placeholder="Language(s)"
               />
             </div>
           
-            <form className="subject-form" onSubmit={this.handleSubmit}>
-            <Button type="submit" style={{background: 'gray', color: 'white'}} onClick={this.handleSubmit}>
+            <form className="submit" onSubmit={this.handleSubmit}>
+            <Button className="submit" type="submit" style={{background: 'gray', color: 'white'}} onClick={this.handleSubmit}>
               Search
             </Button>
           </form>
         </div>
 
-        <HawkerSearchResults data={this.state.data}/>
+        <HawkerSearchResults data={this.state.data} userLanguages={this.state.languages}/>
 
       </div>
     );

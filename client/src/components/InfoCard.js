@@ -1,12 +1,3 @@
-// import React from "react";
-
-// export default function InfoText(props) {
-//   return (<p> The store name is {props.storeName}.
-//     The location is {props.location}.
-//     The language spoken is {props.language}. </p>
-//   );
-// }
-
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -16,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import {Link} from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -36,12 +28,14 @@ const useStyles = makeStyles({
 export function InfoCard(props) {
   const classes = useStyles();
 
+  const imageLink = "hawker_cards/" + props.id + ".jpg";
+
   return (
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="/static/images/cards/contemplative-reptile.jpg"
+          image={imageLink}
           title={props.storeName}
         />
         <CardContent>
@@ -60,9 +54,11 @@ export function InfoCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.card}>
+      <Link to={{pathname:"/page2", id: props.id, storeName: props.storeName, userLanguages:props.userLanguages}}>
         <Button size="small" color="primary">
           Help this Hawker
-        </Button>
+          </Button>
+        </Link>
       </CardActions>
     </Card>
   );

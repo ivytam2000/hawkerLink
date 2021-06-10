@@ -54,13 +54,14 @@ def get_accounts():
     region_query = request.json['region']
 
     metadata = MetaData()
-    hawkers = Table('hawker_directory', metadata, autoload_with=engine)
+    hawkers_table = Table('hawker_directory', metadata, autoload_with=engine)
 
     # Create multiple queries to match on the cross product of languages and regions
     all_queries = []
     for language in language_query:
         for region in region_query:
-            all_queries.append(select(['*']).where(and_(hawkers.c.region == region, hawkers.c.languages.contains(language))))
+            print(language, region)
+            all_queries.append(select(['*']).where(and_(hawkers_table.c.region == region, hawkers_table.c.languages.contains(language))))
 
     unionized = union(*all_queries)
 

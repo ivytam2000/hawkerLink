@@ -6,6 +6,8 @@ import { InfoCard } from './InfoCard';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    position: 'relative',
+    top:350,
   },
   paper: {
     padding: theme.spacing(1),
@@ -26,7 +28,8 @@ export function HawkerSearchResults(props) {
       id={info.id}
       storeName={info.storeName}
       location={info.location}
-      languages={info.language} /> </Grid>;
+      languages={info.language}
+      userLanguages={props.userLanguages} /> </Grid>;
   }
 
   function cardRowToGridRow(cardRow) {
