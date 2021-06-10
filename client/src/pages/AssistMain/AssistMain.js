@@ -4,13 +4,13 @@ import {SearchHawker} from '../../services/AssistHawker';
 import {HawkerSearchResults} from '../../components/HawkerSearchResults';
 import './AssistMain.css';
 import {Link} from "react-router-dom";
-import introvid from './elevator_pitch.mov'
 import register from './assist-icons/register.png'
 import meet from './assist-icons/meet.png'
 import choose from './assist-icons/choose.png'
 import signup from './assist-icons/deliveroo.jpeg'
 import hours from './assist-icons/claim.png'
 import arrow from './assist-icons/right-arrow.png'
+import maingraphic from './hawker.png'
 
 export function AssistMainPage() {
     return (
@@ -21,11 +21,12 @@ export function AssistMainPage() {
                 here at HawkerLink hope to connect young volunteers with these hawkers to help guide them through the signup process. 
             </p>
         </div> */}
-        <div className="vid">
-            <video controls width="100%">
-                <source src={introvid} type="video/mov"></source>
-            </video>
-        </div>
+        <section className="graphic">
+            <div className="graphic-text">
+                <p className="graphic-text"><b>hawkerlink</b> connects volunteers with elderly hawkers to help them register with food delivery platforms.</p>
+            </div>
+        </section>
+
 
         <div className="title">
             <p>How to get involved:</p>
