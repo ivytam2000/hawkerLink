@@ -97,6 +97,7 @@ class HawkerSearchBar extends React.Component {
                 showCheckbox={true}
                 displayValue="Location"
                 placeholder="Region(s)"
+                closeOnSelect= {false}
               />
             </div>
             <div className="language-search">
@@ -108,6 +109,7 @@ class HawkerSearchBar extends React.Component {
                 showCheckbox={true}
                 displayValue="Language"
                 placeholder="Language(s)"
+                closeOnSelect= {false}
               />
             </div>
           

@@ -43,9 +43,9 @@ export function SignUpPage(props) {
 
     return (
         <body>
-        <GenericLayout />
+        <GenericLayout id={2}/>
 
-        <section className="info"> 
+        <section className="signup-info"> 
         <div className="info-content">
           <p className="info-header">SIGN UP TO HELP</p>
           <p className="info-text">If you are …</p>
@@ -73,6 +73,7 @@ export function SignUpPage(props) {
              displayValue="Time"
              showCheckbox={true}
              placeholder="Select your availability"
+             closeOnSelect= {false}
             />
             </div>
             </p>

@@ -15,7 +15,7 @@ import maingraphic from './hawker.png'
 export function AssistMainPage() {
     return (
         <body>
-        <GenericLayout />
+        <GenericLayout id={3} />
         {/* <div className="title">
             <p>There are many invisible hawkers in Singapore who are unable to get on food delivery sites and have seen their business plummet. We 
                 here at HawkerLink hope to connect young volunteers with these hawkers to help guide them through the signup process. 

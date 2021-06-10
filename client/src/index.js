@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { AssistMainPage } from './pages/AssistMain/AssistMain';
 import { AssistHawkerPage } from './pages/AssistHawker/AssistHawker';
 import { SignUpPage } from './pages/Forms/SignUp';
+import { SuggestionPage } from './pages/Forms/Suggestion';
 
  const rootElement = document.getElementById("root");
  ReactDOM.render(
@@ -17,7 +18,8 @@ import { SignUpPage } from './pages/Forms/SignUp';
     <Switch>
      <Route exact path="/" component={AssistMainPage} />
      <Route exact path="/findhawker" component={AssistHawkerPage} />
-     <Route path="/page2" component={SignUpPage} />
+     <Route exact path="/suggesthawker" component={SuggestionPage} />
+     <Route path="/signup" component={SignUpPage} />
    </Switch>
    </div>
    </BrowserRouter>,
