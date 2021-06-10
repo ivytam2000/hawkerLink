@@ -31,14 +31,15 @@ export function SuggestionPage() {
           <p className="info-header">SUGGEST A HAWKER</p>
           <p className="info-text">Do you know a hawker who is…</p>
           <ul className="info-point">
-          <li>Confident that you can follow the steps required to help a hawker register with a food delivery service</li>
-          <li>Comfortable with volunteering to help a hawker with this for about 3 hours, according to the level of help specified on their profiles</li>
+          <li>IT-illiterate?</li>
+          <li>Has limited proficieny in  English or Chinese?</li>
           </ul>
-          <p className="info-text">Or simply needs help registering on food delivery platforms such as foodpanda or grabfood?</p>
-          <p className="info-text">Hawkerlink provides a network of tech-savvy
-          volunteers to help these “invisible” hawkers get 
-          back on their feet by teaching them how to register
-          themselves on food delivery platforms and utilise their services. </p>
+          <p className="info-text">Or simply needs <b>help registering on food delivery platforms</b> such as foodpanda or grabfood?</p>
+         
+          <p className="info-text"> <b>Help us reach out to them</b> </p>
+
+          <br/>
+
           <p className="info-header">BEFORE SUGGESTING A HAWKER, HAVE YOU...</p>
           <ul className="info-point">
           <li>Had a conversation with the hawker telling them that you want to suggest them to us?</li>
