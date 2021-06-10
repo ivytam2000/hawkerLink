@@ -2,13 +2,13 @@
     width: 100%;
     height: 72px;
     position: fixed;
-    background-color: #fff9f9;
+    background-color: rgba(255, 255, 255, 0.76);
     top: 0;
     left: 0;
     z-index: 1;
 }
 
-.header-logo {
+.header-logo a {
     font-family: "montserrat-bold", sans-serif;
     font-size: 15px;
     text-transform: uppercase;
