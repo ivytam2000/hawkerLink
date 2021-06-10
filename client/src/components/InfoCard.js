@@ -2,10 +2,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {Link} from 'react-router-dom';
 
@@ -14,13 +12,16 @@ const useStyles = makeStyles({
     maxWidth: 345,
   },
   media: {
-    height: 140,
+    height: 200,
+    borderStyle: 'solid',
+    borderColor: 'white',
+    borderWidth: 5,
   },
   card: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
 });
 
 /* Should contain image, store name, location, languages */
@@ -31,6 +32,7 @@ export function InfoCard(props) {
   const imageLink = "hawker_cards/" + props.id + ".jpg";
 
   return (
+    <Link style={{ textDecoration: 'none' }} to={{pathname:"/page2", id: props.id, storeName: props.storeName, userLanguages:props.userLanguages}}>
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
@@ -39,27 +41,18 @@ export function InfoCard(props) {
           title={props.storeName}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant="h5" component="h2" align='center'>
             {props.storeName}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            ID: {props.id}
+          <Typography align="center">
+            {props.location}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Location: {props.location}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Languages spoken: {props.languages}
+          <Typography align="center">
+            {props.languages}
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions className={classes.card}>
-      <Link to={{pathname:"/page2", id: props.id, storeName: props.storeName, userLanguages:props.userLanguages}}>
-        <Button size="small" color="primary">
-          Help this Hawker
-          </Button>
-        </Link>
-      </CardActions>
     </Card>
+   </Link>
   );
 }
