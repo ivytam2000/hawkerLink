@@ -1,7 +1,8 @@
 import { GenericLayout } from '../Layout';
 import { makeStyles } from '@material-ui/core/styles';
 
-import helping from './helping.png'
+import helping from './helping.png';
+import delivery from './delivery.png';
 
 const useStyles = makeStyles({
     navBar: {
@@ -73,7 +74,7 @@ function DeliverySection() {
         <div className={classes.contentSect}>
             <a className={classes.anchors} id='delivery'></a>
             <h1 className={classes.secTitles}> Delivery </h1>
-            <img src={helping} width='100%'></img>
+            <img src={delivery} width='100%'></img>
         </div>
     );
 }
@@ -84,7 +85,7 @@ function CIPSection() {
     return (
         <div className={classes.contentSect}>
             <a className={classes.anchors} id='cip'></a>
-            <h1 className={classes.secTitles}> Community Involvement Programme </h1>
+            <h1 className={classes.secTitles}> CIP Hours </h1>
             <img src={helping} width='100%'></img>
         </div>
     );
