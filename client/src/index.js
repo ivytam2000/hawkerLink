@@ -8,6 +8,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { LandingPage } from './pages/Landing/LandingPage';
 import { AssistMainPage } from './pages/AssistMain/AssistMain';
 import { SignUpPage } from './pages/Forms/SignUp';
+import { SuggestionPage } from './pages/Forms/Suggestion';
+import { ResourcesPage } from './pages/Resources/Resources'
 
  const rootElement = document.getElementById("root");
  ReactDOM.render(
@@ -16,7 +18,10 @@ import { SignUpPage } from './pages/Forms/SignUp';
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/assist" component={AssistMainPage} />
+        <Route exact path="/suggesthawker" component={SuggestionPage} />
+        <Route path="/signup" component={SignUpPage} />
         <Route path="/page2" component={SignUpPage} />
+        <Route path="/resources" component={ResourcesPage} />
       </Switch>
     </div>
    </BrowserRouter>,
