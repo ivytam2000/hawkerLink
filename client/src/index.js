@@ -9,6 +9,7 @@ import { AssistMainPage } from './pages/AssistMain/AssistMain';
 import { AssistHawkerPage } from './pages/AssistHawker/AssistHawker';
 import { SignUpPage } from './pages/Forms/SignUp';
 import { SuggestionPage } from './pages/Forms/Suggestion';
+import { ResourcesPage } from './pages/Resources/Resources'
 
  const rootElement = document.getElementById("root");
  ReactDOM.render(
@@ -20,6 +21,8 @@ import { SuggestionPage } from './pages/Forms/Suggestion';
      <Route exact path="/findhawker" component={AssistHawkerPage} />
      <Route exact path="/suggesthawker" component={SuggestionPage} />
      <Route path="/signup" component={SignUpPage} />
+     <Route path="/page2" component={SignUpPage} />
+     <Route path="/resources" component={ResourcesPage} />
    </Switch>
    </div>
    </BrowserRouter>,
