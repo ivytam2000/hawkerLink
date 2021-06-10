@@ -1,0 +1,38 @@
+.graphic {
+    display: table;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 92%;
+    width: 100%;
+    background-image: url("./hawker.png");
+    background-position-y: 72px;
+    background-position: right bottom;
+    background-size: cover;
+    text-align: justify;
+  }
+  
+  .graphic-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+  }
+  
+  .graphic-text {
+    margin-left: auto;
+    margin-right: auto;
+    width: 420px;
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.76);
+    font-family: sans-serif;
+    color: #ffffff;
+    /* text-shadow: -1px 1px 2px rgb(32, 32, 32),
+				  1px 1px 2px rgb(32, 32, 32),
+				  1px -1px 0 rgb(32, 32, 32),
+				  -1px -1px 0 rgb(32, 32, 32); */
+    font-size: 2rem;
+    line-height: 2.7rem;
+  }
+
+  .graphic-text b{
+      color:#C5343B;
+  }

@@ -16,7 +16,7 @@ function Header() {
             <div className="header-logo">
             <Link to="/">
                 <p className="header-text">hawkerlink</p>
-                </Link>
+            </Link>
             </div>
 
             <nav className="main-nav" id="nav">

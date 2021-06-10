@@ -7,9 +7,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     position: 'relative',
-    top:350,
+    top:250,
   },
   paper: {
+    bottom:20,
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,

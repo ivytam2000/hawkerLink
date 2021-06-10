@@ -5,21 +5,20 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
+import { LandingPage } from './pages/Landing/LandingPage';
 import { AssistMainPage } from './pages/AssistMain/AssistMain';
-import { AssistHawkerPage } from './pages/AssistHawker/AssistHawker';
 import { SignUpPage } from './pages/Forms/SignUp';
 
  const rootElement = document.getElementById("root");
  ReactDOM.render(
    <BrowserRouter>
      <div className="route-wrapper">
-    {/* <AssistHawkerPage /> */}
-    <Switch>
-     <Route exact path="/" component={AssistMainPage} />
-     <Route exact path="/findhawker" component={AssistHawkerPage} />
-     <Route path="/page2" component={SignUpPage} />
-   </Switch>
-   </div>
+      <Switch>
+        <Route exact path="/" component={LandingPage} />
+        <Route exact path="/assist" component={AssistMainPage} />
+        <Route path="/page2" component={SignUpPage} />
+      </Switch>
+    </div>
    </BrowserRouter>,
    rootElement
  );
