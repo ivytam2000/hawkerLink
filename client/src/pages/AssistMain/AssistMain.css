@@ -16,14 +16,65 @@
     animation: fadein ease 0.5s;
     color:white;
     text-align: center;
-    padding: 10px;
+    padding: 30px;
+}
+
+
+.icon {
+    width: 10%;
+}
+
+.arrow {
+    width: 3%;
+}
+
+.step {
+    width: 90%;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 0.8rem;
+    color: rgb(2, 26, 4);
+    background-color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    padding: 14px 20px;
+    margin: auto;
+    cursor: pointer;
+    box-shadow: 0 5px 3px #666
+}
+
+.step:hover {
+    background-color: #dbdbdb;
+    transition: 0.1s;
+}
+
+.step:active {
+    background-color: #dbdbdb;
+    box-shadow: 0 3px 3px #666;
+    transform: translateY(2px);
+    transition: 0.1s;
 }
 
 .exp {
     margin-top: 50px;
+    margin-bottom: 50px;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     font-size: 1.2rem;
     animation: fadein ease 0.5s;
     color:white;
     text-align: center;
+}
+
+.start-button {
+    width: 20%;
+    background-color: #C5343B;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.start-button:hover {
+    background-color: #8f181e;
 }
