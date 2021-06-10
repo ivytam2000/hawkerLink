@@ -33,7 +33,9 @@ export function Header(props) {
             </div>
             <nav className="main-nav" id="nav">
                 <ul className="main-nav-links">
+                    <Link to="/resources">
                     <li className={resources}><a className="header"href="/">resources</a></li>
+                    </Link>
                     <Link to="/suggesthawker">
                     <li className={suggest}><a className="header" href="/">suggest a hawker</a></li>
                     </Link>
