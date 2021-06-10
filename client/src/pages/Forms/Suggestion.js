@@ -3,6 +3,7 @@ import './Form.css';
 import {Link } from "react-router-dom";
 import { Multiselect } from "multiselect-react-dropdown";
 import React, { useState } from "react";
+import SuggestPopUp from '../../components/SuggestPopUp';
 
 export function SuggestionPage() {
   const data = [
@@ -32,7 +33,7 @@ export function SuggestionPage() {
           <p className="info-text">Do you know a hawker who is…</p>
           <ul className="info-point">
           <li>IT-illiterate?</li>
-          <li>Has limited proficieny in  English or Chinese?</li>
+          <li>Has limited proficiency in  English or Chinese?</li>
           </ul>
           <p className="info-text">Or simply needs <b>help registering on food delivery platforms</b> such as foodpanda or grabfood?</p>
          
@@ -40,16 +41,12 @@ export function SuggestionPage() {
 
           <br/>
 
-          <p className="info-header">BEFORE SUGGESTING A HAWKER, HAVE YOU...</p>
-          <ul className="info-point">
-          <li>Had a conversation with the hawker telling them that you want to suggest them to us?</li>
-          <li>Checked that they want to get on food delivery platforms, but need help with the process?</li>
-          </ul>
         </div>
         </section>
 
         <section className="form-content"> 
-            <form action="/action_page.php">
+        {/* action="/action_page.php" */}
+            <form >
             <span class="label" for="stall">Name of hawker stall</span>
             <input type="form-text" id="stall" name="stall"></input>
 
@@ -90,14 +87,10 @@ export function SuggestionPage() {
              closeOnSelect= {false}
             />
             </p>
+            <SuggestPopUp />
 
-            <input type="submit" value="Submit"></input>
+            {/* <input type="submit" value="Submit"></input> */}
             </form> 
-            <div>
-          <Link to="/"><button>
-              Back to Search
-            </button>  </Link>
-  </div>
         </section>
 
         </body>
