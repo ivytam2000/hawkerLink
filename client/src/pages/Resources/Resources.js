@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import helping from './helping.png';
 import delivery from './delivery.png';
 import foodpanda from './foodpanda.png';
+import { Cip } from '../Forms/Cip';
 
 const useStyles = makeStyles({
 
@@ -103,7 +104,7 @@ function CIPSection() {
         <div className={classes.contentSect}>
             <a className={classes.anchors} id='cip'></a>
             <h1 className={classes.secTitles}> Claim CIP Hours </h1>
-            <img src={helping} width='100%'></img>
+            <Cip/>
         </div>
     );
 }

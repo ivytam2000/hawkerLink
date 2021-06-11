@@ -56,6 +56,18 @@
     animation-fill-mode: forwards; 
 }
 
+.cip-form-content {
+    background-color: #ffffff;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    padding-left: 10%;
+    padding-right: 9%;
+
+    animation: fadein ease 0.5s;
+    animation-iteration-count: 1; 
+    animation-fill-mode: forwards; 
+}
+
 .label {
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     font-size: 1rem;
@@ -97,6 +109,18 @@ input[type=submit] {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+}
+
+input[type=upload] {
+    width: 35%;
+    background-color: #C5343B;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
 }
 
 input[type=submit]:hover {
