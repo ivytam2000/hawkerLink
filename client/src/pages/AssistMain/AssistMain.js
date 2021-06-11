@@ -29,7 +29,7 @@ export function AssistMainPage() {
 
                 <td class="icon">
                     <img src={meet} alt="Meet" width="100px"></img>
-                    <Link to="/page2"> 
+                    <Link to="/resources#meetup"> 
                     <p><button className="step">Meet up</button></p>
                     </Link>
                 </td>
@@ -40,7 +40,7 @@ export function AssistMainPage() {
 
                 <td class="icon">
                     <img src={choose} alt="Choose" width="100px"></img>
-                    <Link to="/page2"> 
+                    <Link to="/resources#delivery"> 
                     <p><button className="step">Help them choose a service</button></p>
                     </Link>
                 </td>
@@ -51,7 +51,7 @@ export function AssistMainPage() {
 
                 <td class="icon">
                     <img src={signup} alt="Signup" width="100px"></img>
-                    <Link to="/page2"> 
+                    <Link to="/resources#signup"> 
                     <p><button className="step">Register with the service</button></p>
                     </Link>
                 </td>
@@ -62,7 +62,7 @@ export function AssistMainPage() {
 
                 <td class="icon">
                     <img src={hours} alt="Hours" width="100px"></img>
-                    <Link to="/page2"> 
+                    <Link to="/resources#cip"> 
                     <p><button className="step">Claim CIP hours</button></p>
                     </Link>
                 </td>

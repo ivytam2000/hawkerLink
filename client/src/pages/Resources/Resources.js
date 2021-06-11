@@ -6,12 +6,14 @@ import delivery from './delivery.png';
 import foodpanda from './foodpanda.png';
 
 const useStyles = makeStyles({
+
     navBar: {
         paddingTop: '6rem',
         paddingLeft: '5rem',
         listStyleType: 'none',
         width: '300px',
         position: 'fixed',
+        
     },
 
     navText: {
@@ -107,8 +109,7 @@ function CIPSection() {
 }
 
 export function ResourcesPage() {
-
-    const classes = useStyles();
+    document.documentElement.style.scrollBehavior = "smooth";
 
     return (
         <body>

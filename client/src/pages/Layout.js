@@ -1,4 +1,5 @@
 import {Link} from "react-router-dom";
+import './Layout.css';
 
 export function GenericLayout(props) {
     console.log(props.id);
