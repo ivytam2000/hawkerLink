@@ -3,6 +3,7 @@ import os
 from flask import Flask, jsonify, request, abort
 from sqlalchemy import *
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 
 # Environment variables
 POSTGRES_DB = os.environ.get('POSTGRES_DB')
@@ -34,7 +35,7 @@ def get_current_time():
     return {'time': time.time()}
 
 @app.route('/hawkers', methods=['POST'])
-def get_accounts():
+def get_hawkers():
     """
     Receives POST requests in the following format:
         {
@@ -78,3 +79,52 @@ def get_accounts():
                             'language': acc.languages})
 
     return jsonify(hawkers)
+
+
+
+@app.route('/suggest-hawker', methods=['POST'])
+def suggest_hawker():
+    """
+    Receives POST requests in the following format:
+        {
+            'store_name': string,
+            'location': string, # Hawker center name
+            'address': string,  # Actual address NOT IMPLEMENTED YET
+            'hawker_name': string, NOT IMPLEMENTED YET
+            'hawker_phone_number': string, NOT IMPLEMENTED YET
+            'languages': [string],
+            'region' : string (North|South|East|West|Central)
+        }
+
+    Returns "0" on success, "1" if input json is malformed,
+    "2" if an existing entry already exists in the database.
+    TODO: change to http error codes
+    """
+
+    if not request.json:
+        abort(400)
+
+    try:
+        store_name = request.json['store_name']
+        location = request.json['location']
+        # address = request.json['address']
+        # hawker_name = request.json['hawker_name']
+        # hawker_phone_number = request.json['hawker_phone_number']
+        region = request.json['region']
+        languages = ", ".join(request.json['languages']) # Concat into a single string
+    except KeyError:
+        return "1"
+
+    metadata = MetaData()
+    hawkers_table = Table('hawker_directory', metadata, autoload_with=engine)
+
+    stmt = insert(hawkers_table).values(store_name=store_name, location=location, languages=languages, region=region)
+
+    try:
+        with Session(engine) as session:
+            session.execute(stmt)
+            session.commit()
+    except IntegrityError:
+        return "2"
+
+    return "0"
