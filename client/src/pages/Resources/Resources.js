@@ -88,7 +88,8 @@ function SignUpSection() {
         <div className={classes.contentSect}>
             <a className={classes.anchors} id='signup'></a>
             <h1 className={classes.secTitles}> Signup Help </h1>
-            <img src={helping} width='100%'></img>
+            <h1 className={classes.secTitles}> FoodPanda </h1>
+            <img src={foodpanda} width='100%'></img>
         </div>
     );
 }
