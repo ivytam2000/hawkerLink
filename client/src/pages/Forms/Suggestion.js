@@ -15,13 +15,20 @@ export function SuggestionPage() {
     { Language: "Tamil", id: 6 },
   ]
 
-  const reasonData = [
-    { Reason: "IT-illiterate"},
-    { Reason: "Lack of proficieny in English/Chinese to sign-up"},
-    { Reason: "Other"}
+  const region = [
+    { Region: "North", id: 1 },
+    {  Region: "East", id: 2 },
+    {  Region: "South", id: 3 },
+    { Region: "West", id: 4 },
+    {  Region: "Central", id: 5 },
+
   ]
 
+
   const [options] = useState(data);
+
+
+  const [regionOptions] = useState(region);
 
     return (
         <body>
@@ -35,7 +42,7 @@ export function SuggestionPage() {
           <li>IT-illiterate?</li>
           <li>Has limited proficiency in  English or Chinese?</li>
           </ul>
-          <p className="info-text">Or simply needs <b>help registering on food delivery platforms</b> such as foodpanda or grabfood?</p>
+          <p className="info-text">Or simply needs <b>help registering on food delivery platforms?</b> </p>
          
           <p className="info-text"> <b>Help us reach out to them</b> </p>
 
@@ -55,6 +62,14 @@ export function SuggestionPage() {
 
             <p><span class="label" for="address">Address</span>
             <input type="form-text" id="address" name="address"></input></p>
+
+            <p><span class="label" for="address">Region</span></p>
+            <Multiselect
+             options={regionOptions}
+             displayValue="Region"
+             singleSelect
+             placeholder="Region"   
+            />
 
             <p><span class="label" for="name">Hawker's name</span>
             <input type="form-text" id="name" name="name"></input></p>
