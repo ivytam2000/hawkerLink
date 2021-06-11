@@ -118,7 +118,7 @@ def suggest_hawker():
     metadata = MetaData()
     hawkers_table = Table('hawker_directory', metadata, autoload_with=engine)
 
-    stmt = insert(hawkers_table).values(store_name=store_name, location=location, languages=languages)
+    stmt = insert(hawkers_table).values(store_name=store_name, location=location, languages=languages, region=region)
 
     try:
         with Session(engine) as session:
