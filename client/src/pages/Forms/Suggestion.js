@@ -36,7 +36,7 @@ export function SuggestionPage() {
 
         <section className="suggestion-info"> 
         <div className="info-content">
-          <p className="info-header">SUGGEST A HAWKER</p>
+          {/* <p className="info-header">SUGGEST A HAWKER</p>
           <p className="info-text">Do you know a hawker who is…</p>
           <ul className="info-point">
           <li>IT-illiterate?</li>
@@ -46,10 +46,10 @@ export function SuggestionPage() {
          
           <p className="info-text"> <b>Help us reach out to them</b> </p>
 
-          <br/>
+          <br/> */}
 
-        </div>
-        </section>
+        </div> 
+    </section>
 
         <section className="form-content"> 
         {/* action="/action_page.php" */}

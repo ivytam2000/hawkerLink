@@ -48,12 +48,12 @@ export function SignUpPage(props) {
         <section className="signup-info"> 
         <div className="info-content">
           <p className="info-header">SIGN UP TO HELP</p>
-          <p className="info-text">If you can …</p>
-          <ul className="info-point">
+          <p className="signup-text">If you can …</p>
+          <ul className="signup-text">
           <li>Help a hawker register on food delivery services (resources are provided)</li>
           <li>Spend at least 3 hours to help them </li>
           </ul>
-          <p className="info-text">Then, please sign up!</p>
+          <p className="signup-text">Then, please sign up!</p>
         </div>
         </section>
 
