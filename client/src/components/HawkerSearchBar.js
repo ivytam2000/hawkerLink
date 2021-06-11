@@ -82,36 +82,32 @@ class HawkerSearchBar extends React.Component {
         <div className="search-bar">
 
           <div className="region">
-               <p className="region-text"> Select a region and language(s) you can speak to find hawkers that you can help! </p>
+            <p className="region-text"> Select a region and language(s) you can speak to find hawkers that you can help! </p>
+          </div>
+          
+          <div className="location-search">
+            <Multiselect
+              options={this.state.locationoptions}
+              onSelect={this.onSelectLocation}
+              onRemove={this.onSelectLocation}
+              showCheckbox={true}
+              displayValue="Location"
+              placeholder="Region(s)"
+            />
           </div>
 
-          <div className="language">
-               <p> </p>
+          <div className="language-search">
+            <Multiselect
+              options={this.state.options}
+              onSelect={this.onSelectLanguage}
+              onRemove={this.onSelectLanguage}
+              showCheckbox={true}
+              displayValue="Language"
+              placeholder="Language(s)"
+            />
           </div>
           
-            <div className="location-search">
-              <Multiselect
-                options={this.state.locationoptions}
-                onSelect={this.onSelectLocation}
-                onRemove={this.onSelectLocation}
-                showCheckbox={true}
-                displayValue="Location"
-                placeholder="Region(s)"
-              />
-            </div>
-            <div className="language-search">
-        
-              <Multiselect
-                options={this.state.options}
-                onSelect={this.onSelectLanguage}
-                onRemove={this.onSelectLanguage}
-                showCheckbox={true}
-                displayValue="Language"
-                placeholder="Language(s)"
-              />
-            </div>
-          
-            <form className="submit" onSubmit={this.handleSubmit}>
+          <form className="submit" onSubmit={this.handleSubmit}>
             <Button className="submit" type="submit" style={{background: 'gray', color: 'white'}} onClick={this.handleSubmit}>
               Search
             </Button>

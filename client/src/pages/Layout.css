@@ -2,16 +2,18 @@
     width: 100%;
     height: 72px;
     position: fixed;
-    background-color: #fff9f9;
+    background-color: rgba(255, 255, 255, 0.76);
     top: 0;
     left: 0;
     z-index: 1;
+    text-decoration: none;
 }
 
-.header-logo {
+.header-logo a {
     font-family: "montserrat-bold", sans-serif;
     font-size: 15px;
     text-transform: uppercase;
+    text-decoration: none;
     letter-spacing: .25rem;
     position: absolute;
     top: 0px;
@@ -24,6 +26,11 @@
     margin-left: 2rem;
     line-height: 72px;
     color: #C5343B;
+    text-decoration: none;
+}
+
+.header-text a {
+    text-decoration: none;
 }
 
 .main-nav {

@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 export function AssistHawkerPage() {
     return (
         <body>
-        <GenericLayout />
+        <GenericLayout id={2} />
 
         <section className="content"> 
           <div class = "text-alt-l"><HawkerSearchBar searchHawker={SearchHawker}/></div>

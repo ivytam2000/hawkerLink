@@ -1,32 +1,14 @@
-.graphic {
-    height: 90%;
-    width: 100%;
-    background-image: url("./hawker.png");
-    background-position: right bottom;
-    background-position-y: 72px;
+body
+{
+    font-family: 'librebaskerville-regular', serif;
+    font-size: 1.6rem;
+    line-height: 1.875;
+    background-image: url("../../imgs/chalkboard.jpeg");
     background-size: cover;
-    position: static;
-    text-align: left;
-    color: white;
-}
-
-
-.graphic-text {
-    position: relative;
-    display: inline-block;
-    width: 49%;
-    margin-top: 26%;
-    margin-left: 44%;
-    margin-right: 0%;
-    margin-bottom: 7%;
-    padding: 10px;
-    font-family: Georgia, serif;
-    color: #ffffff;
-    text-shadow: -1px 1px 2px rgb(32, 32, 32),
-				  1px 1px 2px rgb(32, 32, 32),
-				  1px -1px 0 rgb(32, 32, 32),
-				  -1px -1px 0 rgb(32, 32, 32);
-    font-size: 1.3rem;
+    background-attachment: fixed;
+    /* background-color: #2c2c2c; */
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
 }
 
 .title {
@@ -39,7 +21,7 @@
 }
 
 .icons {
-    margin-top: 60px;
+    margin-top: 100px;
     margin-left: 10%;
     margin-right: 10%;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
@@ -63,7 +45,7 @@
     width: 90%;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     font-size: 0.8rem;
-    color: rgb(2, 26, 4);
+    color: #c5343b;
     background-color: #ffffff;
     border: none;
     border-radius: 20px;
@@ -85,7 +67,7 @@
     transition: 0.1s;
 }
 
-.exp {
+/* .exp {
     margin-top: 50px;
     margin-bottom: 100px;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
@@ -108,4 +90,4 @@
 
 .start-button:hover {
     background-color: #8f181e;
-}
+} */
