@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./SuggestPopUp.css";
+import "./PopUp.css";
 
 import { submitHawker } from "../services/SubmitHawkerSuggestion";
 

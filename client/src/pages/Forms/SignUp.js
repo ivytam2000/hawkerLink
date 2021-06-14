@@ -4,6 +4,7 @@ import {Link } from "react-router-dom";
 import React, { useState } from "react";
 import { Multiselect } from "multiselect-react-dropdown";
 import { AssistHawker}  from '../../services/AssistHawker.js';
+import { AssistPopUp } from '../../components/AssistPopUp';
 
 export function SignUpPage(props) {
 
@@ -147,7 +148,7 @@ export function SignUpPage(props) {
             <input type="radio" value="No" name="help"/> No
             </div>
             </div>
-            <input type="submit" value="Submit" onClick={handleSubmit}></input>
+            <AssistPopUp />
             </form> 
             <div>
           <Link to="/"><button>
