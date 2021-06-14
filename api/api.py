@@ -87,12 +87,13 @@ def suggest_hawker():
     """
     Receives POST requests in the following format:
         {
-            'store_name': string,
-            'location': string, # Hawker center name
-            'address': string,  # Actual address NOT IMPLEMENTED YET
-            'hawker_name': string, NOT IMPLEMENTED YET
-            'hawker_phone_number': string, NOT IMPLEMENTED YET
+            'storeName': string,
+            'hawkerCentre': string,
+            'address': string,
+            'hawkerName': string,
+            'hawkerPhoneNumber': string, 
             'languages': [string],
+            'reasonForHelp'; string,
             'region' : string (North|South|East|West|Central)
         }
 
@@ -105,20 +106,31 @@ def suggest_hawker():
         abort(400)
 
     try:
-        store_name = request.json['store_name']
-        location = request.json['location']
-        # address = request.json['address']
-        # hawker_name = request.json['hawker_name']
-        # hawker_phone_number = request.json['hawker_phone_number']
+        store_name = request.json['storeName']
+        hawker_centre = request.json['hawkerCentre']
+        address = request.json['address']
+        hawker_name = request.json['hawkerName']
+        hawker_phone_number = request.json['hawkerPhoneNumber']
         region = request.json['region']
+        reason_for_help = request.json['reasonForHelp']
         languages = ", ".join(request.json['languages']) # Concat into a single string
-    except KeyError:
+    except KeyError as e:
+        print(e)
         return "1"
 
     metadata = MetaData()
-    hawkers_table = Table('hawker_directory', metadata, autoload_with=engine)
+    hawkers_table = Table('hawker', metadata, autoload_with=engine)
 
-    stmt = insert(hawkers_table).values(store_name=store_name, location=location, languages=languages, region=region)
+    stmt = insert(hawkers_table).values(
+        hname=hawker_name,
+        sname=store_name, 
+        phone_number=hawker_phone_number,
+        reason_for_help=reason_for_help,
+        languages=languages, 
+        hawker_centre=hawker_centre,
+        address=address,
+        region=region,
+        assigned=0)
 
     try:
         with Session(engine) as session:
