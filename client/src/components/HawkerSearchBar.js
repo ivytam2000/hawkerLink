@@ -28,6 +28,7 @@ class HawkerSearchBar extends React.Component {
         { Language: "Tamil", id: 6 },
       ],
       languages: [],
+      selectedLanguages:[],
       locations: [],
       data:[]
     };
@@ -42,6 +43,7 @@ class HawkerSearchBar extends React.Component {
 
   onSelectLanguage = (selectedList, selectedItem) => {
     this.setState((state) => {
+      state.selectedLanguages = selectedList;
       state.languages = selectedList.map((lang) => lang.Language);
       console.log(state.languages);
     });
@@ -93,6 +95,7 @@ class HawkerSearchBar extends React.Component {
               showCheckbox={true}
               displayValue="Location"
               placeholder="Region(s)"
+              closeOnSelect={false}
             />
           </div>
 
@@ -104,6 +107,7 @@ class HawkerSearchBar extends React.Component {
               showCheckbox={true}
               displayValue="Language"
               placeholder="Language(s)"
+              closeOnSelect={false}
             />
           </div>
           
@@ -114,7 +118,7 @@ class HawkerSearchBar extends React.Component {
           </form>
         </div>
 
-        <HawkerSearchResults data={this.state.data} userLanguages={this.state.languages}/>
+        <HawkerSearchResults data={this.state.data} selectedLanguages = {this.state.selectedLanguages}userLanguages={this.state.languages}/>
 
       </div>
     );

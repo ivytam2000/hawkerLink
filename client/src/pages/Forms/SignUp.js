@@ -3,10 +3,14 @@ import './Form.css';
 import {Link } from "react-router-dom";
 import React, { useState } from "react";
 import { Multiselect } from "multiselect-react-dropdown";
+import { AssistHawker}  from '../../services/AssistHawker.js';
 
 export function SignUpPage(props) {
 
     const defaultIdField = props.location.id + ' (' + props.location.storeName + ')';
+    console.log(props.location.userLanguages);
+    console.log(props.location.selectedLanguages);
+   
     console.log(defaultIdField);
 
     const data = 
@@ -39,7 +43,49 @@ export function SignUpPage(props) {
       {Time: '3pm-6pm (Sun)', Day: 'Sunday'},
     ]
 
+    const languageChoices = [
+      { Language: "English", id: 1 },
+      { Language: "Mandarin", id: 2 },
+      { Language: "Hokkien", id: 3 },
+      { Language: "Teochew", id: 4 },
+      { Language: "Malay", id: 5 },
+      { Language: "Tamil", id: 6 },
+    ]
+
+    const [languagesOptions] = useState(languageChoices);
+
     const [timeOptions] = useState(data);
+
+    const userLanguages = props.location.userLanguages;
+
+    /* Fields Required for Assist-Hawker Post Request */
+
+    const [name, setName] = useState(0);
+    const [email, setEmail] = useState(0);
+    const [number, setNumber] = useState(0);
+    const [hawkerIds, setHawkerIds] = useState(0);
+    const [languages, setLanguages] = useState(userLanguages);
+    const [availability, setAvailability] = useState([]);
+
+    function onSelectLanguages(selectedList, selectedItem) {
+      setLanguages(selectedList.map((lang) => lang.Language));
+    }
+
+    function onSelectAvailability(selectedList, selectedItem) {
+      setAvailability(selectedList.map((avail)=> avail.Time));
+    }
+
+    const handleSubmit = (e) => {
+      e.preventDefault(); // prevents browser refresh
+      AssistHawker(
+        name,
+        email,
+        hawkerIds,
+        number,
+        availability,
+        languages
+      );
+    }
 
     return (
         <body>
@@ -59,12 +105,14 @@ export function SignUpPage(props) {
 
         <section className="form-content"> 
             <form action="/action_page.php">
-            <p><span class="label" for="ID">ID(s) of hawkers you're interested in helping</span>
-            <input type="form-text" id="ID" name="ID" defaultValue={defaultIdField}></input></p>
+            <p><span class="label" for="ID">ID(s) of hawkers you're interested in helping (separated by commas if multiple)</span>
+            <input type="form-text" pattern="^[1-9]?[0-9](,[1-9]?[0-9])*$"id="ID" name="ID" defaultValue={defaultIdField} onChange={(e) => setHawkerIds(e.target.value)}></input></p>
             <span class="label" for="name">Name</span>
-            <input type="form-text" id="name" name="name"></input>
+            <input type="form-text" id="name" name="name" onChange={(e) => setName(e.target.value)}></input>
             <p><span class="label" for="contact">Contact number</span>
-            <input type="form-text" id="contact" name="contact"></input></p>
+            <input type="form-text" id="contact" name="contact" onChange={(e) => setNumber(e.target.value)}></input></p>
+            <p><span class="label" for="contact">Email Address</span>
+            <input type="form-text" id="email" name="email" onChange={(e) => setEmail(e.target.value)}></input></p>
             <p><span class="label" for="availability">Your availability</span>
             <div className="availability">
             <Multiselect
@@ -74,11 +122,22 @@ export function SignUpPage(props) {
              showCheckbox={true}
              placeholder="Select your availability"
              closeOnSelect= {false}
+             onSelect={onSelectAvailability}
+             onRemove={onSelectAvailability}
             />
             </div>
             </p>
             <p><span class="label" for="language">What languages, including dialects, can you speak?</span>
-            <input type="form-text" id="language" name="language" placeholder="e.g. English, Mandarin, Hokkien" defaultValue={props.location.userLanguages}></input></p>
+            <Multiselect
+             options={languagesOptions}
+             displayValue="Language"
+             showCheckbox={true}
+             placeholder="Language(s)"
+             closeOnSelect={false}
+             onSelect={onSelectLanguages}
+             onRemove={onSelectLanguages}
+             selectedValues={props.location.selectedLanguages}
+             /> </p>
             <p><span class="label" for="other">Are you comfortable with us asking you to help another hawker, if the hawkers you chose are unavailable?</span></p>
             <div>
             <div className="yn-radio">
@@ -88,7 +147,7 @@ export function SignUpPage(props) {
             <input type="radio" value="No" name="help"/> No
             </div>
             </div>
-            <input type="submit" value="Submit"></input>
+            <input type="submit" value="Submit" onClick={handleSubmit}></input>
             </form> 
             <div>
           <Link to="/"><button>

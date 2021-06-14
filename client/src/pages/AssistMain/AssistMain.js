@@ -1,6 +1,6 @@
 import {GenericLayout} from '../Layout';
 import HawkerSearchBar from '../../components/HawkerSearchBar';
-import {SearchHawker} from '../../services/AssistHawker';
+import {SearchHawker} from '../../services/SearchHawker';
 import './AssistMain.css';
 import {Link} from "react-router-dom";
 import register from './assist-icons/register.png'
