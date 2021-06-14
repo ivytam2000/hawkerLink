@@ -55,14 +55,14 @@ def get_hawkers():
     region_query = request.json['region']
 
     metadata = MetaData()
-    hawkers_table = Table('hawker_directory', metadata, autoload_with=engine)
+    hawker_table = Table('hawker', metadata, autoload_with=engine)
 
     # Create multiple queries to match on the cross product of languages and regions
     all_queries = []
     for language in language_query:
         for region in region_query:
             print(language, region)
-            all_queries.append(select(['*']).where(and_(hawkers_table.c.region == region, hawkers_table.c.languages.contains(language))))
+            all_queries.append(select(['*']).where(and_(hawker_table.c.region == region, hawker_table.c.languages.contains(language))))
 
     unionized = union(*all_queries)
 
@@ -74,8 +74,8 @@ def get_hawkers():
         
         for acc in result:
             hawkers.append({'id': acc.id,
-                            'storeName': acc.store_name,
-                            'location': acc.location,
+                            'storeName': acc.sname,
+                            'location': acc.hawker_centre,
                             'language': acc.languages})
 
     return jsonify(hawkers)
