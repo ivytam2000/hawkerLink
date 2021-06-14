@@ -35,7 +35,6 @@ export function AssistPopUp(props) {
             hawkers' lives. </p>
             <p className = 'popup-content'> We will be in touch soon via <b>email</b> with more information on training and the volunteer process.</p>
             <button className="close-modal" onClick={toggleModal}>
-              CLOSE
             </button>
           </div>
         </div>

@@ -18,11 +18,13 @@
     width: 50%;
     position: fixed;
     background-image: url("../../imgs/hawker-duck-icon.png");
-    padding-top: 10px;
     background-color: black;
     background-position: 50%;
-    background-size: cover;
+    background-repeat: no-repeat;
+    background-size: contain, cover;
     overflow-x: hidden;
+    padding: 20px;
+    border-width: 0.3px;
 }
 
 .info-content {
@@ -147,4 +149,5 @@ input[type=submit]:hover {
     border-radius: 4px;
     cursor: pointer;
     text-align: center;
+
 }
