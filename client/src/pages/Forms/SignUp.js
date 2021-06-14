@@ -151,7 +151,7 @@ export function SignUpPage(props) {
             <AssistPopUp />
             </form> 
             <div>
-          <Link to="/"><button>
+          <Link to="/assist"><button className= "search-btn">
               Back to Search
             </button>  </Link>
   </div>

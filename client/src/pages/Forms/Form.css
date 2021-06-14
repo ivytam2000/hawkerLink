@@ -136,3 +136,18 @@ input[type=submit]:hover {
 .availability{
     display:flex
 }
+
+.search-btn{
+
+    width: 25%;
+    background-color: #8d8b8b;
+    color: white;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+
+
+}
