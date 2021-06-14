@@ -1,10 +1,20 @@
 import {GenericLayout} from '../Layout';
 import './Form.css';
-import {Link } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import React, { useState } from "react";
 import { Multiselect } from "multiselect-react-dropdown";
 import { AssistHawker}  from '../../services/AssistHawker.js';
 import { AssistPopUp } from '../../components/AssistPopUp';
+
+
+export const Item = () => {
+    let history = useHistory();
+    return (
+        <>
+          <button onClick={() => history.goBack()}>Back</button>
+        </>
+    );
+};
 
 export function SignUpPage(props) {
 
@@ -88,6 +98,8 @@ export function SignUpPage(props) {
       );
     }
 
+    let history = useHistory();
+
     return (
         <body>
         <GenericLayout id={2}/>
@@ -142,7 +154,7 @@ export function SignUpPage(props) {
             <p><span class="label" for="other">Are you comfortable with us asking you to help another hawker, if the hawkers you chose are unavailable?</span></p>
             <div>
             <div className="yn-radio">
-           <input type="radio" value="Yes" name="help"/> Yes 
+            <input type="radio" value="Yes" name="help"/> Yes 
             </div>
             <div className="yn-radio">
             <input type="radio" value="No" name="help"/> No
