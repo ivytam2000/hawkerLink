@@ -14,11 +14,16 @@ export function AssistPopUp(props) {
         props.hawkerIds,
         props.number,
         props.availability,
-        props.languages
+        props.languages,
+        props.comfortable
       );
 
   };
 
+  const toggleModalAndSubmit = (e) => {
+    e.preventDefault();
+    setModal(!modal);
+  }
  
   return (
     <>
@@ -28,13 +33,13 @@ export function AssistPopUp(props) {
 
       {modal && (
         <div className="modal">
-          <div onClick={toggleModal} className="overlay"></div>
+          <div className="overlay"></div>
           <div className="modal-content">
             <p className="info-header">THANK YOU FOR SIGNING UP </p>
             <p className='popup-content'> Your actions are making a tangible difference in these
             hawkers' lives. </p>
             <p className = 'popup-content'> We will be in touch soon via <b>email</b> with more information on training and the volunteer process.</p>
-            <button className="close-modal" onClick={toggleModal}>
+            <button className="close-modal" onClick={toggleModalAndSubmit}>
             </button>
           </div>
         </div>

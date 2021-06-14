@@ -140,3 +140,61 @@ def suggest_hawker():
         return "2"
 
     return "0"
+
+# @app.route('/assist-hawker', methods=['POST'])
+# def suggest_hawker():
+#     """
+#     Receives POST requests in the following format:
+#         {
+#             'name': string,
+#             'email': string,
+#             'availability': [string],
+#             'phoneNumber': string,
+#             'comfortable': string, 
+#             'languages': [string],
+#             'hawkerIds'
+#         }
+
+#     Returns "0" on success, "1" if input json is malformed,
+#     "2" if an existing entry already exists in the database.
+#     TODO: change to http error codes
+#     """
+
+#     if not request.json:
+#         abort(400)
+
+#     try:
+#         store_name = request.json['storeName']
+#         hawker_centre = request.json['hawkerCentre']
+#         address = request.json['address']
+#         hawker_name = request.json['hawkerName']
+#         hawker_phone_number = request.json['hawkerPhoneNumber']
+#         region = request.json['region']
+#         reason_for_help = request.json['reasonForHelp']
+#         languages = ", ".join(request.json['languages']) # Concat into a single string
+#     except KeyError as e:
+#         print(e)
+#         return "1"
+
+#     metadata = MetaData()
+#     hawkers_table = Table('hawker', metadata, autoload_with=engine)
+
+#     stmt = insert(hawkers_table).values(
+#         hname=hawker_name,
+#         sname=store_name, 
+#         phone_number=hawker_phone_number,
+#         reason_for_help=reason_for_help,
+#         languages=languages, 
+#         hawker_centre=hawker_centre,
+#         address=address,
+#         region=region,
+#         assigned=0)
+
+#     try:
+#         with Session(engine) as session:
+#             session.execute(stmt)
+#             session.commit()
+#     except IntegrityError:
+#         return "2"
+
+#     return "0"
