@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./PopUp.css";
+import { AssistHawker } from "../services/AssistHawker";
 
 export function AssistPopUp(props) {
   const [modal, setModal] = useState(false);
@@ -7,8 +8,18 @@ export function AssistPopUp(props) {
   const toggleModal = (e) => {
     e.preventDefault();
     setModal(!modal);
+    AssistHawker(
+        props.name,
+        props.email,
+        props.hawkerIds,
+        props.number,
+        props.availability,
+        props.languages
+      );
+
   };
 
+ 
   return (
     <>
       <button onClick={toggleModal} className="submit-form">

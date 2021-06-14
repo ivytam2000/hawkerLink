@@ -138,7 +138,6 @@ input[type=submit]:hover {
 }
 
 .search-btn{
-
     width: 25%;
     background-color: #8d8b8b;
     color: white;
@@ -148,6 +147,4 @@ input[type=submit]:hover {
     border-radius: 4px;
     cursor: pointer;
     text-align: center;
-
-
 }

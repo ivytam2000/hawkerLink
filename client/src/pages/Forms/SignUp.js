@@ -148,7 +148,8 @@ export function SignUpPage(props) {
             <input type="radio" value="No" name="help"/> No
             </div>
             </div>
-            <AssistPopUp />
+            <AssistPopUp name={name} email={email} hawkerIds={hawkerIds} 
+             number={number} availability={availability} languages={languages}/>
             </form> 
             <div>
           <Link to="/assist"><button className= "search-btn">
