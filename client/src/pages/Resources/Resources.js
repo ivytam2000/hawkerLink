@@ -5,6 +5,7 @@ import helping from './helping.png';
 import delivery from './delivery.png';
 import foodpanda from './foodpanda.png';
 import { Cip } from '../Forms/Cip';
+import faq from './FAQ.png'
 
 const useStyles = makeStyles({
 
@@ -55,6 +56,7 @@ function NavigationBar() {
                 <li><a href="#delivery" className={classes.navText}>Delivery Comparison</a></li>
                 <li><a href="#signup" className={classes.navText}>Signup Help </a></li>
                 <li><a href="#cip" className={classes.navText}>Claim CIP Hours</a></li>
+                <li><a href="#faq" className={classes.navText}>FAQ</a></li>
             </ul>
         </nav>);
 
@@ -109,6 +111,19 @@ function CIPSection() {
     );
 }
 
+
+function FAQSection() {
+    const classes = useStyles();
+
+    return (
+        <div className={classes.contentSect}>
+            <a className={classes.anchors} id='faq'></a>
+            <h1 className={classes.secTitles}> Frequently Asked Questions</h1>
+            <img src={faq} width='100%'></img>
+        </div>
+    );
+}
+
 export function ResourcesPage() {
     document.documentElement.style.scrollBehavior = "smooth";
 
@@ -120,6 +135,7 @@ export function ResourcesPage() {
             <DeliverySection />
             <SignUpSection/>
             <CIPSection />
+            <FAQSection />
         </body>
     );
 }

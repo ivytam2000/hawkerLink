@@ -1,15 +1,7 @@
 import React, { useState } from "react";
-import "./SuggestPopUp.css";
+import "./PopUp.css";
 
 import { submitHawker } from "../services/SubmitHawkerSuggestion";
-
-// const [storeName, setStoreName] = useState(0);
-// const [location, setLocation] = useState(0);
-// const [address, setAddress] = useState(0);
-// const [region, setRegion] = useState(0);
-// const [hawkerName, setHawkerName] = useState(0);
-// const [hawkerNumber, setHawkerNumber] = useState(0);
-// const [languages, setLanguages] = useState([]);
 
 export default function SuggestPopUp(props) {
   const [modal, setModal] = useState(false);
@@ -22,7 +14,15 @@ export default function SuggestPopUp(props) {
   const toggleModalAndSubmit = (e) => {
     e.preventDefault();
     setModal(!modal);
-    submitHawker(props.storeName, props.location, props.region, props.languages);
+    submitHawker(
+      props.storeName,
+      props.hawkerCentre,
+      props.address,
+      props.hawkerName,
+      props.hawkerPhoneNumber,
+      props.region,
+      props.languages,
+      props.reasonForHelp);
   }
 
   return (

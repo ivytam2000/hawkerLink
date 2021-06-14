@@ -1,6 +1,6 @@
 import {GenericLayout} from '../Layout';
-import HawkerSearchBar from '../../components/HawkerSearchBar';
-import {SearchHawker} from '../../services/AssistHawker';
+import {HawkerSearchBar} from '../../components/HawkerSearchBar';
+import {SearchHawker} from '../../services/SearchHawker';
 import {HawkerSearchResults} from '../../components/HawkerSearchResults';
 import './LandingPage.css';
 import {Link} from "react-router-dom";

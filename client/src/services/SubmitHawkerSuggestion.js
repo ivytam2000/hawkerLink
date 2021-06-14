@@ -1,5 +1,5 @@
 
-export async function submitHawker(storeName, location, region, languages) {
+export async function submitHawker(storeName, hawkerCentre, address, hawkerName, hawkerPhoneNumber, region, languages, reasonForHelp) {
 
     const response = await fetch('/suggest-hawker', {
         method: 'POST',
@@ -8,10 +8,14 @@ export async function submitHawker(storeName, location, region, languages) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            store_name: storeName,
-            location: location,
+            storeName: storeName,
+            hawkerCentre: hawkerCentre,
+            address: address,
+            hawkerName: hawkerName,
+            hawkerPhoneNumber: hawkerPhoneNumber,
             region: region,
-            languages: languages
+            languages: languages,
+            reasonForHelp: reasonForHelp
         })
     });
 
