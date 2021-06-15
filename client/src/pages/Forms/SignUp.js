@@ -27,6 +27,10 @@ export function SignUpPage(props) {
    
     console.log(defaultIdField);
 
+    const store= [{id: 3,
+                  language: "English",
+                  location: "Tampines Hawker Centre",
+                  storeName: props.location.storeName}]
 
     const resultsData= props.location.resultsData
 
@@ -77,15 +81,28 @@ export function SignUpPage(props) {
 
     const userLanguages = props.location.userLanguages;
 
+    const [selectedStore] = useState(store);
+
     /* Fields Required for Assist-Hawker Post Request */
 
     const [name, setName] = useState(0);
     const [email, setEmail] = useState(0);
     const [number, setNumber] = useState(0);
-    const [hawkerIds, setHawkerIds] = useState(0);
+    const [hawkerIds, setHawkerIds] = useState([]);
     const [languages, setLanguages] = useState(userLanguages);
     const [availability, setAvailability] = useState([]);
     const [comfortable, setComfortable] = useState(0);
+
+    function clearFields(){
+      setName("");
+      setEmail("");
+      setNumber("");
+      setHawkerIds([]);
+      setLanguages([]);
+      setAvailability([]);
+      setComfortable("");
+
+    }
 
     function onSelectLanguages(selectedList, selectedItem) {
       setLanguages(selectedList.map((lang) => lang.Language));
@@ -127,6 +144,7 @@ export function SignUpPage(props) {
               closeOnSelect={false}
               onSelect={onSelectHawkers}
               onRemove={onSelectHawkers}
+              selectedValues={selectedStore}
               />
 
               {/* <input type="form-text" pattern="^[1-9]?[0-9](,[1-9]?[0-9])*$"id="ID" name="ID" defaultValue={defaultIdField} onChange={(e) => setHawkerIds(e.target.value)}></input></p> */}
@@ -177,7 +195,8 @@ export function SignUpPage(props) {
             number={number} 
             availability={availability} 
             languages={languages}
-            comfortable={comfortable}/>
+            comfortable={comfortable}
+            clearFields={clearFields}/>
             </form> 
             <div>
           <Link to="/assist"><button className= "search-btn">

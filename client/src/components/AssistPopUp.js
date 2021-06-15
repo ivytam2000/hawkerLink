@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./PopUp.css";
 import { AssistHawker } from "../services/AssistHawker";
 
+import { SignUpPage } from "../pages/Forms/SignUp";
+
 export function AssistPopUp(props) {
   const [modal, setModal] = useState(false);
 
@@ -18,11 +20,14 @@ export function AssistPopUp(props) {
         props.comfortable
       );
 
+    props.clearFields();
+
   };
 
   const toggleModalAndSubmit = (e) => {
     e.preventDefault();
     setModal(!modal);
+    props.clearFields();
   }
  
   return (
