@@ -27,6 +27,9 @@ export function SignUpPage(props) {
    
     console.log(defaultIdField);
 
+
+    const resultsData= props.location.resultsData
+
     const data = 
     [{Time: '9am-12pm (Mon)', Day: 'Monday'},
       {Time: '12pm-3pm (Mon)', Day: 'Monday'},
@@ -70,6 +73,8 @@ export function SignUpPage(props) {
 
     const [timeOptions] = useState(data);
 
+    const [storeOptions] = useState(resultsData);
+
     const userLanguages = props.location.userLanguages;
 
     /* Fields Required for Assist-Hawker Post Request */
@@ -90,6 +95,11 @@ export function SignUpPage(props) {
       setAvailability(selectedList.map((avail)=> avail.Time));
     }
 
+
+    function onSelectHawkers(selectedList, selectedItem){
+      setHawkerIds(selectedList.map((hawker)=> hawker.id));
+    }
+
     return (
         <body>
         <GenericLayout id={2}/>
@@ -108,8 +118,19 @@ export function SignUpPage(props) {
 
         <section className="form-content"> 
             <form action="/action_page.php">
-            <p><span class="label" for="ID">ID(s) of hawkers you're interested in helping (separated by commas if multiple)</span>
-            <input type="form-text" pattern="^[1-9]?[0-9](,[1-9]?[0-9])*$"id="ID" name="ID" defaultValue={defaultIdField} onChange={(e) => setHawkerIds(e.target.value)}></input></p>
+            <p><span class="label" for="ID">Hawker Store(s) you're interested in helping </span> </p>
+            <Multiselect
+              options={storeOptions}
+              displayValue="storeName"
+              showCheckbox={true}
+              placeholder="Hawker Stores"
+              closeOnSelect={false}
+              onSelect={onSelectHawkers}
+              onRemove={onSelectHawkers}
+              />
+
+              {/* <input type="form-text" pattern="^[1-9]?[0-9](,[1-9]?[0-9])*$"id="ID" name="ID" defaultValue={defaultIdField} onChange={(e) => setHawkerIds(e.target.value)}></input></p> */}
+            
             <span class="label" for="name">Name</span>
             <input type="form-text" id="name" name="name" onChange={(e) => setName(e.target.value)}></input>
             <p><span class="label" for="contact">Contact number</span>

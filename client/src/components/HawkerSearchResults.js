@@ -31,7 +31,8 @@ export function HawkerSearchResults(props) {
       location={info.location}
       languages={info.language}
       userLanguages={props.userLanguages}
-      selectedLanguages={props.selectedLanguages} /> </Grid>;
+      selectedLanguages={props.selectedLanguages}
+      resultsData={props.data} /> </Grid>;
   }
 
   function cardRowToGridRow(cardRow) {

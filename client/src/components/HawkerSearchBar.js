@@ -97,7 +97,7 @@ export function HawkerSearchBar(){
     searchData.then((result) => {
       if (Array.isArray(result) && result.length) {
         setData(result)
-        // console.log(this.state.data);
+        console.log(data);
       }
       });
 
