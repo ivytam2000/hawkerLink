@@ -39,7 +39,7 @@ def get_current_time():
     """
     return {'time': time.time()}
 
-@app.route('/hawkers', methods=['POST'])
+@app.route('/search-hawker', methods=['POST'])
 def get_hawkers():
     """
     Receives POST requests in the following format:
@@ -77,11 +77,12 @@ def get_hawkers():
     with Session(engine) as session:
         result = session.execute(unionized)
         
-        for acc in result:
-            hawkers.append({'id': acc.id,
-                            'storeName': acc.sname,
-                            'location': acc.hawker_centre,
-                            'language': acc.languages})
+        if result.rowcount != 0:
+            for acc in result:
+                hawkers.append({'id': acc.id,
+                                'storeName': acc.sname,
+                                'location': acc.hawker_centre,
+                                'language': acc.languages})
 
     return jsonify(hawkers)
 
