@@ -186,7 +186,7 @@ def assist_hawker():
     volunteers_table = Table('volunteer', volunteer_metadata, autoload_with=engine)
 
     # Attempt to parse hawkerIds
-    ids_list = hawkerIds.split(",")
+    ids_list = str(hawkerIds).split(",")
     re_pattern = re.compile(r"""
         (\d+) # Match any number of digits for hawker id
         .*    # Ignore any hawker store name
