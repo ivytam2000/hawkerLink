@@ -12,6 +12,8 @@ services:
             - POSTGRES_USER=${POSTGRES_USER}
             - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
             - DATABASE_ADDRESS=database
+            - SENDER_EMAIL=${SENDER_EMAIL}
+            - SENDER_PASSWORD=${SENDER_PASSWORD}
         ports:
             - '5000:5000'
         networks:
