@@ -198,16 +198,18 @@ def assist_hawker():
     matched_hawker = ''
     with Session(engine) as session:
         search_stmt = select([column('hname')]).where(and_(hawkers_table.c.id.in_(clean_ids_list), hawkers_table.c.assigned != 1))
-        result = session.execute(search_stmt)
+        result = session.execute(search_stmt).first()
         
         if result:
-            matched_hawker = result.first()[0]
+            matched_hawker = result[0]
         else:
             # Else find another hawker for the volunteer randomly
             if comfortable == "Yes":
                 search_stmt = select([column('hname')]).where(hawkers_table.c.assigned != 1)
-                result = session.execute(search_stmt)
-                matched_hawker = result.first()[0]
+                result = session.execute(search_stmt).first()
+
+                if result:
+                    matched_hawker = result[0]
 
     # If the hawker requested has already been taken and volunteer does not want
     # to be matched with other hawkers, return 2
@@ -242,11 +244,7 @@ def assist_hawker():
 
 #     search_stmt = select([column('hname')]).where(and_(hawkers_table.c.id.in_([1,2,3,4,5,6,7,8,9,10]), hawkers_table.c.assigned != 1))
 #     with Session(engine) as session:
-#         result = session.execute(search_stmt)
+#         result = session.execute(search_stmt).first()
 
-#         print(result.first()[0])
-#         stmt = update(hawkers_table).where(hawkers_table.c.id == 1).values(assigned=1)
-#         session.execute(stmt)
-#         session.commit()
-        # for hawker in result:
-        #     print(hawker.hname)
+#         if result:
+#             print(result[0])
