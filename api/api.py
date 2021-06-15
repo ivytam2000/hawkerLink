@@ -5,6 +5,7 @@ from flask import Flask, jsonify, request, abort
 from sqlalchemy import *
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
+from email_client import send_email
 
 # Environment variables
 POSTGRES_DB = os.environ.get('POSTGRES_DB')
@@ -12,12 +13,15 @@ POSTGRES_USER = os.environ.get('POSTGRES_USER')
 POSTGRES_PASSWORD = os.environ.get('POSTGRES_PASSWORD')
 DATABASE_ADDRESS = os.environ.get('DATABASE_ADDRESS') # Defined by network in docker-compose
 DATABASE_URI = ''
+PRODUCTION = False
 
 # Use postgresql if in production
 if not POSTGRES_DB or not POSTGRES_USER or not POSTGRES_PASSWORD or not DATABASE_ADDRESS:    
     DATABASE_URI = 'sqlite:///local.db'
+    PRODUCTION = False
 else:
     DATABASE_URI = 'postgresql://{}:{}@{}/{}'.format(POSTGRES_USER, POSTGRES_PASSWORD, DATABASE_ADDRESS, POSTGRES_DB)
+    PRODUCTION = True
 
 # Set up database and flask app
 app = Flask(__name__)
@@ -232,6 +236,11 @@ def assist_hawker():
             session.execute(update_stmt)
             session.execute(insert_stmt)
             session.commit()
+        
+        # Only send email if this is in production
+        if PRODUCTION:
+            send_email(email)
+        
     except IntegrityError:
         return "2"
 
