@@ -199,25 +199,20 @@ def assist_hawker():
         clean_ids_list.append(hawker_id)
 
     # Try to match hawker to volunteer
-    matched_hawker = ''
+    result = ''
     with Session(engine) as session:
-        search_stmt = select([column('hname')]).where(and_(hawkers_table.c.id.in_(clean_ids_list), hawkers_table.c.assigned != 1))
+        search_stmt = select(['*']).where(and_(hawkers_table.c.id.in_(clean_ids_list), hawkers_table.c.assigned != 1))
         result = session.execute(search_stmt).first()
         
-        if result:
-            matched_hawker = result[0]
-        else:
+        if not result:
             # Else find another hawker for the volunteer randomly
             if comfortable == "Yes":
-                search_stmt = select([column('hname')]).where(hawkers_table.c.assigned == 0)
+                search_stmt = select(['*']).where(hawkers_table.c.assigned == 0)
                 result = session.execute(search_stmt).first()
-
-                if result:
-                    matched_hawker = result[0]
 
     # If the hawker requested has already been taken and volunteer does not want
     # to be matched with other hawkers, return 2
-    if not matched_hawker:
+    if not result:
         return "2"
 
     # First cast our comfortable var to same type as the database, int
@@ -225,6 +220,8 @@ def assist_hawker():
         comfortable = 1
     else:
         comfortable = 0
+
+    matched_hawker = result.hname
 
     update_stmt = update(hawkers_table).where(hawkers_table.c.hname == matched_hawker).values(assigned=1)
     
@@ -242,10 +239,10 @@ def assist_hawker():
             session.execute(update_stmt)
             session.execute(insert_stmt)
             session.commit()
-        
+
         # Only send email if this is in production
         if PRODUCTION:
-            send_email(email)
+            send_email(email, name, matched_hawker, result.sname, result.address, result.phone_number, result.reason_for_help)
         
     except IntegrityError:
         return "3"
