@@ -21,7 +21,6 @@ import { ResourcesVerificationPage } from './pages/Resources/ResourcesVerified';
         <Route exact path="/assist" component={AssistMainPage} />
         <Route exact path="/suggesthawker" component={SuggestionPage} />
         <Route path="/signup" component={SignUpPage} />
-        <Route path="/page2" component={SignUpPage} />
         <Route path="/resources" component={ResourcesPage} />
         <Route path="/resources-verified" component={ResourcesVerificationPage} />
       </Switch>

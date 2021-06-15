@@ -22,11 +22,6 @@ export function SignUpPage(props) {
     defaultIdField = props.location.id + ' (' + props.location.storeName + ')';
   }
 
-  console.log(props.location.userLanguages);
-  console.log(props.location.selectedLanguages);
-
-  console.log(defaultIdField);
-
   const store = [{
     id: 3,
     language: "English",
@@ -136,8 +131,8 @@ export function SignUpPage(props) {
       </section>
 
       <section className="form-content">
-        <form action="/action_page.php">
-          <p><span class="label" for="ID">Hawker Store(s) you're interested in helping </span> </p>
+        <form>
+          <p><span className="label" for="ID">Hawker Store(s) you're interested in helping </span> </p>
           <Multiselect
             options={storeOptions}
             displayValue="storeName"
@@ -151,13 +146,13 @@ export function SignUpPage(props) {
 
           {/* <input type="form-text" pattern="^[1-9]?[0-9](,[1-9]?[0-9])*$"id="ID" name="ID" defaultValue={defaultIdField} onChange={(e) => setHawkerIds(e.target.value)}></input></p> */}
 
-          <span class="label" for="name">Name</span>
+          <span className="label" for="name">Name</span>
           <input type="form-text" id="name" name="name" onChange={(e) => setName(e.target.value)}></input>
-          <p><span class="label" for="contact">Contact number</span>
+          <p><span className="label" for="contact">Contact number</span>
             <input type="form-text" id="contact" name="contact" onChange={(e) => setNumber(e.target.value)}></input></p>
-          <p><span class="label" for="contact">Email Address</span>
+          <p><span className="label" for="contact">Email Address</span>
             <input type="form-text" id="email" name="email" onChange={(e) => setEmail(e.target.value)}></input></p>
-          <p><span class="label" for="availability">Your availability</span>
+          <p><span className="label" for="availability">Your availability</span>
             <div className="availability">
               <Multiselect
                 options={timeOptions}
@@ -171,7 +166,7 @@ export function SignUpPage(props) {
               />
             </div>
           </p>
-          <p><span class="label" for="language">What languages, including dialects, can you speak?</span>
+          <p><span className="label" for="language">What languages, including dialects, can you speak?</span>
             <Multiselect
               options={languagesOptions}
               displayValue="Language"
@@ -182,7 +177,7 @@ export function SignUpPage(props) {
               onRemove={onSelectLanguages}
               selectedValues={props.location.selectedLanguages}
             /> </p>
-          <p><span class="label" for="other">Are you comfortable with us asking you to help another hawker, if the hawkers you chose are unavailable?</span></p>
+          <p><span className="label" for="other">Are you comfortable with us asking you to help another hawker, if the hawkers you chose are unavailable?</span></p>
           <div>
             <div className="yn-radio">
               <input type="radio" value="Yes" name="help" onChange={(e) => setComfortable(e.target.value)} /> Yes
