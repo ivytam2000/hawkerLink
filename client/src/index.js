@@ -10,6 +10,7 @@ import { AssistMainPage } from './pages/AssistMain/AssistMain';
 import { SignUpPage } from './pages/Forms/SignUp';
 import { SuggestionPage } from './pages/Forms/Suggestion';
 import { ResourcesPage } from './pages/Resources/Resources'
+import { ResourcesVerificationPage } from './pages/Resources/ResourcesVerified';
 
  const rootElement = document.getElementById("root");
  ReactDOM.render(
@@ -22,11 +23,12 @@ import { ResourcesPage } from './pages/Resources/Resources'
         <Route path="/signup" component={SignUpPage} />
         <Route path="/page2" component={SignUpPage} />
         <Route path="/resources" component={ResourcesPage} />
+        <Route path="/resources-verified" component={ResourcesVerificationPage} />
       </Switch>
     </div>
    </BrowserRouter>,
    rootElement
- );
+ )
 
 // ReactDOM.render(
 //   <React.StrictMode>
