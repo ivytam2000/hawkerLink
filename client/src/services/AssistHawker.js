@@ -1,5 +1,5 @@
 
-export async function AssistHawker(name, email, hawkerIds, number, availability, languages) {
+export async function AssistHawker(name, email, hawkerIds, number, availability, languages, comfortable) {
 
     const response = await fetch('/assist-hawker', {
         method: 'POST',
@@ -13,7 +13,8 @@ export async function AssistHawker(name, email, hawkerIds, number, availability,
             hawkerIds: hawkerIds,
             number: number,
             availability: availability,
-            languages:languages
+            languages:languages,
+            comfortable: comfortable
         })
     });
 

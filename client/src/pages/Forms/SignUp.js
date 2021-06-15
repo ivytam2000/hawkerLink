@@ -80,6 +80,7 @@ export function SignUpPage(props) {
     const [hawkerIds, setHawkerIds] = useState(0);
     const [languages, setLanguages] = useState(userLanguages);
     const [availability, setAvailability] = useState([]);
+    const [comfortable, setComfortable] = useState(0);
 
     function onSelectLanguages(selectedList, selectedItem) {
       setLanguages(selectedList.map((lang) => lang.Language));
@@ -87,18 +88,6 @@ export function SignUpPage(props) {
 
     function onSelectAvailability(selectedList, selectedItem) {
       setAvailability(selectedList.map((avail)=> avail.Time));
-    }
-
-    const handleSubmit = (e) => {
-      e.preventDefault(); // prevents browser refresh
-      AssistHawker(
-        name,
-        email,
-        hawkerIds,
-        number,
-        availability,
-        languages
-      );
     }
 
     return (
@@ -155,14 +144,19 @@ export function SignUpPage(props) {
             <p><span class="label" for="other">Are you comfortable with us asking you to help another hawker, if the hawkers you chose are unavailable?</span></p>
             <div>
             <div className="yn-radio">
-            <input type="radio" value="Yes" name="help"/> Yes 
+           <input type="radio" value="Yes" name="help" onChange={(e) => setComfortable(e.target.value)} /> Yes 
             </div>
             <div className="yn-radio">
-            <input type="radio" value="No" name="help"/> No
+            <input type="radio" value="No" name="help" onChange={(e) => setComfortable(e.target.value)}/> No
             </div>
             </div>
-            <AssistPopUp name={name} email={email} hawkerIds={hawkerIds} 
-             number={number} availability={availability} languages={languages}/>
+            <AssistPopUp name={name} 
+            email={email} 
+            hawkerIds={hawkerIds} 
+            number={number} 
+            availability={availability} 
+            languages={languages}
+            comfortable={comfortable}/>
             </form> 
             <div>
           <Link to="/assist"><button className= "search-btn">
