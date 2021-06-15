@@ -177,7 +177,6 @@ def assist_hawker():
         languages = ", ".join(request.json['languages']) # Concat into a single string
         hawkerIds = request.json['hawkerIds']
     except KeyError as e:
-        return(str(e))
         return "1"
 
     hawker_metadata = MetaData()
@@ -220,6 +219,12 @@ def assist_hawker():
     # to be matched with other hawkers, return 2
     if not matched_hawker:
         return "2"
+
+    # First cast our comfortable var to same type as the database, int
+    if comfortable == "Yes":
+        comfortable = 1
+    else:
+        comfortable = 0
 
     update_stmt = update(hawkers_table).where(hawkers_table.c.hname == matched_hawker).values(assigned=1)
     
