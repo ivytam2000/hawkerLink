@@ -177,6 +177,7 @@ def assist_hawker():
         languages = ", ".join(request.json['languages']) # Concat into a single string
         hawkerIds = request.json['hawkerIds']
     except KeyError as e:
+        return(str(e))
         return "1"
 
     hawker_metadata = MetaData()
@@ -209,7 +210,7 @@ def assist_hawker():
         else:
             # Else find another hawker for the volunteer randomly
             if comfortable == "Yes":
-                search_stmt = select([column('hname')]).where(hawkers_table.c.assigned != 1)
+                search_stmt = select([column('hname')]).where(hawkers_table.c.assigned == 0)
                 result = session.execute(search_stmt).first()
 
                 if result:
@@ -242,7 +243,7 @@ def assist_hawker():
             send_email(email)
         
     except IntegrityError:
-        return "2"
+        return "3"
 
     return "0"
 
