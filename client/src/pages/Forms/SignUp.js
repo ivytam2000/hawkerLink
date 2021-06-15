@@ -3,7 +3,6 @@ import './Form.css';
 import { Link, useHistory } from "react-router-dom";
 import React, { useState } from "react";
 import { Multiselect } from "multiselect-react-dropdown";
-import { AssistHawker } from '../../services/AssistHawker.js';
 import { AssistPopUp } from '../../components/AssistPopUp';
 
 
