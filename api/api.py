@@ -1,5 +1,6 @@
 import time
 import os
+import re
 from flask import Flask, jsonify, request, abort
 from sqlalchemy import *
 from sqlalchemy.orm import Session
@@ -115,7 +116,6 @@ def suggest_hawker():
         reason_for_help = request.json['reasonForHelp']
         languages = ", ".join(request.json['languages']) # Concat into a single string
     except KeyError as e:
-        print(e)
         return "1"
 
     metadata = MetaData()
@@ -141,60 +141,112 @@ def suggest_hawker():
 
     return "0"
 
-# @app.route('/assist-hawker', methods=['POST'])
-# def suggest_hawker():
-#     """
-#     Receives POST requests in the following format:
-#         {
-#             'name': string,
-#             'email': string,
-#             'availability': [string],
-#             'phoneNumber': string,
-#             'comfortable': string, 
-#             'languages': [string],
-#             'hawkerIds'
-#         }
+@app.route('/assist-hawker', methods=['POST'])
+def assist_hawker():
+    """
+    Receives POST requests in the following format:
+        {
+            'name': string,
+            'email': string,
+            'phoneNumber': string,
+            'availability': [string],
+            'comfortable': string, 
+            'languages': [string],
+            'hawkerIds': string
+        }
 
-#     Returns "0" on success, "1" if input json is malformed,
-#     "2" if an existing entry already exists in the database.
-#     TODO: change to http error codes
-#     """
+    Returns "0" on success, "1" if input json is malformed,
+    "2" if a suitable hawker cannot be found
+    "3" if an existing entry already exists in the database.
+    TODO: change to http error codes
+    """
 
-#     if not request.json:
-#         abort(400)
+    if not request.json:
+        abort(400)
 
-#     try:
-#         store_name = request.json['storeName']
-#         hawker_centre = request.json['hawkerCentre']
-#         address = request.json['address']
-#         hawker_name = request.json['hawkerName']
-#         hawker_phone_number = request.json['hawkerPhoneNumber']
-#         region = request.json['region']
-#         reason_for_help = request.json['reasonForHelp']
-#         languages = ", ".join(request.json['languages']) # Concat into a single string
-#     except KeyError as e:
-#         print(e)
-#         return "1"
+    try:
+        name = request.json['name']
+        email = request.json['email']
+        phoneNumber = request.json['number']
+        availability = ", ".join(request.json['availability'])
+        comfortable = request.json['comfortable']
+        languages = ", ".join(request.json['languages']) # Concat into a single string
+        hawkerIds = request.json['hawkerIds']
+    except KeyError as e:
+        return "1"
 
-#     metadata = MetaData()
-#     hawkers_table = Table('hawker', metadata, autoload_with=engine)
+    hawker_metadata = MetaData()
+    hawkers_table = Table('hawker', hawker_metadata, autoload_with=engine)
+    
+    volunteer_metadata = MetaData()
+    volunteers_table = Table('volunteer', volunteer_metadata, autoload_with=engine)
 
-#     stmt = insert(hawkers_table).values(
-#         hname=hawker_name,
-#         sname=store_name, 
-#         phone_number=hawker_phone_number,
-#         reason_for_help=reason_for_help,
-#         languages=languages, 
-#         hawker_centre=hawker_centre,
-#         address=address,
-#         region=region,
-#         assigned=0)
+    # Attempt to parse hawkerIds
+    ids_list = hawkerIds.split(",")
+    re_pattern = re.compile(r"""
+        (\d+) # Match any number of digits for hawker id
+        .*    # Ignore any hawker store name
+        """, re.VERBOSE)
 
-#     try:
-#         with Session(engine) as session:
-#             session.execute(stmt)
-#             session.commit()
-#     except IntegrityError:
-#         return "2"
+    clean_ids_list = []
+    for id_ in ids_list:    
+        find = re.search(re_pattern, id_)
+        hawker_id = find.group(1) if find != None else None
+        clean_ids_list.append(hawker_id)
 
-#     return "0"
+    # Try to match hawker to volunteer
+    matched_hawker = ''
+    with Session(engine) as session:
+        search_stmt = select([column('hname')]).where(and_(hawkers_table.c.id.in_(clean_ids_list), hawkers_table.c.assigned != 1))
+        result = session.execute(search_stmt)
+        
+        if result:
+            matched_hawker = result.first()[0]
+        else:
+            # Else find another hawker for the volunteer randomly
+            if comfortable == "Yes":
+                search_stmt = select([column('hname')]).where(hawkers_table.c.assigned != 1)
+                result = session.execute(search_stmt)
+                matched_hawker = result.first()[0]
+
+    # If the hawker requested has already been taken and volunteer does not want
+    # to be matched with other hawkers, return 2
+    if not matched_hawker:
+        return "2"
+
+    update_stmt = update(hawkers_table).where(hawkers_table.c.hname == matched_hawker).values(assigned=1)
+    
+    insert_stmt = insert(volunteers_table).values(
+        vname=name,
+        email=email,
+        availability=availability,
+        phone_number=phoneNumber,
+        comfortable=comfortable,
+        languages=languages,
+        hname=matched_hawker)
+
+    try:
+        with Session(engine) as session:
+            session.execute(update_stmt)
+            session.execute(insert_stmt)
+            session.commit()
+    except IntegrityError:
+        return "2"
+
+    return "0"
+
+# if __name__ == "__main__":
+#     engine = create_engine(DATABASE_URI)
+#     hawker_metadata = MetaData()
+#     hawkers_table = Table('hawker', hawker_metadata, autoload_with=engine)
+
+#     search_stmt = select([column('hname')]).where(and_(hawkers_table.c.id.in_([1,2,3,4,5,6,7,8,9,10]), hawkers_table.c.assigned != 1))
+#     with Session(engine) as session:
+#         result = session.execute(search_stmt)
+
+#         print(result.first()[0])
+#         stmt = update(hawkers_table).where(hawkers_table.c.id == 1).values(assigned=1)
+#         session.execute(stmt)
+#         session.commit()
+        # for hawker in result:
+        #     print(hawker.hname)
