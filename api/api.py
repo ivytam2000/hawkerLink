@@ -157,7 +157,7 @@ def assist_hawker():
             'availability': [string],
             'comfortable': string, 
             'languages': [string],
-            'hawkerIds': string
+            'hawkerIds': [string]
         }
 
     Returns "0" on success, "1" if input json is malformed,
@@ -177,7 +177,7 @@ def assist_hawker():
         comfortable = request.json['comfortable']
         languages = ", ".join(request.json['languages']) # Concat into a single string
         hawkerIds = request.json['hawkerIds']
-    except KeyError as e:
+    except KeyError:
         return "1"
 
     hawker_metadata = MetaData()
@@ -186,23 +186,10 @@ def assist_hawker():
     volunteer_metadata = MetaData()
     volunteers_table = Table('volunteer', volunteer_metadata, autoload_with=engine)
 
-    # Attempt to parse hawkerIds
-    ids_list = str(hawkerIds).split(",")
-    re_pattern = re.compile(r"""
-        (\d+) # Match any number of digits for hawker id
-        .*    # Ignore any hawker store name
-        """, re.VERBOSE)
-
-    clean_ids_list = []
-    for id_ in ids_list:    
-        find = re.search(re_pattern, id_)
-        hawker_id = find.group(1) if find != None else None
-        clean_ids_list.append(hawker_id)
-
     # Try to match hawker to volunteer
     result = ''
     with Session(engine) as session:
-        search_stmt = select(['*']).where(and_(hawkers_table.c.id.in_(clean_ids_list), hawkers_table.c.assigned != 1))
+        search_stmt = select(['*']).where(and_(hawkers_table.c.id.in_(hawkerIds), hawkers_table.c.assigned != 1))
         result = session.execute(search_stmt).first()
         
         if not result:
