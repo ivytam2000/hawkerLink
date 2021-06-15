@@ -2,7 +2,7 @@
 
 export async function SearchHawker(regionNames, languageNames) {
 
-    const response = await fetch('/hawkers', {
+    const response = await fetch('/search-hawker', {
         method: 'POST',
         headers: {
             Accept: 'application/json',
