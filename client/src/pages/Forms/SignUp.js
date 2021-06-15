@@ -1,14 +1,27 @@
 import {GenericLayout} from '../Layout';
 import './Form.css';
-import {Link } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import React, { useState } from "react";
 import { Multiselect } from "multiselect-react-dropdown";
 import { AssistHawker}  from '../../services/AssistHawker.js';
 import { AssistPopUp } from '../../components/AssistPopUp';
 
-export function SignUpPage(props) {
 
-    const defaultIdField = props.location.id + ' (' + props.location.storeName + ')';
+export const Item = () => {
+    let history = useHistory();
+    return (
+        <>
+          <button onClick={() => history.goBack()}>Back</button>
+        </>
+    );
+};
+
+export function SignUpPage(props) {
+  var defaultIdField = ""
+  if(props.location.id){
+    defaultIdField =  props.location.id + ' (' + props.location.storeName + ')';
+  }
+
     console.log(props.location.userLanguages);
     console.log(props.location.selectedLanguages);
    
