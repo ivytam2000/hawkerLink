@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import "./PopUp.css";
 import { AssistHawker } from "../services/AssistHawker";
 
-import { SignUpPage } from "../pages/Forms/SignUp";
-
 export function AssistPopUp(props) {
   const [modal, setModal] = useState(false);
 

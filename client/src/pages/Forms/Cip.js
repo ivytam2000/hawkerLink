@@ -1,8 +1,6 @@
 import {GenericLayout} from '../Layout';
 import './Form.css';
-import {Link } from "react-router-dom";
-import React, { useState } from "react";
-import { Multiselect } from "multiselect-react-dropdown";
+import React from "react";
 
 export function Cip(props) {
 
