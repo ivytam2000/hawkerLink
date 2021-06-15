@@ -1,6 +1,5 @@
 import { GenericLayout } from '../Layout';
 import './Form.css';
-import { Link } from "react-router-dom";
 import { Multiselect } from "multiselect-react-dropdown";
 import React, { useState } from "react";
 import SuggestPopUp from '../../components/SuggestPopUp';
@@ -28,12 +27,13 @@ export function SuggestionPage() {
   const [regionOptions] = useState(regionChoices);
 
   const [storeName, setStoreName] = useState(0);
-  const [location, setLocation] = useState(0);
+  const [hawkerCentre, setHawkerCentre] = useState(0);
   const [address, setAddress] = useState(0);
   const [region, setRegion] = useState(0);
   const [hawkerName, setHawkerName] = useState(0);
-  const [hawkerNumber, setHawkerNumber] = useState(0);
+  const [hawkerPhoneNumber, setHawkerPhoneNumber] = useState(0);
   const [languages, setLanguages] = useState([]);
+  const [reasonForHelp, setReasonForHelp] = useState(0);
 
   function onSelectLanguages(selectedList, selectedItem) {
     setLanguages(selectedList.map((lang) => lang.Language));
@@ -69,16 +69,16 @@ export function SuggestionPage() {
       <section className="form-content">
         <form action="POST">
           <span class="label" for="stall">Name of hawker stall</span>
-          <input type="form-text" id="stall" name="store_name" onChange={(e) => setStoreName(e.target.value)}></input>
+          <input type="form-text" id="stall" onChange={(e) => setStoreName(e.target.value)}></input>
 
           <p>
             <span class="label" for="centre">Name of hawker centre</span>
-            <input type="form-text" id="centre" name="location" onChange={(e) => setLocation(e.target.value)}></input>
+            <input type="form-text" id="centre" onChange={(e) => setHawkerCentre(e.target.value)}></input>
           </p>
 
           <p>
             <span class="label" for="address">Address</span>
-            <input type="form-text" id="address" name="address" onChange={(e) => setAddress(e.target.value)}></input>
+            <input type="form-text" id="address" onChange={(e) => setAddress(e.target.value)}></input>
           </p>
 
           <p><span class="label" for="address">Region</span></p>
@@ -92,12 +92,12 @@ export function SuggestionPage() {
 
           <p>
             <span class="label" for="name">Hawker's name</span>
-            <input type="form-text" id="name" name="hawker_name" onChange={(e) => setHawkerName(e.target.value)}></input>
+            <input type="form-text" id="name" onChange={(e) => setHawkerName(e.target.value)}></input>
           </p>
 
           <p>
             <span class="label" for="number">Hawker's phone number</span>
-            <input type="form-text" id="number" name="hawker_number" onChange={(e) => setHawkerNumber(e.target.value)}></input>
+            <input type="form-text" id="number" onChange={(e) => setHawkerPhoneNumber(e.target.value)}></input>
           </p>
 
           <p>
@@ -131,9 +131,17 @@ export function SuggestionPage() {
               onRemove={onSelectLanguages}
             />
           </p>
-          <SuggestPopUp storeName={storeName} location={location} address={address} region={region} hawkerName={hawkerName} hawkerNumber={hawkerNumber} languages={languages}/>
+          <SuggestPopUp storeName={storeName}
+            hawkerCentre={hawkerCentre}
+            address={address}
+            region={region}
+            hawkerName={hawkerName}
+            hawkerPhoneNumber={hawkerPhoneNumber}
+            languages={languages}
+            reasonForHelp="Placeholder reason"/> 
+            {/* TODO: Update reason for help with actual value */}
         </form>
       </section>
     </body>
   );
-} 
+}

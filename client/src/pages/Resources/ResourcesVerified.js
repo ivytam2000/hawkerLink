@@ -71,6 +71,7 @@ function MeetupSection() {
             <a className={classes.anchors} id='meetup'> </a>
             <h1 className={classes.secTitles}> Meetup Guide </h1>
             <img src={helping} width='100%'></img>
+            <VerificationPopUp />
         </div>
     );
 }
@@ -125,7 +126,7 @@ function FAQSection() {
     );
 }
 
-export function ResourcesPage() {
+export function ResourcesVerificationPage() {
     document.documentElement.style.scrollBehavior = "smooth";
 
     return (

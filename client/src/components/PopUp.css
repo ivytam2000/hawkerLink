@@ -2,6 +2,43 @@ body.active-modal {
     overflow-y: hidden;
 }
 
+.popup-content {
+    font-family: Georgia, serif;
+    color: #0a0a0a;
+    font-size: 75%;
+    text-align: center;
+}
+
+
+.verfiy-content{
+        font-family: Georgia, serif;
+        color: #0a0a0a;
+        font-size: 75%;
+        text-align: center;
+}
+
+
+.btn-ok{
+    width:100%;
+    text-align:center;
+    background-color: #f3e6e6;
+    color: rgb(77, 72, 72);
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+   
+}
+
 .btn-modal {
     padding: 10px 20px;
     display: block;
@@ -62,9 +99,18 @@ body.active-modal {
 
 .close-modal {
     position: absolute;
+    font-family: Georgia, serif;
+    position: fixed;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../imgs/cross.png);
     top: 10px;
     right: 10px;
-    padding: 5px 7px;
+    padding: 10px 10px 10px 10px;
+    border-radius: 4px;
+    border-width:0.3px;
+    border-color:#b3afaf;
 }
 
 .submit-form{

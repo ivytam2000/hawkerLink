@@ -1,16 +1,20 @@
 
+export async function AssistHawker(name, email, hawkerIds, number, availability, languages, comfortable) {
 
-export async function SearchHawker(regionNames, languageNames) {
-
-    const response = await fetch('/hawkers', {
+    const response = await fetch('/assist-hawker', {
         method: 'POST',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            region: regionNames,
-            languages: languageNames
+            name: name,
+            email: email,
+            hawkerIds: hawkerIds,
+            number: number,
+            availability: availability,
+            languages:languages,
+            comfortable: comfortable
         })
     });
 
