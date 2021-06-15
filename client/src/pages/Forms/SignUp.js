@@ -17,8 +17,11 @@ export const Item = () => {
 };
 
 export function SignUpPage(props) {
+  var defaultIdField = ""
+  if(props.location.id){
+    defaultIdField =  props.location.id + ' (' + props.location.storeName + ')';
+  }
 
-    const defaultIdField = props.location.id + ' (' + props.location.storeName + ')';
     console.log(props.location.userLanguages);
     console.log(props.location.selectedLanguages);
    
@@ -97,8 +100,6 @@ export function SignUpPage(props) {
         languages
       );
     }
-
-    let history = useHistory();
 
     return (
         <body>
