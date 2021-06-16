@@ -2,7 +2,6 @@ import {Link} from "react-router-dom";
 import './Layout.css';
 
 export function GenericLayout(props) {
-    console.log(props.id);
     return (
         <div>
             <Header page={props.id}/>
@@ -13,7 +12,6 @@ export function GenericLayout(props) {
 
 // page parameter is an int 
 export function Header(props) {
-    console.log(props.page);
     const page = props.page;
     var resources = "header";
     var suggest = "header";

@@ -1,7 +1,6 @@
-import { Button, TextField } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import './HawkerSearchBar.css'
-import { InfoCard } from "./InfoCard";
 import { Multiselect } from "multiselect-react-dropdown";
 import { HawkerSearchResults } from "./HawkerSearchResults";
 import { SearchHawker } from "../services/SearchHawker";

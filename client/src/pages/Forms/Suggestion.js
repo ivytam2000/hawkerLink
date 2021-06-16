@@ -34,6 +34,7 @@ export function SuggestionPage() {
   const [hawkerPhoneNumber, setHawkerPhoneNumber] = useState(0);
   const [languages, setLanguages] = useState([]);
   const [reasonForHelp, setReasonForHelp] = useState(0);
+  const [othersFieldSelected, setOthersFieldSelected] = useState(0);
 
   function onSelectLanguages(selectedList, selectedItem) {
     setLanguages(selectedList.map((lang) => lang.Language));
@@ -41,6 +42,12 @@ export function SuggestionPage() {
 
   function onSelectRegion(selectedList, selectedItem) {
     setRegion(selectedItem.Region);
+  }
+
+  function setOthersField(text) {
+    if (othersFieldSelected) {
+      setReasonForHelp(text);
+    }
   }
 
   return (
@@ -105,18 +112,18 @@ export function SuggestionPage() {
           </p>
 
           <div className="reason-radio">
-            <input type="radio" value="Yes" name="help" /> IT-illiterate
+            <input type="radio" value="IT-illiterate" name="help" onChange={(e) => {setReasonForHelp(e.target.value); setOthersFieldSelected(false)}} /> IT-illiterate
             </div>
           <div className="reason-radio">
-            <input type="radio" value="No" name="help" /> Lack of proficiency in English/Chinese to sign-up
+            <input type="radio" value="Lack of proficiency in English/Chinese to sign-up" name="help" onChange={(e) => {setReasonForHelp(e.target.value); setOthersFieldSelected(false)}} /> Lack of proficiency in English/Chinese to sign-up
             </div>
           <div className="reason-radio">
-            <input type="radio" value="Yes" name="help" /> Others
+            <input type="radio" value="Others" name="help" onChange={() => setOthersFieldSelected(true)}/> Others
             </div>
 
           <p>
             <span class="label" for="help">If others, please specify: </span>
-            <input type="form-text" id="help" name="help"></input>
+            <input type="form-text" id="help" name="help" onChange={setOthersField}></input>
           </p>
 
           <p>
@@ -138,8 +145,7 @@ export function SuggestionPage() {
             hawkerName={hawkerName}
             hawkerPhoneNumber={hawkerPhoneNumber}
             languages={languages}
-            reasonForHelp="Placeholder reason"/> 
-            {/* TODO: Update reason for help with actual value */}
+            reasonForHelp={reasonForHelp}/> 
         </form>
       </section>
     </body>
