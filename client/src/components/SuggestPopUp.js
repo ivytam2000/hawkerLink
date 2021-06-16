@@ -23,6 +23,7 @@ export default function SuggestPopUp(props) {
       props.region,
       props.languages,
       props.reasonForHelp);
+      props.clearSuggestFields();
   }
 
   return (

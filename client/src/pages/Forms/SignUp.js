@@ -1,7 +1,7 @@
 import { GenericLayout } from '../Layout';
 import './Form.css';
 import { Link, useHistory } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Multiselect } from "multiselect-react-dropdown";
 import { AssistPopUp } from '../../components/AssistPopUp';
 
@@ -28,7 +28,40 @@ export function SignUpPage(props) {
     storeName: props.location.storeName
   }]
 
-  const resultsData = props.location.resultsData
+  var resultsData=[]
+
+  if(props.location.resultsData){
+      resultsData = props.location.resultsData
+  } else{
+    resultsData = [
+      {id: 1,language: "Mandarin, Hokkien", location: "Clementi Hawker Centre",
+       storeName: "Joyce Kueh"},
+
+       {id: 2, language: "Hokkien", location: "Clementi Hawker Centre", storeName: "Abangs Chicken Rice"},
+
+       {id: 3, language: "English", location: "Tampines Hawker Centre", storeName: "Zara Roast Pork Rice"},
+
+       {id: 4, language: "Hokkien, English", location: "Yishun Hawker Centre", storeName: "Pontian Wontonmee"},
+
+      {id: 5, language: "Hokkien", location: "Bukit Merah Hawker Centre", storeName: "Poks Hokkien Mee"},
+
+      {id: 6, language: "English, Malay", location: "Bukit Merah Hawker Centre", storeName: "Power Nasi Lemak"},
+
+      {id: 7, language: "English, Tamil", location: "Bukit Merah Hawker Centre", storeName: "SpringLeaf Prata"},
+
+      {id: 8, language: "English, Malay", location: "Clementi Hawker Centre", storeName: "Makcik Nasi Padang"},
+
+      {id: 9, language: "English", location: "Yishun Hawker Centre", storeName: "Bobs Burgers"},
+
+      {id: 10, language: "Mandarin, Hokkien", location: "Yishun Hawker Centre", storeName: "Ah Heng Fishball Noodles"},
+
+      {id: 11, language: "Hokkien, Mandarin, English", location: "Tampines Hawker Centre", storeName: "Encik Tan"},
+
+      {id: 12, language: "Mandarin", location: "Tampines Hawker Centre", storeName: "Mala Xiang Guo"}
+    ]
+  }
+
+ 
 
   const data =
     [{ Time: '9am-12pm (Mon)', Day: 'Monday' },
@@ -79,6 +112,11 @@ export function SignUpPage(props) {
 
   const [selectedStore] = useState(store);
 
+
+  const langRef = useRef(null);
+  const storeRef= useRef(null);
+  const availRef = useRef(null);
+
   /* Fields Required for Assist-Hawker Post Request */
 
     const [name, setName] = useState("");
@@ -88,6 +126,8 @@ export function SignUpPage(props) {
     const [languages, setLanguages] = useState(userLanguages);
     const [availability, setAvailability] = useState([]);
     const [comfortable, setComfortable] = useState(0);
+    const [checked, setChecked] = useState(false);
+
 
   function clearFields() {
     setName("");
@@ -97,7 +137,15 @@ export function SignUpPage(props) {
     setLanguages([]);
     setAvailability([]);
     setComfortable("");
+    setChecked(false);
 
+    resetValues();
+  }
+
+  function resetValues(){
+    storeRef.current.resetSelectedValues();
+    availRef.current.resetSelectedValues();
+    langRef.current.resetSelectedValues();
   }
 
   function onSelectLanguages(selectedList, selectedItem) {
@@ -141,6 +189,7 @@ export function SignUpPage(props) {
               onSelect={onSelectHawkers}
               onRemove={onSelectHawkers}
               selectedValues={selectedStore}
+              ref={storeRef}
               />
 
               {/* <input type="form-text" pattern="^[1-9]?[0-9](,[1-9]?[0-9])*$"id="ID" name="ID" defaultValue={defaultIdField} onChange={(e) => setHawkerIds(e.target.value)}></input></p> */}
@@ -162,6 +211,7 @@ export function SignUpPage(props) {
                 closeOnSelect={false}
                 onSelect={onSelectAvailability}
                 onRemove={onSelectAvailability}
+                ref={availRef}
               />
             </div>
           </p>
@@ -175,14 +225,18 @@ export function SignUpPage(props) {
               onSelect={onSelectLanguages}
               onRemove={onSelectLanguages}
               selectedValues={props.location.selectedLanguages}
+              ref={langRef}
             /> </p>
           <p><span className="label" for="other">Are you comfortable with us asking you to help another hawker, if the hawkers you chose are unavailable?</span></p>
           <div>
             <div className="yn-radio">
-              <input type="radio" value="Yes" name="help" onChange={(e) => setComfortable(e.target.value)} /> Yes
+              <input type="radio" checked={checked} name="help"
+              onClick={() => setChecked(true)} onChange={(e) => setComfortable(e.target.value)} /> Yes
             </div>
             <div className="yn-radio">
-              <input type="radio" value="No" name="help" onChange={(e) => setComfortable(e.target.value)} /> No
+              <input type="radio" checked={checked}name="help" 
+               onClick={() => setChecked(true)}
+               onChange={(e) => setComfortable(e.target.value)} /> No
             </div>
           </div>
           <AssistPopUp name={name}
