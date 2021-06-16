@@ -13,7 +13,7 @@ export function LandingPage() {
             <div className="graphic-wrapper">
             <div className="graphic-text">
                 <b>hawkerlink</b><br></br>
-                connects volunteers with elderly hawkers to help them register with food delivery platforms.
+                a non-profit that connects volunteers with elderly hawkers to help them register with food delivery platforms.
             </div>
             </div>
         </div>
