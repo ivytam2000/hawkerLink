@@ -62,6 +62,14 @@ export function AssistMainPage() {
         <body>
         <GenericLayout id={3} />
 
+        <div className="buffer"></div>
+        <div className="about-text">
+            <p>Hawkerlink is a service which links up tech-savvy volunteers 
+                to hawkers who need someone to help them register with food delivery services.</p>
+            <p>As a volunteer, you can help guide hawkers through the registration process of 
+                food delivery services to get them back on their feet.</p>
+        </div>
+
         <table className="icons">
         
             <tr className="main">
@@ -177,6 +185,11 @@ export function AssistMainPage() {
             </tr>
         </table>
 
+        <div className="about-text">
+            <p>Do you know a hawker that wants to get on delivery services but simply does not know how to? 
+                You can submit them to our database through "suggest a hawker".</p>
+        </div>
+
         {/* <div className="exp">
             <Link to="/findhawker">
             <button className="start-button">Start by finding a hawker</button> 
@@ -188,6 +201,7 @@ export function AssistMainPage() {
                 <HawkerSearchBar searchHawker={SearchHawker}/>
             </div>
         </section> */}
+        <div className="bot-buffer"></div>
         
         </body>
     );
