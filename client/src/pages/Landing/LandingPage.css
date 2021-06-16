@@ -3,11 +3,11 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 92%;
+    height: 95%;
     width: 100%;
     background-image: url("./hawker.png");
-    background-position-y: 72px;
-    background-position: right bottom;
+    background-position-y: 5px;
+    /* background-position: right bottom; */
     background-size: cover;
     text-align: justify;
   }
@@ -22,7 +22,7 @@
     margin-right: auto;
     width: 420px;
     padding: 40px;
-    background-color: rgba(0, 0, 0, 0.76);
+    background-color: rgba(0, 0, 0, 0.452);
     font-family: Georgia, serif;
     color: #ffffff;
     /* text-shadow: -1px 1px 2px rgb(32, 32, 32),
