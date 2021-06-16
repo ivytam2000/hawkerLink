@@ -43,6 +43,7 @@ export function HawkerSearchBar(){
     const storageLocation = JSON.parse(localStorage.getItem(LOCATION_CACHE))
     if(storageLocation){
       setSelectedLocations(storageLocation);
+      setLocations(storageLocation.map((loc) => loc.Location));
     }
   }, [])
 
@@ -54,6 +55,7 @@ export function HawkerSearchBar(){
     const storageLanguages = JSON.parse(localStorage.getItem(LANGUAGE_CACHE))
     if(storageLanguages){
       setSelectedLanguages(storageLanguages);
+      setLanguages(storageLanguages.map((lang) => lang.Language));
     }
   }, [])
 
