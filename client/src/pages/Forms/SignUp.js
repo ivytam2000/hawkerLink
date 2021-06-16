@@ -84,7 +84,7 @@ export function SignUpPage(props) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [number, setNumber] = useState("");
-    const [hawkerIds, setHawkerIds] = useState([]);
+    const [hawkerIds, setHawkerIds] = useState([props.location.id]);
     const [languages, setLanguages] = useState(userLanguages);
     const [availability, setAvailability] = useState([]);
     const [comfortable, setComfortable] = useState(0);
