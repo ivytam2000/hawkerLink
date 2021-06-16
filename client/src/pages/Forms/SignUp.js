@@ -21,12 +21,13 @@ export function SignUpPage(props) {
     defaultIdField = props.location.id + ' (' + props.location.storeName + ')';
   }
 
-  const store = [{
+  var store = props.location.storeName ? 
+  [{
     id: props.location.id,
     language: "",
     location: "",
     storeName: props.location.storeName
-  }]
+  }] : []
 
   var resultsData=[]
 
