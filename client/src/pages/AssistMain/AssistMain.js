@@ -51,12 +51,12 @@ export function AssistMainPage() {
         }
     }
 
-    window.addEventListener("load", function(){
+    window.onload = function() {
         var prepExp = document.getElementById("p-exp");
         prepExp.addEventListener("click", clickP, false);
         var helpExp = document.getElementById("h-exp");
         helpExp.addEventListener("click", clickH, false);
-    });
+    }
 
     return (
         <body>
@@ -117,7 +117,7 @@ export function AssistMainPage() {
 
                 <td class="icon-expand">
                     <img src={email} alt="Email" height="100px"></img>
-                    <p><button className="step">Receive email with instructions</button></p>
+                    <p><button className="step-nonclick">Receive email with instructions</button></p>
                 </td>
 
                 <td class="arrow-expand">
@@ -126,7 +126,7 @@ export function AssistMainPage() {
 
                 <td class="icon-expand">
                     <img src={training} alt="Training" height="100px"></img>
-                    <p><button className="step">Attend a short training program</button></p>
+                    <p><button className="step-nonclick">Attend a short training program</button></p>
                 </td>
 
                 <td class="arrow"></td>
@@ -183,11 +183,11 @@ export function AssistMainPage() {
             </Link>
         </div> */}
 
-        <section className="content">
+        {/* <section className="content">
             <div class = "text-alt-l">
                 <HawkerSearchBar searchHawker={SearchHawker}/>
             </div>
-        </section>
+        </section> */}
         
         </body>
     );
