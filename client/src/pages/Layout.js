@@ -38,10 +38,12 @@ export function Header(props) {
                     <Link to="/suggesthawker">
                     <li className={suggest}><a className="header" href="/">suggest a hawker</a></li>
                     </Link>
-                    <Link to="/assist">
+                    <Link to="/search">
                     <li className={assist}><a className="header" href="/">assist a hawker</a></li>
                     </Link>
+                    <Link to="/assist">
                     <li><a className="header" href="/">about us</a></li>
+                    </Link>
                 </ul>
             </nav>
         </header>
