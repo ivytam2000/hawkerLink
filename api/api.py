@@ -66,7 +66,7 @@ def get_hawkers():
     for language in language_query:
         for region in region_query:
             print(language, region)
-            all_queries.append(select(['*']).where(and_(hawker_table.c.region == region, hawker_table.c.languages.contains(language))))
+            all_queries.append(select(['*']).where(and_(hawker_table.c.region == region, hawker_table.c.languages.contains(language), hawker_table.c.assigned == 0)))
 
     unionized = union(*all_queries)
 

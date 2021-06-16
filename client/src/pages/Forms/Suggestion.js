@@ -132,10 +132,10 @@ export function SuggestionPage() {
           </p>
 
           <div className="reason-radio">
-            <input type="radio" checked={checked} onClick={() => setChecked(true)} name="help" onChange={(e) => {setReasonForHelp(e.target.value); setOthersFieldSelected(false)}} /> IT-illiterate
+            <input type="radio" value="IT-illiterate" checked={checked} onClick={() => setChecked(true)} name="help" onChange={(e) => {setReasonForHelp(e.target.value); setOthersFieldSelected(false)}} /> IT-illiterate
             </div>
           <div className="reason-radio">
-            <input type="radio" checked={checked} onClick={() => setChecked(true)} name="help" onChange={(e) => {setReasonForHelp(e.target.value); setOthersFieldSelected(false)}} /> Lack of proficiency in English/Chinese to sign-up
+            <input type="radio" value="Lack of proficiency in English/Chinese to sign-up" checked={checked} onClick={() => setChecked(true)} name="help" onChange={(e) => {setReasonForHelp(e.target.value); setOthersFieldSelected(false)}} /> Lack of proficiency in English/Chinese to sign-up
             </div>
           <div className="reason-radio">
             <input type="radio" checked={checked} onClick={() => setChecked(true)} name="help" onChange={() => setOthersFieldSelected(true)}/> Others
@@ -143,7 +143,7 @@ export function SuggestionPage() {
 
           <p>
             <span class="label" for="help">If others, please specify: </span>
-            <input type="form-text" id="help" name="help" onChange={(e)=> {setOtherReason(e.target.value); setOthersField(true)}} value={otherReason}></input>
+            <input type="form-text" id="help" name="help" onChange={(e)=> {setOtherReason(e.target.value); setOthersField(e.target.value)}} value={otherReason}></input>
           </p>
 
           <p>
