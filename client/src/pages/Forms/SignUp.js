@@ -85,9 +85,9 @@ export function SignUpPage(props) {
 
     /* Fields Required for Assist-Hawker Post Request */
 
-    const [name, setName] = useState(0);
-    const [email, setEmail] = useState(0);
-    const [number, setNumber] = useState(0);
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [number, setNumber] = useState("");
     const [hawkerIds, setHawkerIds] = useState([]);
     const [languages, setLanguages] = useState(userLanguages);
     const [availability, setAvailability] = useState([]);
@@ -150,11 +150,11 @@ export function SignUpPage(props) {
               {/* <input type="form-text" pattern="^[1-9]?[0-9](,[1-9]?[0-9])*$"id="ID" name="ID" defaultValue={defaultIdField} onChange={(e) => setHawkerIds(e.target.value)}></input></p> */}
             
             <span class="label" for="name">Name</span>
-            <input type="form-text" id="name" name="name" onChange={(e) => setName(e.target.value)}></input>
+            <input type="form-text" id="name" name="name" onChange={(e) => setName(e.target.value)} value={name}></input>
             <p><span class="label" for="contact">Contact number</span>
-            <input type="form-text" id="contact" name="contact" onChange={(e) => setNumber(e.target.value)}></input></p>
+            <input type="form-text" id="contact" name="contact" onChange={(e) => setNumber(e.target.value)} value={number}></input></p>
             <p><span class="label" for="contact">Email Address</span>
-            <input type="form-text" id="email" name="email" onChange={(e) => setEmail(e.target.value)}></input></p>
+            <input type="form-text" id="email" name="email" onChange={(e) => setEmail(e.target.value)} value={email}></input></p>
             <p><span class="label" for="availability">Your availability</span>
             <div className="availability">
             <Multiselect

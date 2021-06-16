@@ -20,8 +20,6 @@ export function AssistPopUp(props) {
         props.comfortable
       );
 
-    props.clearFields();
-
   };
 
   const toggleModalAndSubmit = (e) => {
