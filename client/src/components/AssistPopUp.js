@@ -23,6 +23,7 @@ export function AssistPopUp(props) {
   const toggleModalAndSubmit = (e) => {
     e.preventDefault();
     setModal(!modal);
+    props.clearFields();
   }
  
   return (

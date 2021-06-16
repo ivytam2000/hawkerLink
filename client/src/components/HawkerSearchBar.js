@@ -1,7 +1,6 @@
-import { Button, TextField } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import './HawkerSearchBar.css'
-import { InfoCard } from "./InfoCard";
 import { Multiselect } from "multiselect-react-dropdown";
 import { HawkerSearchResults } from "./HawkerSearchResults";
 import { SearchHawker } from "../services/SearchHawker";
@@ -44,6 +43,7 @@ export function HawkerSearchBar(){
     const storageLocation = JSON.parse(localStorage.getItem(LOCATION_CACHE))
     if(storageLocation){
       setSelectedLocations(storageLocation);
+      setLocations(storageLocation.map((loc) => loc.Location));
     }
   }, [])
 
@@ -55,6 +55,7 @@ export function HawkerSearchBar(){
     const storageLanguages = JSON.parse(localStorage.getItem(LANGUAGE_CACHE))
     if(storageLanguages){
       setSelectedLanguages(storageLanguages);
+      setLanguages(storageLanguages.map((lang) => lang.Language));
     }
   }, [])
 
@@ -97,7 +98,7 @@ export function HawkerSearchBar(){
     searchData.then((result) => {
       if (Array.isArray(result) && result.length) {
         setData(result)
-        // console.log(this.state.data);
+        console.log(data);
       }
       });
 

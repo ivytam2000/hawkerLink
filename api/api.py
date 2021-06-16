@@ -1,6 +1,5 @@
 import time
 import os
-import re
 from flask import Flask, jsonify, request, abort
 from sqlalchemy import *
 from sqlalchemy.orm import Session
@@ -39,7 +38,7 @@ def get_current_time():
     """
     return {'time': time.time()}
 
-@app.route('/hawkers', methods=['POST'])
+@app.route('/search-hawker', methods=['POST'])
 def get_hawkers():
     """
     Receives POST requests in the following format:
@@ -67,7 +66,7 @@ def get_hawkers():
     for language in language_query:
         for region in region_query:
             print(language, region)
-            all_queries.append(select(['*']).where(and_(hawker_table.c.region == region, hawker_table.c.languages.contains(language))))
+            all_queries.append(select(['*']).where(and_(hawker_table.c.region == region, hawker_table.c.languages.contains(language), hawker_table.c.assigned == 0)))
 
     unionized = union(*all_queries)
 
@@ -77,11 +76,12 @@ def get_hawkers():
     with Session(engine) as session:
         result = session.execute(unionized)
         
-        for acc in result:
-            hawkers.append({'id': acc.id,
-                            'storeName': acc.sname,
-                            'location': acc.hawker_centre,
-                            'language': acc.languages})
+        if result.rowcount != 0:
+            for acc in result:
+                hawkers.append({'id': acc.id,
+                                'storeName': acc.sname,
+                                'location': acc.hawker_centre,
+                                'language': acc.languages})
 
     return jsonify(hawkers)
 
@@ -156,7 +156,7 @@ def assist_hawker():
             'availability': [string],
             'comfortable': string, 
             'languages': [string],
-            'hawkerIds': string
+            'hawkerIds': [string]
         }
 
     Returns "0" on success, "1" if input json is malformed,
@@ -176,7 +176,7 @@ def assist_hawker():
         comfortable = request.json['comfortable']
         languages = ", ".join(request.json['languages']) # Concat into a single string
         hawkerIds = request.json['hawkerIds']
-    except KeyError as e:
+    except KeyError:
         return "1"
 
     hawker_metadata = MetaData()
@@ -185,23 +185,10 @@ def assist_hawker():
     volunteer_metadata = MetaData()
     volunteers_table = Table('volunteer', volunteer_metadata, autoload_with=engine)
 
-    # Attempt to parse hawkerIds
-    ids_list = str(hawkerIds).split(",")
-    re_pattern = re.compile(r"""
-        (\d+) # Match any number of digits for hawker id
-        .*    # Ignore any hawker store name
-        """, re.VERBOSE)
-
-    clean_ids_list = []
-    for id_ in ids_list:    
-        find = re.search(re_pattern, id_)
-        hawker_id = find.group(1) if find != None else None
-        clean_ids_list.append(hawker_id)
-
     # Try to match hawker to volunteer
     result = ''
     with Session(engine) as session:
-        search_stmt = select(['*']).where(and_(hawkers_table.c.id.in_(clean_ids_list), hawkers_table.c.assigned != 1))
+        search_stmt = select(['*']).where(and_(hawkers_table.c.id.in_(hawkerIds), hawkers_table.c.assigned != 1))
         result = session.execute(search_stmt).first()
         
         if not result:

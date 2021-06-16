@@ -51,23 +51,31 @@ export function AssistMainPage() {
         }
     }
 
-    window.addEventListener("load", function(){
+    window.onload = function() {
         var prepExp = document.getElementById("p-exp");
         prepExp.addEventListener("click", clickP, false);
         var helpExp = document.getElementById("h-exp");
         helpExp.addEventListener("click", clickH, false);
-    });
+    }
 
     return (
         <body>
         <GenericLayout id={3} />
+
+        <div className="buffer"></div>
+        <div className="about-text">
+            <p>Hawkerlink is a service which links up tech-savvy volunteers 
+                to hawkers who need someone to help them register with food delivery services.</p>
+            <p>As a volunteer, you can help guide hawkers through the registration process of 
+                food delivery services to get them back on their feet.</p>
+        </div>
 
         <table className="icons">
         
             <tr className="main">
                 <td class="icon">
                     <img src={register} alt= "Register" width="100px" height="100px"></img>
-                    <Link to="/page2">
+                    <Link to="/signup">
                     <p><button className="step">Sign up</button></p>
                     </Link>
                 </td> 
@@ -117,7 +125,7 @@ export function AssistMainPage() {
 
                 <td class="icon-expand">
                     <img src={email} alt="Email" height="100px"></img>
-                    <p><button className="step">Receive email with instructions</button></p>
+                    <p><button className="step-nonclick">Receive email with instructions</button></p>
                 </td>
 
                 <td class="arrow-expand">
@@ -126,7 +134,7 @@ export function AssistMainPage() {
 
                 <td class="icon-expand">
                     <img src={training} alt="Training" height="100px"></img>
-                    <p><button className="step">Attend a short training program</button></p>
+                    <p><button className="step-nonclick">Attend a short training program</button></p>
                 </td>
 
                 <td class="arrow"></td>
@@ -177,17 +185,23 @@ export function AssistMainPage() {
             </tr>
         </table>
 
+        <div className="about-text">
+            <p>Do you know a hawker that wants to get on delivery services but simply does not know how to? 
+                You can submit them to our database through "suggest a hawker".</p>
+        </div>
+
         {/* <div className="exp">
             <Link to="/findhawker">
             <button className="start-button">Start by finding a hawker</button> 
             </Link>
         </div> */}
 
-        <section className="content">
+        {/* <section className="content">
             <div class = "text-alt-l">
                 <HawkerSearchBar searchHawker={SearchHawker}/>
             </div>
-        </section>
+        </section> */}
+        <div className="bot-buffer"></div>
         
         </body>
     );

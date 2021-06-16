@@ -2,7 +2,6 @@ import {Link} from "react-router-dom";
 import './Layout.css';
 
 export function GenericLayout(props) {
-    console.log(props.id);
     return (
         <div>
             <Header page={props.id}/>
@@ -13,7 +12,6 @@ export function GenericLayout(props) {
 
 // page parameter is an int 
 export function Header(props) {
-    console.log(props.page);
     const page = props.page;
     var resources = "header";
     var suggest = "header";
@@ -40,10 +38,12 @@ export function Header(props) {
                     <Link to="/suggesthawker">
                     <li className={suggest}><a className="header" href="/">suggest a hawker</a></li>
                     </Link>
-                    <Link to="/assist">
+                    <Link to="/search">
                     <li className={assist}><a className="header" href="/">assist a hawker</a></li>
                     </Link>
+                    <Link to="/assist">
                     <li><a className="header" href="/">about us</a></li>
+                    </Link>
                 </ul>
             </nav>
         </header>

@@ -32,7 +32,7 @@ export function InfoCard(props) {
   const imageLink = "hawker_cards/" + props.id + ".jpg";
 
   return (
-    <Link style={{ textDecoration: 'none' }} to={{pathname:"/page2", id: props.id, storeName: props.storeName, userLanguages:props.userLanguages, selectedLanguages:props.selectedLanguages}}>
+    <Link style={{ textDecoration: 'none' }} to={{pathname:"/signup", id: props.id, storeName: props.storeName, userLanguages:props.userLanguages, selectedLanguages:props.selectedLanguages, resultsData:props.resultsData}}>
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia

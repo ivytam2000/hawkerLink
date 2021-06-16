@@ -1,7 +1,7 @@
 import { GenericLayout } from '../Layout';
 import './Form.css';
 import { Multiselect } from "multiselect-react-dropdown";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import SuggestPopUp from '../../components/SuggestPopUp';
 
 export function SuggestionPage() {
@@ -26,14 +26,17 @@ export function SuggestionPage() {
   const [languagesOptions] = useState(languageChoices);
   const [regionOptions] = useState(regionChoices);
 
-  const [storeName, setStoreName] = useState(0);
-  const [hawkerCentre, setHawkerCentre] = useState(0);
-  const [address, setAddress] = useState(0);
+  const [storeName, setStoreName] = useState("");
+  const [hawkerCentre, setHawkerCentre] = useState("");
+  const [address, setAddress] = useState("");
   const [region, setRegion] = useState(0);
-  const [hawkerName, setHawkerName] = useState(0);
-  const [hawkerPhoneNumber, setHawkerPhoneNumber] = useState(0);
+  const [hawkerName, setHawkerName] = useState("");
+  const [hawkerPhoneNumber, setHawkerPhoneNumber] = useState("");
   const [languages, setLanguages] = useState([]);
-  const [reasonForHelp, setReasonForHelp] = useState(0);
+  const [reasonForHelp, setReasonForHelp] = useState("");
+  const [otherReason, setOtherReason] = useState("");
+  const [checked, setChecked] = useState(false);
+  const [othersFieldSelected, setOthersFieldSelected] = useState(false);
 
   function onSelectLanguages(selectedList, selectedItem) {
     setLanguages(selectedList.map((lang) => lang.Language));
@@ -42,6 +45,29 @@ export function SuggestionPage() {
   function onSelectRegion(selectedList, selectedItem) {
     setRegion(selectedItem.Region);
   }
+
+  function setOthersField(text) {
+    if (othersFieldSelected) {
+      setReasonForHelp(text);
+    }
+  }
+
+  const langRef = useRef(null);
+  const regionRef= useRef(null);
+
+  function clearSuggestFields(){
+    setStoreName("");
+    setHawkerCentre("");
+    setAddress("");
+    setHawkerName("");
+    setHawkerPhoneNumber("");
+    setOtherReason("");
+    langRef.current.resetSelectedValues();
+    regionRef.current.resetSelectedValues();
+    setChecked(false);
+
+  }
+
 
   return (
     <body>
@@ -69,16 +95,16 @@ export function SuggestionPage() {
       <section className="form-content">
         <form action="POST">
           <span class="label" for="stall">Name of hawker stall</span>
-          <input type="form-text" id="stall" onChange={(e) => setStoreName(e.target.value)}></input>
+          <input type="form-text" id="stall" onChange={(e) => setStoreName(e.target.value)} value={storeName}></input>
 
           <p>
             <span class="label" for="centre">Name of hawker centre</span>
-            <input type="form-text" id="centre" onChange={(e) => setHawkerCentre(e.target.value)}></input>
+            <input type="form-text" id="centre" onChange={(e) => setHawkerCentre(e.target.value)} value={hawkerCentre}></input>
           </p>
 
           <p>
             <span class="label" for="address">Address</span>
-            <input type="form-text" id="address" onChange={(e) => setAddress(e.target.value)}></input>
+            <input type="form-text" id="address" onChange={(e) => setAddress(e.target.value)} value={address}></input>
           </p>
 
           <p><span class="label" for="address">Region</span></p>
@@ -88,16 +114,17 @@ export function SuggestionPage() {
             singleSelect
             placeholder="Region"
             onSelect={onSelectRegion}
+            ref={regionRef}
           />
 
           <p>
             <span class="label" for="name">Hawker's name</span>
-            <input type="form-text" id="name" onChange={(e) => setHawkerName(e.target.value)}></input>
+            <input type="form-text" id="name" onChange={(e) => setHawkerName(e.target.value)} value={hawkerName}></input>
           </p>
 
           <p>
             <span class="label" for="number">Hawker's phone number</span>
-            <input type="form-text" id="number" onChange={(e) => setHawkerPhoneNumber(e.target.value)}></input>
+            <input type="form-text" id="number" onChange={(e) => setHawkerPhoneNumber(e.target.value)} value={hawkerPhoneNumber}></input>
           </p>
 
           <p>
@@ -105,18 +132,18 @@ export function SuggestionPage() {
           </p>
 
           <div className="reason-radio">
-            <input type="radio" value="Yes" name="help" /> IT-illiterate
+            <input type="radio" value="IT-illiterate" checked={checked} onClick={() => setChecked(true)} name="help" onChange={(e) => {setReasonForHelp(e.target.value); setOthersFieldSelected(false)}} /> IT-illiterate
             </div>
           <div className="reason-radio">
-            <input type="radio" value="No" name="help" /> Lack of proficiency in English/Chinese to sign-up
+            <input type="radio" value="Lack of proficiency in English/Chinese to sign-up" checked={checked} onClick={() => setChecked(true)} name="help" onChange={(e) => {setReasonForHelp(e.target.value); setOthersFieldSelected(false)}} /> Lack of proficiency in English/Chinese to sign-up
             </div>
           <div className="reason-radio">
-            <input type="radio" value="Yes" name="help" /> Others
+            <input type="radio" checked={checked} onClick={() => setChecked(true)} name="help" onChange={() => setOthersFieldSelected(true)}/> Others
             </div>
 
           <p>
             <span class="label" for="help">If others, please specify: </span>
-            <input type="form-text" id="help" name="help"></input>
+            <input type="form-text" id="help" name="help" onChange={(e)=> {setOtherReason(e.target.value); setOthersField(e.target.value)}} value={otherReason}></input>
           </p>
 
           <p>
@@ -129,6 +156,7 @@ export function SuggestionPage() {
               closeOnSelect={false}
               onSelect={onSelectLanguages}
               onRemove={onSelectLanguages}
+              ref={langRef}
             />
           </p>
           <SuggestPopUp storeName={storeName}
@@ -138,8 +166,8 @@ export function SuggestionPage() {
             hawkerName={hawkerName}
             hawkerPhoneNumber={hawkerPhoneNumber}
             languages={languages}
-            reasonForHelp="Placeholder reason"/> 
-            {/* TODO: Update reason for help with actual value */}
+            reasonForHelp={reasonForHelp}
+            clearSuggestFields={clearSuggestFields}/> 
         </form>
       </section>
     </body>

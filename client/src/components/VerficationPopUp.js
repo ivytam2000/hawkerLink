@@ -14,6 +14,8 @@ export function VerificationPopUp(props) {
   const toggleModalAndSubmit = (e) => {
     e.preventDefault();
     setModal(!modal);
+
+    /* TODO: verfication stuff function */
     submitHawker(
       props.storeName,
       props.hawkerCentre,
