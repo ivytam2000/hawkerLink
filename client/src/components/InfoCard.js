@@ -10,6 +10,9 @@ import {Link} from 'react-router-dom';
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
+    borderStyle: 'solid',
+    borderColor: 'white',
+    borderWidth: 5,
   },
   media: {
     height: 200,
@@ -31,9 +34,25 @@ export function InfoCard(props) {
 
   const imageLink = "hawker_cards/" + props.id + ".jpg";
 
+  var selected = false;
+
+  function infoToSubmit() {
+    var cardSelected = document.getElementById(props.id);
+    console.log(cardSelected.style.borderColor);
+    if (!selected) {
+      props.infoFromCard(props.id, props.storeName);
+      cardSelected.style.borderColor = '#C5343B';
+      selected = true;
+    } else {
+      props.removeInfo(props.id);
+      cardSelected.style.borderColor = 'white';
+      selected = false;
+    }
+  }
+
   return (
-    <Link style={{ textDecoration: 'none' }} to={{pathname:"/signup", id: props.id, storeName: props.storeName, userLanguages:props.userLanguages, selectedLanguages:props.selectedLanguages, resultsData:props.resultsData}}>
-    <Card className={classes.root}>
+    // <Link style={{ textDecoration: 'none' }} to={{pathname:"/signup", id: props.id, storeName: props.storeName, userLanguages:props.userLanguages, selectedLanguages:props.selectedLanguages, resultsData:props.resultsData}}>
+    <Card onClick={infoToSubmit} className={classes.root} id={props.id}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
@@ -53,6 +72,6 @@ export function InfoCard(props) {
         </CardContent>
       </CardActionArea>
     </Card>
-   </Link>
+   //  </Link>
   );
 }
