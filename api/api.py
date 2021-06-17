@@ -1,13 +1,12 @@
 import time
 import os
-from dateutil import parser
 import datetime as DT
 import dateutil.relativedelta as REL
 from flask import Flask, jsonify, request, abort
 from sqlalchemy import *
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
-from email_client import send_email
+from email_client import send_confirmation_email, send_booking_email
 
 # Environment variables
 POSTGRES_DB = os.environ.get('POSTGRES_DB')
@@ -233,7 +232,7 @@ def assist_hawker():
         # Only send email if this is in production
         # if PRODUCTION:
             vid = session.execute(search_stmt).first().id
-            send_email(email, vid, name, matched_hawker, result.sname, result.address, result.phone_number, result.reason_for_help)
+            send_confirmation_email(email, vid, name, matched_hawker, result.sname, result.address, result.phone_number, result.reason_for_help)
         
     except IntegrityError:
         return "3"
@@ -267,6 +266,9 @@ def book_training():
 
     booking_metadata = MetaData()
     booking_table = Table('booking', booking_metadata, autoload_with=engine)
+
+    volunteer_metadata = MetaData()
+    volunteer_table = Table('volunteer', volunteer_metadata, autoload_with=engine)
 
     if request.method == 'GET':
 
@@ -315,6 +317,8 @@ def book_training():
             vid=id
         )
 
+        volunteer_data_stmt = select([column('vname'), column('email')]).where(volunteer_table.c.id == id)
+
         with Session(engine) as session:
             results = session.execute(check_stmt).all()
 
@@ -325,5 +329,9 @@ def book_training():
                 session.execute(insert_stmt)
             
             session.commit()
+
+            # if PRODUCTION:
+            volunteer_data = session.execute(volunteer_data_stmt).first()
+            send_booking_email(volunteer_data.email, id, volunteer_data.vname, start_time)
 
         return jsonify(success=True)
