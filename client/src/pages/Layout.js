@@ -32,8 +32,8 @@ export function Header(props) {
             </div>
             <nav className="main-nav" id="nav">
                 <ul className="main-nav-links">
-                    <Link to="/resources">
-                    <li className={resources}><a className="header"href="/">resources</a></li>
+                    <Link to="/assist">
+                    <li className={resources}><a className="header"href="/">about us</a></li>
                     </Link>
                     <Link to="/suggesthawker">
                     <li className={suggest}><a className="header" href="/">suggest a hawker</a></li>
@@ -41,8 +41,8 @@ export function Header(props) {
                     <Link to="/search">
                     <li className={assist}><a className="header" href="/">assist a hawker</a></li>
                     </Link>
-                    <Link to="/assist">
-                    <li><a className="header" href="/">about us</a></li>
+                    <Link to="/resources">
+                    <li><a className="header" href="/">resources</a></li>
                     </Link>
                 </ul>
             </nav>
