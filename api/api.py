@@ -264,11 +264,10 @@ def book_training():
     
     """
 
-    if request.method == 'GET':
-        engine = create_engine(DATABASE_URI)
-        booking_metadata = MetaData()
-        booking_table = Table('booking', booking_metadata, autoload_with=engine)
+    booking_metadata = MetaData()
+    booking_table = Table('booking', booking_metadata, autoload_with=engine)
 
+    if request.method == 'GET':
         # Create datetime objects to use in query
         today = DT.date.today()
         sat_midnight = today + REL.relativedelta(days=1, weekday=REL.SA)
@@ -302,43 +301,38 @@ def book_training():
         return jsonify(booking_counts)
 
     elif request.method == 'POST':
-        pass
+        if not request.json:
+            abort(400)
+
+        try:
+            id = request.json['id']
+            start_time = request.json['startTime']
+        except KeyError:
+            return "1"
+
+        # Craft statements for checking, updating and inserting
+        check_stmt = select(['*']).where(booking_table.c.vid == id)
+        update_stmt = update(booking_table).where(booking_table.c.vid == id).values(datetime=start_time)
+        insert_stmt = insert(booking_table).values(
+            datetime=start_time,
+            vid=id
+        )
+
+        with Session(engine) as session:
+            results = session.execute(check_stmt).all()
+
+            # Update user's booking if already exists, if not insert new one
+            if results:
+                session.execute(update_stmt)
+            else:
+                session.execute(insert_stmt)
+            
+            session.commit()
     
 
 if __name__ == "__main__":
-    engine = create_engine(DATABASE_URI)
-    booking_metadata = MetaData()
-    booking_table = Table('booking', booking_metadata, autoload_with=engine)
 
-    # Create datetime objects to use in query
-    today = DT.date.today()
-    sat_midnight = today + REL.relativedelta(days=1, weekday=REL.SA)
-    sun_midnight = sat_midnight + REL.relativedelta(days=1)
-    mon_midnight = sun_midnight + REL.relativedelta(days=1)
 
-    next_sat_midnight = today + REL.relativedelta(days=7, weekday=REL.SA)
-    next_sun_midnight = next_sat_midnight + REL.relativedelta(days=1)
-    next_mon_midnight = next_sun_midnight + REL.relativedelta(days=1)
-
-    # Create four queries, for this weekend and next
-    this_sat_query = select(['*']).where(and_(booking_table.c.datetime > sat_midnight, booking_table.c.datetime < sun_midnight))
-    this_sun_query = select(['*']).where(and_(booking_table.c.datetime > sun_midnight, booking_table.c.datetime < mon_midnight))
-
-    next_sat_query = select(['*']).where(and_(booking_table.c.datetime > next_sat_midnight, booking_table.c.datetime < sun_midnight))
-    next_sun_query = select(['*']).where(and_(booking_table.c.datetime > next_sun_midnight, booking_table.c.datetime < next_mon_midnight))
-
-    # Actually query database and build json return object
-    booking_counts = []
-    max_bookings = 5
-    with Session(engine) as session:
-        booking_counts.append({'startTime': (sat_midnight + REL.relativedelta(hours=15)).isoformat(),
-                               'availability': max_bookings - len(session.execute(this_sat_query).all())})
-        booking_counts.append({'startTime': (sun_midnight + REL.relativedelta(hours=15)).isoformat(),
-                               'availability': max_bookings - len(session.execute(this_sun_query).all())})
-        booking_counts.append({'startTime': (next_sat_midnight + REL.relativedelta(hours=15)).isoformat(),
-                               'availability': max_bookings - len(session.execute(next_sat_query).all())})
-        booking_counts.append({'startTime': (next_sun_midnight + REL.relativedelta(hours=15)).isoformat(),
-                               'availability': max_bookings - len(session.execute(next_sun_query).all())})
 
     # return jsonify(booking_counts)
 
