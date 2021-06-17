@@ -214,7 +214,6 @@ def assist_hawker():
     matched_hawker = result.hname
 
     update_stmt = update(hawkers_table).where(hawkers_table.c.hname == matched_hawker).values(assigned=1)
-    
     insert_stmt = insert(volunteers_table).values(
         vname=name,
         email=email,
@@ -223,6 +222,7 @@ def assist_hawker():
         comfortable=comfortable,
         languages=languages,
         hname=matched_hawker)
+    search_stmt = select([column('id')]).where(volunteers_table.c.vname == name)
 
     try:
         with Session(engine) as session:
@@ -231,13 +231,14 @@ def assist_hawker():
             session.commit()
 
         # Only send email if this is in production
-        if PRODUCTION:
-            send_email(email, name, matched_hawker, result.sname, result.address, result.phone_number, result.reason_for_help)
+        # if PRODUCTION:
+            vid = session.execute(search_stmt).first().id
+            send_email(email, vid, name, matched_hawker, result.sname, result.address, result.phone_number, result.reason_for_help)
         
     except IntegrityError:
         return "3"
 
-    return "0"
+    return jsonify(success=True)
 
 @app.route('/booking', methods=['GET', 'POST'])
 def book_training():
@@ -328,3 +329,5 @@ def book_training():
                 session.execute(insert_stmt)
             
             session.commit()
+
+        return jsonify(success=True)
