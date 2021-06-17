@@ -75,7 +75,7 @@ export function AssistMainPage() {
             <tr className="main">
                 <td class="icon">
                     <img src={register} alt= "Register" width="100px" height="100px"></img>
-                    <Link to="/signup">
+                    <Link to="/search">
                     <p><button className="step">Sign up</button></p>
                     </Link>
                 </td> 
