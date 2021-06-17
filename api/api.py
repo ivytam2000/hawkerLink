@@ -269,35 +269,31 @@ def book_training():
     booking_table = Table('booking', booking_metadata, autoload_with=engine)
 
     if request.method == 'GET':
+
         # Create datetime objects to use in query
         today = DT.date.today()
-        sat_midnight = today + REL.relativedelta(days=1, weekday=REL.SA)
-        sun_midnight = sat_midnight + REL.relativedelta(days=1)
-        mon_midnight = sun_midnight + REL.relativedelta(days=1)
-
-        next_sat_midnight = today + REL.relativedelta(days=7, weekday=REL.SA)
-        next_sun_midnight = next_sat_midnight + REL.relativedelta(days=1)
-        next_mon_midnight = next_sun_midnight + REL.relativedelta(days=1)
-
-        # Create four queries, for this weekend and next
-        this_sat_query = select(['*']).where(and_(booking_table.c.datetime > sat_midnight, booking_table.c.datetime < sun_midnight))
-        this_sun_query = select(['*']).where(and_(booking_table.c.datetime > sun_midnight, booking_table.c.datetime < mon_midnight))
-
-        next_sat_query = select(['*']).where(and_(booking_table.c.datetime > next_sat_midnight, booking_table.c.datetime < sun_midnight))
-        next_sun_query = select(['*']).where(and_(booking_table.c.datetime > next_sun_midnight, booking_table.c.datetime < next_mon_midnight))
-
-        # Actually query database and build json return object
         booking_counts = []
         max_bookings = 5
+        weeks_in_advance = 3
+        
         with Session(engine) as session:
-            booking_counts.append({'startTime': (sat_midnight + REL.relativedelta(hours=15)).isoformat(),
-                                'availability': max_bookings - len(session.execute(this_sat_query).all())})
-            booking_counts.append({'startTime': (sun_midnight + REL.relativedelta(hours=15)).isoformat(),
-                                'availability': max_bookings - len(session.execute(this_sun_query).all())})
-            booking_counts.append({'startTime': (next_sat_midnight + REL.relativedelta(hours=15)).isoformat(),
-                                'availability': max_bookings - len(session.execute(next_sat_query).all())})
-            booking_counts.append({'startTime': (next_sun_midnight + REL.relativedelta(hours=15)).isoformat(),
-                                'availability': max_bookings - len(session.execute(next_sun_query).all())})
+            for week in range(weeks_in_advance):
+                # Calculate datetimes for sat, sun and mon per week
+                sat_midnight = today + REL.relativedelta(days=1 + week * 7, weekday=REL.SA)
+                sun_midnight = sat_midnight + REL.relativedelta(days=1)
+                mon_midnight = sun_midnight + REL.relativedelta(days=1)
+
+                # Create queries on a per-week version
+                this_sat_query = select(['*']).where(and_(booking_table.c.datetime > sat_midnight, booking_table.c.datetime < sun_midnight))
+                this_sun_query = select(['*']).where(and_(booking_table.c.datetime > sun_midnight, booking_table.c.datetime < mon_midnight))
+
+                # Actually query database and build json return object
+                # Assume here that we have maximum of 5 slots and they are only available
+                # at 3pm on every sat and sun
+                booking_counts.append({'startTime': (sat_midnight + REL.relativedelta(hours=15)).isoformat(),
+                                    'availability': max_bookings - len(session.execute(this_sat_query).all())})
+                booking_counts.append({'startTime': (sun_midnight + REL.relativedelta(hours=15)).isoformat(),
+                                    'availability': max_bookings - len(session.execute(this_sun_query).all())})
 
         return jsonify(booking_counts)
 
