@@ -16,18 +16,21 @@ export const Item = () => {
 };
 
 export function SignUpPage(props) {
-  var defaultIdField = ""
-  if (props.location.id) {
-    defaultIdField = props.location.id + ' (' + props.location.storeName + ')';
-  }
 
-  var store = props.location.storeName ? 
-  [{
-    id: props.location.id,
-    language: "",
-    location: "",
-    storeName: props.location.storeName
-  }] : []
+  var store = [];
+
+  if (props.location.ids.length > 0) {
+    var i, j = 0;
+    for (i = 0, j = props.location.ids.length; i < j; i++) {
+      console.log(props.location.ids[i]);
+      store.unshift({
+        id: props.location.ids[i],
+        language: "",
+        location: "",
+        storeName: props.location.storeNames[i]
+      });
+    }
+  }
 
   var resultsData=[]
 
@@ -250,7 +253,7 @@ export function SignUpPage(props) {
             clearFields={clearFields} />
         </form>
         <div>
-          <Link to="/assist"><button className="search-btn">
+          <Link to="/search"><button className="search-btn">
             Back to Search
             </button>  </Link>
         </div>
