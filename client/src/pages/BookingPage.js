@@ -1,7 +1,7 @@
 import { GenericLayout } from './Layout';
 import { BookingSessions } from '../components/BookingSessions';
 import { getAvailableSessions } from '../services/Booking';
-import {Link} from "react-router-dom";
+import '../components/BookingCard.css'
 
 export function BookingPage() {
 
@@ -14,10 +14,12 @@ export function BookingPage() {
     return (
         <body>
         <GenericLayout />
+    
+        <div className="booking-text">
+           AVAILABLE   TRAINING   SESSIONS 
+        </div>
 
-        <section className="content"> 
         <BookingSessions data={data}/>
-        </section>
 
         <div className="results">
         </div>

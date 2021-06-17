@@ -126,7 +126,7 @@ export function BookingCard(props) {
         <div className="modal">
           <div className="overlay"></div>
           <div className="booking-content">
-            <p className='popup-content'> Please confirm that you are signing up for training session on <br/> {displayDayWithDate()}  </p>
+            <p className='popup-content'> Please confirm that you are signing up for the training session on <br/> {displayDayWithDate()}  </p>
             <button className="btn-cancel" onClick={toggleModal}>
               CANCEL
                 </button>
