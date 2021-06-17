@@ -37,7 +37,7 @@ def send_email(target_email, vid, volunteer_name, hawker_name, store_name, addre
     msg['Subject'] = "Hello from HawkerLink!"
     msg['From'] = SENDER_EMAIL
     msg['To'] = target_email
-``
+
     try:
         print("Sending email...")
         server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
