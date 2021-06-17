@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { BookingCard } from './BookingCard';
@@ -22,8 +22,14 @@ const useStyles = makeStyles((theme) => ({
 export function BookingSessions(props) {
   const classes = useStyles();
 
-  const data = props.data;
-  console.log(data);
+  const[data,setData] = useState([]);
+
+   props.data.then((result) => {
+    if (Array.isArray(result) && result.length) {
+        setData(result)
+        console.log(data);
+      }
+    });
 
   function infoToBookingCard(info) {
     return <Grid item xs={4}> <BookingCard

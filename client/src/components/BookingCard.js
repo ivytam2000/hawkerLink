@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
+import { sendBookedSession } from '../services/Booking';
+import "./PopUp.css";
+import "./BookingCard.css";
 
 const useStyles = makeStyles({
   root: {
@@ -21,6 +24,7 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex: -1
   },
 });
 
@@ -40,7 +44,8 @@ export function BookingCard(props) {
     const dayInNumber = time.getDate();
     const startHour = time.getHours();
     const startMinute = time.getMinutes();
-    const avail = props.availability
+    const avail = props.availability;
+    const isoStartTime = props.isoStartTime;
 
 
     var weekday = new Array(7);
@@ -68,8 +73,12 @@ export function BookingCard(props) {
     months[11] = "December";
 
 
-    function displayDate(date){  
+    function displayDate(){  
         return dayInNumber + ' ' + months[month] + ' ' + year ;
+    }
+
+    function displayDayWithDate(){
+        return weekday[day] + ' ' + '(' + displayDate() + ')';
     }
 
 
@@ -88,34 +97,64 @@ export function BookingCard(props) {
         return startTime + ' - ' + endTime;
     }
 
-  
-//     function nextweek(){
-//       var nextweek = new Date(today.getFullYear(), today.getMonth(), today.getDate()+7);
-//       return nextweek;
-//   }
-  
-  /*const imageLink = "hawker_cards/" + props.id + ".jpg"; */
+    function availability(){
+        return avail + ' SLOTS AVAILABLE'
+    }
+
+    const {id}= useParams();
+    console.log({id}.id);
+
+    const [modal, setModal] = useState(false);
+
+    const toggleModal = (e) => {
+        e.preventDefault();
+        setModal(!modal);
+    };
+
+  const toggleModalAndSubmit = (e) => {
+    e.preventDefault();
+    setModal(!modal);
+    console.log({id}.id);
+    sendBookedSession({id}.id, isoStartTime);
+  }
+ 
 
   return (
-    // <Link style={{ textDecoration: 'none' }} to={{pathname:"/signup", id: props.id, storeName: props.storeName, userLanguages:props.userLanguages, selectedLanguages:props.selectedLanguages, resultsData:props.resultsData}}>
+    <>
+
+    {modal && (
+        <div className="modal">
+          <div className="overlay"></div>
+          <div className="booking-content">
+            <p className='popup-content'> Please confirm that you are signing up for training session on <br/> {displayDayWithDate()}  </p>
+            <button className="btn-cancel" onClick={toggleModal}>
+              CANCEL
+                </button>
+            <button className="btn-confirm" onClick={toggleModalAndSubmit}>
+              CONFIRM
+            </button>
+          </div>
+        </div>
+      )}
+
     <Card className={classes.root}>
-      <CardActionArea>
+      <CardActionArea onClick={toggleModal}>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2" align='center'>
+          <Typography gutterBottom variant="h5" component="h2" align='center'className='card-content'>
             {weekday[day]}
           </Typography>
           <Typography align="center">
-            {displayDate(time)}
+            {displayDate()}
           </Typography>
           <Typography align="center">
             {timeSlot()}
           </Typography>
           <Typography align="center">
-            2 SLOTS AVAILABLE
+            {availability()}
           </Typography>
         </CardContent>
       </CardActionArea>
     </Card>
-//    </Link>
-  );
+</>
+);
 }

@@ -9,6 +9,7 @@ export function BookingPage() {
     const data = getAvailableSessions();
 
 
+    console.log(data);
 
     return (
         <body>
@@ -20,7 +21,6 @@ export function BookingPage() {
 
         <div className="results">
         </div>
-        
         </body>
     );
 }

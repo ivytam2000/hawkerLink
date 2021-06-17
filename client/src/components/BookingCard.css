@@ -1,0 +1,21 @@
+.card-content {
+    font-family: Georgia, serif;
+    color: #0a0a0a;
+    font-size: 75%;
+    text-align: center;
+    z-index: 0;
+}
+
+.booking-content {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1.4;
+    background: #f1f1f1;
+    padding: 14px 28px;
+    border-radius: 3px;
+    max-width: 600px;
+    min-width: 300px;
+    z-index: 5;
+}

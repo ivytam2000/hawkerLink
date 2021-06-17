@@ -26,6 +26,7 @@ import { BookingPage } from './pages/BookingPage';
         <Route path="/resources" component={ResourcesPage} />
         <Route path="/resources-verified" component={ResourcesVerificationPage} />
         <Route path="/booking" component={BookingPage} />
+        <Route path="/:id/booking" component={BookingPage} />
       </Switch>
     </div>
    </BrowserRouter>,

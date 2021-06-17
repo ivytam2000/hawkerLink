@@ -5,9 +5,11 @@ export async function getAvailableSessions(){
     const data = await response.json();
     return data;
 }
+
+
 export async function sendBookedSession(id, startTime) {
 
-    const response = await fetch('/search-hawker', {
+    const response = await fetch('/booking', {
         method: 'POST',
         headers: {
             Accept: 'application/json',
