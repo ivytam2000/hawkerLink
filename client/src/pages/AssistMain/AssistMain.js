@@ -117,7 +117,7 @@ export function AssistMainPage() {
 
                 <td class="icon">
                     <img src={prep} alt="Preparation" width="100px"></img>
-                    <p><button className="step" id="p-exp">Prepare</button></p>
+                    <p><button className="step" id="p-exp">Prepare<br></br>&#9660;</button></p>
                 </td>
 
                 <td class="arrow">
@@ -126,7 +126,7 @@ export function AssistMainPage() {
 
                 <td class="icon">
                     <img src={help} alt="Help" width="100px"></img>
-                    <p><button className="step" id="h-exp">Help the hawker</button></p>
+                    <p><button className="step" id="h-exp">Help the hawker<br></br>&#9660;</button></p>
                 </td>
 
                 <td class="arrow">
@@ -278,7 +278,7 @@ export function AssistMainPage() {
 
                 <td class="icon">
                     <img src={allocate} alt="Allocate" width="100px"></img>
-                    <p><button className="step" id="a-exp">Receive a volunteer allocation</button></p>
+                    <p><button className="step" id="a-exp">Receive a volunteer allocation<br></br>&#9660;</button></p>
                 </td>
 
                 <td class="arrow">
