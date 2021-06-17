@@ -1,5 +1,8 @@
 import time
 import os
+from dateutil import parser
+import datetime as DT
+import dateutil.relativedelta as REL
 from flask import Flask, jsonify, request, abort
 from sqlalchemy import *
 from sqlalchemy.orm import Session
@@ -236,14 +239,117 @@ def assist_hawker():
 
     return "0"
 
-# if __name__ == "__main__":
-#     engine = create_engine(DATABASE_URI)
-#     hawker_metadata = MetaData()
-#     hawkers_table = Table('hawker', hawker_metadata, autoload_with=engine)
+@app.route('/booking', methods=['GET', 'POST'])
+def book_training():
+    """
+    Receives POST requests in the following format:
+        {
+            'id': int,
+            'startTime': datetime string
+        }
 
-#     search_stmt = select([column('hname')]).where(and_(hawkers_table.c.id.in_([1,2,3,4,5,6,7,8,9,10]), hawkers_table.c.assigned != 1))
-#     with Session(engine) as session:
-#         result = session.execute(search_stmt).first()
+    Datetime string formatted as YYYY-MM-DDThh:mm:ssZ
 
-#         if result:
-#             print(result[0])
+    ---
+
+    GET requests will return the following:
+        [
+            {
+                'startTime': datetime string,
+                'availability': int
+            }
+        ]
+            
+    Returns list of available slots for the next two weeks.
+    
+    """
+
+    if request.method == 'GET':
+        engine = create_engine(DATABASE_URI)
+        booking_metadata = MetaData()
+        booking_table = Table('booking', booking_metadata, autoload_with=engine)
+
+        # Create datetime objects to use in query
+        today = DT.date.today()
+        sat_midnight = today + REL.relativedelta(days=1, weekday=REL.SA)
+        sun_midnight = sat_midnight + REL.relativedelta(days=1)
+        mon_midnight = sun_midnight + REL.relativedelta(days=1)
+
+        next_sat_midnight = today + REL.relativedelta(days=7, weekday=REL.SA)
+        next_sun_midnight = next_sat_midnight + REL.relativedelta(days=1)
+        next_mon_midnight = next_sun_midnight + REL.relativedelta(days=1)
+
+        # Create four queries, for this weekend and next
+        this_sat_query = select(['*']).where(and_(booking_table.c.datetime > sat_midnight, booking_table.c.datetime < sun_midnight))
+        this_sun_query = select(['*']).where(and_(booking_table.c.datetime > sun_midnight, booking_table.c.datetime < mon_midnight))
+
+        next_sat_query = select(['*']).where(and_(booking_table.c.datetime > next_sat_midnight, booking_table.c.datetime < sun_midnight))
+        next_sun_query = select(['*']).where(and_(booking_table.c.datetime > next_sun_midnight, booking_table.c.datetime < next_mon_midnight))
+
+        # Actually query database and build json return object
+        booking_counts = []
+        max_bookings = 5
+        with Session(engine) as session:
+            booking_counts.append({'startTime': (sat_midnight + REL.relativedelta(hours=15)).isoformat(),
+                                'availability': max_bookings - len(session.execute(this_sat_query).all())})
+            booking_counts.append({'startTime': (sun_midnight + REL.relativedelta(hours=15)).isoformat(),
+                                'availability': max_bookings - len(session.execute(this_sun_query).all())})
+            booking_counts.append({'startTime': (next_sat_midnight + REL.relativedelta(hours=15)).isoformat(),
+                                'availability': max_bookings - len(session.execute(next_sat_query).all())})
+            booking_counts.append({'startTime': (next_sun_midnight + REL.relativedelta(hours=15)).isoformat(),
+                                'availability': max_bookings - len(session.execute(next_sun_query).all())})
+
+        return jsonify(booking_counts)
+
+    elif request.method == 'POST':
+        pass
+    
+
+if __name__ == "__main__":
+    engine = create_engine(DATABASE_URI)
+    booking_metadata = MetaData()
+    booking_table = Table('booking', booking_metadata, autoload_with=engine)
+
+    # Create datetime objects to use in query
+    today = DT.date.today()
+    sat_midnight = today + REL.relativedelta(days=1, weekday=REL.SA)
+    sun_midnight = sat_midnight + REL.relativedelta(days=1)
+    mon_midnight = sun_midnight + REL.relativedelta(days=1)
+
+    next_sat_midnight = today + REL.relativedelta(days=7, weekday=REL.SA)
+    next_sun_midnight = next_sat_midnight + REL.relativedelta(days=1)
+    next_mon_midnight = next_sun_midnight + REL.relativedelta(days=1)
+
+    # Create four queries, for this weekend and next
+    this_sat_query = select(['*']).where(and_(booking_table.c.datetime > sat_midnight, booking_table.c.datetime < sun_midnight))
+    this_sun_query = select(['*']).where(and_(booking_table.c.datetime > sun_midnight, booking_table.c.datetime < mon_midnight))
+
+    next_sat_query = select(['*']).where(and_(booking_table.c.datetime > next_sat_midnight, booking_table.c.datetime < sun_midnight))
+    next_sun_query = select(['*']).where(and_(booking_table.c.datetime > next_sun_midnight, booking_table.c.datetime < next_mon_midnight))
+
+    # Actually query database and build json return object
+    booking_counts = []
+    max_bookings = 5
+    with Session(engine) as session:
+        booking_counts.append({'startTime': (sat_midnight + REL.relativedelta(hours=15)).isoformat(),
+                               'availability': max_bookings - len(session.execute(this_sat_query).all())})
+        booking_counts.append({'startTime': (sun_midnight + REL.relativedelta(hours=15)).isoformat(),
+                               'availability': max_bookings - len(session.execute(this_sun_query).all())})
+        booking_counts.append({'startTime': (next_sat_midnight + REL.relativedelta(hours=15)).isoformat(),
+                               'availability': max_bookings - len(session.execute(next_sat_query).all())})
+        booking_counts.append({'startTime': (next_sun_midnight + REL.relativedelta(hours=15)).isoformat(),
+                               'availability': max_bookings - len(session.execute(next_sun_query).all())})
+
+    # return jsonify(booking_counts)
+
+    # with Session(engine) as session:
+    #         result = session.execute(unionized)
+            
+    #         if result.rowcount != 0:
+    #             for acc in result:
+    #                 hawkers.append({'id': acc.id,
+    #                                 'storeName': acc.sname,
+    #                                 'location': acc.hawker_centre,
+    #                                 'language': acc.languages})
+
+    #     return jsonify(hawkers)
