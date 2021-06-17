@@ -30,13 +30,17 @@ export function BookingCard(props) {
 
     const classes = useStyles();
 
-    var time = new Date("2021-06-17T13:30:00");
+    console.log(props.isoStartTime);
+    console.log(props.availability);
+
+    var time = new Date(props.isoStartTime);
     const day = time.getDay();
     const month = time.getMonth();
     const year = time.getFullYear().toString();
     const dayInNumber = time.getDate();
     const startHour = time.getHours();
     const startMinute = time.getMinutes();
+    const avail = props.availability
 
 
     var weekday = new Array(7);
@@ -105,6 +109,9 @@ export function BookingCard(props) {
           </Typography>
           <Typography align="center">
             {timeSlot()}
+          </Typography>
+          <Typography align="center">
+            2 SLOTS AVAILABLE
           </Typography>
         </CardContent>
       </CardActionArea>

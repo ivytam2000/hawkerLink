@@ -23,16 +23,12 @@ export function BookingSessions(props) {
   const classes = useStyles();
 
   const data = props.data;
+  console.log(data);
 
-  function infoToCard(info) {
-    return <Grid item xs={4}> <InfoCard 
-      id={info.id}
-      storeName={info.storeName}
-      location={info.location}
-      languages={info.language}
-      userLanguages={props.userLanguages}
-      selectedLanguages={props.selectedLanguages}
-      resultsData={props.data} /> </Grid>;
+  function infoToBookingCard(info) {
+    return <Grid item xs={4}> <BookingCard
+      isoStartTime={info.startTime}
+      availability={info.availability} /> </Grid>;
   }
 
   function cardRowToGridRow(cardRow) {
@@ -48,7 +44,7 @@ export function BookingSessions(props) {
   var chunk = 3
   var i, j, row = 0;
   for (i = 0, j = data.length; i < j; i += chunk) {
-    row = data.slice(i, i + chunk).map(infoToCard);
+    row = data.slice(i, i + chunk).map(infoToBookingCard);
     allrows.push(cardRowToGridRow(row));
   }
 

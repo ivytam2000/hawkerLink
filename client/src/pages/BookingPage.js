@@ -1,14 +1,21 @@
 import { GenericLayout } from './Layout';
-import { BookingCard } from '../components/BookingCard';
+import { BookingSessions } from '../components/BookingSessions';
+import { getAvailableSessions } from '../services/Booking';
 import {Link} from "react-router-dom";
 
 export function BookingPage() {
+
+
+    const data = getAvailableSessions();
+
+
+
     return (
         <body>
-        <GenericLayout id={2} />
+        <GenericLayout />
 
         <section className="content"> 
-        <BookingCard />
+        <BookingSessions data={data}/>
         </section>
 
         <div className="results">
