@@ -328,22 +328,3 @@ def book_training():
                 session.execute(insert_stmt)
             
             session.commit()
-    
-
-if __name__ == "__main__":
-
-
-
-    # return jsonify(booking_counts)
-
-    # with Session(engine) as session:
-    #         result = session.execute(unionized)
-            
-    #         if result.rowcount != 0:
-    #             for acc in result:
-    #                 hawkers.append({'id': acc.id,
-    #                                 'storeName': acc.sname,
-    #                                 'location': acc.hawker_centre,
-    #                                 'language': acc.languages})
-
-    #     return jsonify(hawkers)
