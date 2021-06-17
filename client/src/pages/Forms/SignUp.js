@@ -19,16 +19,18 @@ export function SignUpPage(props) {
 
   var store = [];
 
-  if (props.location.ids.length > 0) {
-    var i, j = 0;
-    for (i = 0, j = props.location.ids.length; i < j; i++) {
-      console.log(props.location.ids[i]);
-      store.unshift({
-        id: props.location.ids[i],
-        language: "",
-        location: "",
-        storeName: props.location.storeNames[i]
-      });
+  if (props.location.hasOwnProperty('ids')) {
+    if (props.location.ids.length > 0) {
+      var i, j = 0;
+      for (i = 0, j = props.location.ids.length; i < j; i++) {
+        console.log(props.location.ids[i]);
+        store.unshift({
+          id: props.location.ids[i],
+          language: "",
+          location: "",
+          storeName: props.location.storeNames[i]
+        });
+      }
     }
   }
 
@@ -116,7 +118,6 @@ export function SignUpPage(props) {
 
   const [selectedStore] = useState(store);
 
-
   const langRef = useRef(null);
   const storeRef= useRef(null);
   const availRef = useRef(null);
@@ -126,7 +127,7 @@ export function SignUpPage(props) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [number, setNumber] = useState("");
-    const [hawkerIds, setHawkerIds] = useState([props.location.id]);
+    const [hawkerIds, setHawkerIds] = useState(props.location.ids);
     const [languages, setLanguages] = useState(userLanguages);
     const [availability, setAvailability] = useState([]);
     const [comfortable, setComfortable] = useState(0);

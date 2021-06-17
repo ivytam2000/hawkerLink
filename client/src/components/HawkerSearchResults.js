@@ -86,7 +86,7 @@ export function HawkerSearchResults(props) {
   var i, j, row = 0;
   for (i = 0, j = data.length; i < j; i += chunk) {
     row = data.slice(i, i + chunk).map(infoToCard);
-    allrows.push(cardRowToGridRow(row));
+    allrows.push(cardRowToGridRow(row));  
   }
 
   return (
