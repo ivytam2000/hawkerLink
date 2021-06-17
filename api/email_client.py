@@ -1,11 +1,14 @@
 import os
 import smtplib
 from email.mime.text import MIMEText
+import datetime as DT
+import dateutil.relativedelta as REL
+from dateutil import parser
 
 SENDER_EMAIL = os.environ.get('SENDER_EMAIL')
 SENDER_PASSWORD = os.environ.get('SENDER_PASSWORD')
 
-def generate_body(vid, volunteer_name, hawker_name, store_name, address, number, reason):
+def generate_confirmation_body(vid, volunteer_name, hawker_name, store_name, address, number, reason):
     return """
     <html>
     Hello <b>{volunteer_name}</b>, <br>
@@ -30,11 +33,61 @@ def generate_body(vid, volunteer_name, hawker_name, store_name, address, number,
     </html>
     """.format(vid=vid, volunteer_name=volunteer_name, hawker_name=hawker_name, store_name=store_name, address=address, number=number, reason=reason)
 
-def send_email(target_email, vid, volunteer_name, hawker_name, store_name, address, number, reason):
+def generate_booking_body(vid, volunteer_name, booking_time):
+
+    hours_of_training = 3
+    day_of_week = booking_time.strftime("%A")
+    day = booking_time.day
+    month = booking_time.strftime("%B")
+    year = booking_time.year
+    start_time = booking_time.strftime("%H%M")
+    end_time = (booking_time + REL.relativedelta(hours=hours_of_training)).strftime("%H%M")
+
+    return """
+    <html>
+    Hello <b>{volunteer_name}</b>, <br>
+    <br>
+    Thank you for choosing a training session! The confirmed details of your training are as follows: <br>
+    <br>
+    Date: <b>{day} {month} {year}, {day_of_week}</b><br>
+    Time: <b>{start_time} - {end_time} hrs</b><br>
+    Venue: <b>448 Clementi Ave 3, #11-01</b><br>
+    <br>
+    If you would like to rebook your sessions, please click <a href="jqpoon.xyz/{vid}/booking">here</a>. Should you have any further queries, please feel free to contact us via email (<a href="mailto:hawkerlinkdrp@gmail.com">hawkerlinkdrp@gmail.com</a>).<br>
+    <br>
+    We look forward to seeing you!<br>
+    <br>
+    Regards, <br>
+    The HawkerLink Team<br>
+    </html>
+    """.format(vid=vid, volunteer_name=volunteer_name, day=day, month=month, year=year, day_of_week=day_of_week, start_time=start_time, end_time=end_time)
+
+def send_confirmation_email(target_email, vid, volunteer_name, hawker_name, store_name, address, number, reason):
     # Set up email message
     print("Making email...")
-    msg = MIMEText(generate_body(vid, volunteer_name, hawker_name, store_name, address, number, reason), 'html')
+    msg = MIMEText(generate_confirmation_body(vid, volunteer_name, hawker_name, store_name, address, number, reason), 'html')
     msg['Subject'] = "Hello from HawkerLink!"
+    msg['From'] = SENDER_EMAIL
+    msg['To'] = target_email
+
+    try:
+        print("Sending email...")
+        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+        server.ehlo()
+        server.login(SENDER_EMAIL, SENDER_PASSWORD)
+        server.send_message(msg)
+        server.quit()
+        print("Sent email!")
+        return 0
+    except:
+        print('Something went wrong...')
+        return 1
+
+def send_booking_email(target_email, vid, volunteer_name, booking_time):
+    # Set up email message
+    print("Making email...")
+    msg = MIMEText(generate_booking_body(vid, volunteer_name, parser.parse(booking_time)), 'html')
+    msg['Subject'] = "HawkerLink Training Confirmation"
     msg['From'] = SENDER_EMAIL
     msg['To'] = target_email
 
