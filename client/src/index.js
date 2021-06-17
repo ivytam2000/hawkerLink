@@ -11,6 +11,7 @@ import { SignUpPage } from './pages/Forms/SignUp';
 import { SuggestionPage } from './pages/Forms/Suggestion';
 import { ResourcesPage } from './pages/Resources/Resources'
 import { ResourcesVerificationPage } from './pages/Resources/ResourcesVerified';
+import { BookingPage } from './pages/BookingPage';
 
  const rootElement = document.getElementById("root");
  ReactDOM.render(
@@ -24,6 +25,7 @@ import { ResourcesVerificationPage } from './pages/Resources/ResourcesVerified';
         <Route path="/signup" component={SignUpPage} />
         <Route path="/resources" component={ResourcesPage} />
         <Route path="/resources-verified" component={ResourcesVerificationPage} />
+        <Route path="/booking" component={BookingPage} />
       </Switch>
     </div>
    </BrowserRouter>,
