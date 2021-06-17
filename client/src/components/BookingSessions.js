@@ -7,13 +7,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     position: 'relative',
-    top:250,
-  },
-  paper: {
-    bottom:20,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
+    top:150,
+    left:120,
   },
 }));
 
@@ -21,8 +16,11 @@ const useStyles = makeStyles((theme) => ({
 
 export function BookingSessions(props) {
   const classes = useStyles();
-
+// COMMENTED OUT FOR DEBUGGING
   const[data,setData] = useState([]);
+
+  //const data = props.data;
+
 
    props.data.then((result) => {
     if (Array.isArray(result) && result.length) {
@@ -32,17 +30,19 @@ export function BookingSessions(props) {
     });
 
   function infoToBookingCard(info) {
-    return <Grid item xs={4}> <BookingCard
+    return <Grid item xs={4} 
+    justify="space-between" > <BookingCard
       isoStartTime={info.startTime}
       availability={info.availability} /> </Grid>;
   }
 
   function cardRowToGridRow(cardRow) {
-    return <Grid container item xs={12} spacing={3}>
-      <React.Fragment>
+    return ( <Grid container item xs={12} spacing={5} 
+    justify="space-between"   >
         {cardRow}
-      </React.Fragment>
-    </Grid>;
+    </Grid>
+
+    );
   }
 
   /* Dynamically generate rows with up to 3 cards each. */
@@ -56,7 +56,8 @@ export function BookingSessions(props) {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={2}>
+      <Grid container spacing={10} alignItems="center"
+    justify= "space-between"  >
         {allrows}
       </Grid>
     </div>

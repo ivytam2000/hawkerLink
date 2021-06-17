@@ -14,14 +14,9 @@ const useStyles = makeStyles({
   root: {
     maxWidth: 345,
   },
-  media: {
-    height: 200,
-    borderStyle: 'solid',
-    borderColor: 'white',
-    borderWidth: 5,
-  },
+
   card: {
-    display: 'flex',
+    display: 'absolute',
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: -1
@@ -49,13 +44,13 @@ export function BookingCard(props) {
 
 
     var weekday = new Array(7);
-    weekday[0] = "Sunday";
+    weekday[0] = "Saturday";
     weekday[1] = "Monday";
     weekday[2] = "Tuesday";
     weekday[3] = "Wednesday";
     weekday[4] = "Thursday";
     weekday[5] = "Friday";
-    weekday[6] = "Saturday";
+    weekday[6] = "Sunday";
 
 
     var months = new Array(12);
@@ -98,7 +93,7 @@ export function BookingCard(props) {
     }
 
     function availability(){
-        return avail + ' SLOTS AVAILABLE'
+        return avail + ' SPOTS AVAILABLE'
     }
 
     const {id}= useParams();
@@ -116,26 +111,12 @@ export function BookingCard(props) {
     setModal(!modal);
     console.log({id}.id);
     sendBookedSession({id}.id, isoStartTime);
+    window.location.href = '/';
   }
  
 
   return (
     <>
-
-    {modal && (
-        <div className="modal">
-          <div className="overlay"></div>
-          <div className="booking-content">
-            <p className='popup-content'> Please confirm that you are signing up for the training session on <br/> {displayDayWithDate()}  </p>
-            <button className="btn-cancel" onClick={toggleModal}>
-              CANCEL
-                </button>
-            <button className="btn-confirm" onClick={toggleModalAndSubmit}>
-              CONFIRM
-            </button>
-          </div>
-        </div>
-      )}
 
     <Card className={classes.root}>
       <CardActionArea onClick={toggleModal}>
@@ -149,12 +130,32 @@ export function BookingCard(props) {
           <Typography align="center">
             {timeSlot()}
           </Typography>
-          <Typography align="center">
+          <Typography align="center" color="primary">
             {availability()}
           </Typography>
         </CardContent>
       </CardActionArea>
     </Card>
+
+    {modal && (
+        <div className="modal">
+          <div className="overlay"></div>
+          <div className="booking-content">
+            <p className='popup-content'> Please confirm that you are signing up for the training session on <br/> {displayDayWithDate()}  </p>
+            <button className="btn-cancel" onClick={toggleModal}>
+              CANCEL
+            </button>
+            <Link to="/" >
+            <button className="btn-confirm" onClick={toggleModalAndSubmit}>
+           
+              CONFIRM
+             
+            </button>
+            </Link>
+           
+          </div>
+        </div>
+      )}
 </>
 );
 }
