@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     position: 'relative',
     top:150,
-    left:120,
+    left:400,
   },
 }));
 
@@ -17,17 +17,17 @@ const useStyles = makeStyles((theme) => ({
 export function BookingSessions(props) {
   const classes = useStyles();
 // COMMENTED OUT FOR DEBUGGING
-  const[data,setData] = useState([]);
+//   const[data,setData] = useState([]);
 
-  //const data = props.data;
+  const data = props.data;
 
 
-   props.data.then((result) => {
-    if (Array.isArray(result) && result.length) {
-        setData(result)
-        console.log(data);
-      }
-    });
+//    props.data.then((result) => {
+//     if (Array.isArray(result) && result.length) {
+//         setData(result)
+//         console.log(data);
+//       }
+//     });
 
   function infoToBookingCard(info) {
     return <Grid item xs={4} 
@@ -37,7 +37,7 @@ export function BookingSessions(props) {
   }
 
   function cardRowToGridRow(cardRow) {
-    return ( <Grid container item xs={12} spacing={5} 
+    return ( <Grid container item xs={7} spacing={2} 
     justify="space-between"   >
         {cardRow}
     </Grid>
@@ -56,7 +56,7 @@ export function BookingSessions(props) {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={10} alignItems="center"
+      <Grid container spacing={3} alignItems="center"
     justify= "space-between"  >
         {allrows}
       </Grid>

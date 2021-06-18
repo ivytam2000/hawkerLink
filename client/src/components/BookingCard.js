@@ -10,6 +10,8 @@ import { sendBookedSession } from '../services/Booking';
 import "./PopUp.css";
 import "./BookingCard.css";
 
+
+
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -22,6 +24,12 @@ const useStyles = makeStyles({
     zIndex: -1
   },
 });
+
+// const THEME = createMuiTheme({
+//     typography: {
+//      fontFamily: Georgia, serif
+//     }
+//  });
 
 /* Should contain image, store name, location, languages */
 
@@ -44,13 +52,13 @@ export function BookingCard(props) {
 
 
     var weekday = new Array(7);
-    weekday[0] = "Saturday";
-    weekday[1] = "Monday";
-    weekday[2] = "Tuesday";
-    weekday[3] = "Wednesday";
-    weekday[4] = "Thursday";
-    weekday[5] = "Friday";
-    weekday[6] = "Sunday";
+    weekday[0] = "Sun";
+    weekday[1] = "Mon";
+    weekday[2] = "Tues";
+    weekday[3] = "Wed";
+    weekday[4] = "Thurs";
+    weekday[5] = "Fri";
+    weekday[6] = "Sat";
 
 
     var months = new Array(12);
@@ -73,7 +81,23 @@ export function BookingCard(props) {
     }
 
     function displayDayWithDate(){
-        return weekday[day] + ' ' + '(' + displayDate() + ')';
+        var suffix ;
+        switch(day){
+            case 3: 
+            suffix = 'nesday ';
+            break;
+            case 6:
+            suffix = 'urday ';
+            break;
+            default:
+            suffix = 'day'
+        }
+        return weekday[day] + suffix + '(' + displayDate() + ')';
+    }
+
+    function displayShortDayWithDate(){
+        var real_month = month + 1;
+        return weekday[day] + ', ' + dayInNumber + '/' + real_month
     }
 
 
@@ -93,7 +117,7 @@ export function BookingCard(props) {
     }
 
     function availability(){
-        return avail + ' SPOTS AVAILABLE'
+        return avail + ' spots available'
     }
 
     const {id}= useParams();
@@ -121,16 +145,16 @@ export function BookingCard(props) {
     <Card className={classes.root}>
       <CardActionArea onClick={toggleModal}>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2" align='center'className='card-content'>
-            {weekday[day]}
+          <Typography gutterBottom variant="h5" component="h2" align='center'>
+            {displayShortDayWithDate()}
           </Typography>
           <Typography align="center">
-            {displayDate()}
+            {/* {displayDate()} */}
           </Typography>
           <Typography align="center">
-            {timeSlot()}
+            <b> {timeSlot()} </b>
           </Typography>
-          <Typography align="center" color="primary">
+          <Typography align="center" className="spot-text">
             {availability()}
           </Typography>
         </CardContent>
