@@ -151,6 +151,11 @@ body
     margin-bottom: 72px;
 }
 
+.subtitle {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 3rem;
+}
+
 /* .exp {
     margin-top: 50px;
     margin-bottom: 100px;

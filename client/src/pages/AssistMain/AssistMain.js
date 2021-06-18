@@ -88,8 +88,7 @@ export function AssistMainPage() {
         <div className="about-text">
             <p>Hawkerlink is a service which links up tech-savvy volunteers 
                 to hawkers who need someone to help them register with food delivery services.</p>
-            <p>As a volunteer, you can help guide hawkers through the registration process of 
-                food delivery services to get them back on their feet.</p>
+            <div className="subtitle">Assist a hawker</div>
         </div>
 
         <table className="icons">
@@ -208,8 +207,7 @@ export function AssistMainPage() {
         </table>
 
         <div className="about-text">
-            <p>Do you know a hawker that wants to get on delivery services but simply does not know how to? 
-                You can submit them to our database through "suggest a hawker".</p>
+            <div className="subtitle">Suggest a hawker</div>
         </div>
 
         <table className="icons">
@@ -252,7 +250,7 @@ export function AssistMainPage() {
         </table>
 
         <div className="about-text">
-            <p>Your contributions will make a tangible difference in the lives of these hawkers, through the following process...</p>
+            <div className="subtitle">Hawkers</div>
         </div>
 
         <table className="icons">
