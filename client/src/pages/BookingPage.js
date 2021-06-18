@@ -6,15 +6,15 @@ import '../components/BookingCard.css'
 export function BookingPage() {
 
     // COMMENTED OUT FOR DEBUGGING
-    // const data = getAvailableSessions();
+    const data = getAvailableSessions();
     
-    const data = 
-    [ {availability: 5, startTime: "2021-06-19T15:00:00"},
-      {availability: 5, startTime: "2021-06-20T15:00:00"},
-      {availability: 5, startTime: "2021-06-26T15:00:00"},
-      {availability: 5, startTime: "2021-06-27T15:00:00"},
-      {availability: 5, startTime: "2021-07-03T15:00:00"},
-      {availability: 4, startTime: "2021-07-04T15:00:00"}]
+    // const data = 
+    // [ {availability: 5, startTime: "2021-06-19T15:00:00"},
+    //   {availability: 5, startTime: "2021-06-20T15:00:00"},
+    //   {availability: 5, startTime: "2021-06-26T15:00:00"},
+    //   {availability: 5, startTime: "2021-06-27T15:00:00"},
+    //   {availability: 5, startTime: "2021-07-03T15:00:00"},
+    //   {availability: 4, startTime: "2021-07-04T15:00:00"}]
 
     console.log(data);
 

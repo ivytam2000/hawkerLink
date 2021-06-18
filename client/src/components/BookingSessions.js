@@ -17,17 +17,17 @@ const useStyles = makeStyles((theme) => ({
 export function BookingSessions(props) {
   const classes = useStyles();
 // COMMENTED OUT FOR DEBUGGING
-//   const[data,setData] = useState([]);
+  const[data,setData] = useState([]);
 
-  const data = props.data;
+//   const data = props.data;
 
 
-//    props.data.then((result) => {
-//     if (Array.isArray(result) && result.length) {
-//         setData(result)
-//         console.log(data);
-//       }
-//     });
+   props.data.then((result) => {
+    if (Array.isArray(result) && result.length) {
+        setData(result)
+        console.log(data);
+      }
+    });
 
   function infoToBookingCard(info) {
     return <Grid item xs={4} 
