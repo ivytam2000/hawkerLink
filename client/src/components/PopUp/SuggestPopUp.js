@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./PopUp.css";
-
-import { submitHawker } from "../services/SubmitHawkerSuggestion";
+import { submitHawker } from "../../services/SubmitHawkerSuggestion";
 
 export default function SuggestPopUp(props) {
   const [modal, setModal] = useState(false);

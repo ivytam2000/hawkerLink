@@ -6,7 +6,7 @@ import delivery from './delivery.png';
 import foodpanda from './foodpanda.png';
 import { Cip } from '../Forms/Cip';
 import faq from './FAQ.png'
-import { VerificationPopUp } from '../../components/VerficationPopUp';
+import { VerificationPopUp } from '../../components/PopUp/VerficationPopUp';
 
 const useStyles = makeStyles({
 
