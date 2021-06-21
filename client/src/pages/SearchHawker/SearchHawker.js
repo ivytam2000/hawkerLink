@@ -1,4 +1,4 @@
-import {GenericLayout} from '../Layout';
+import {GenericLayout} from '../Sitewide/Layout';
 import {HawkerSearchBar} from '../../components/SearchHawker/HawkerSearchBar';
 import {SearchHawker} from '../../services/SearchHawker';
 import '../AssistMain/AssistMain.css';

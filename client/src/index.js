@@ -10,7 +10,7 @@ import { SignUpPage } from './pages/Forms/SignUp';
 import { SuggestionPage } from './pages/Forms/Suggestion';
 import { ResourcesPage } from './pages/Resources/Resources'
 import { ResourcesVerificationPage } from './pages/Resources/ResourcesVerified';
-import { BookingPage } from './pages/BookingPage';
+import { BookingPage } from './pages/Booking/BookingPage';
 
  const rootElement = document.getElementById("root");
  ReactDOM.render(

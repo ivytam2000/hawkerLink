@@ -1,4 +1,4 @@
-import { GenericLayout } from '../Layout';
+import {GenericLayout} from '../Sitewide/Layout';
 import './Form.css';
 import { Multiselect } from "multiselect-react-dropdown";
 import React, { useRef, useState } from "react";

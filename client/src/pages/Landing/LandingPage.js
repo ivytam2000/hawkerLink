@@ -1,4 +1,4 @@
-import {GenericLayout} from '../Layout';
+import {GenericLayout} from '../Sitewide/Layout';
 import './LandingPage.css';
 
 export function LandingPage() {

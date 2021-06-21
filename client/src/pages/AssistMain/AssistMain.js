@@ -1,4 +1,4 @@
-import {GenericLayout} from '../Layout';
+import {GenericLayout} from '../Sitewide/Layout';
 import './AssistMain.css';
 import {Link} from "react-router-dom";
 
