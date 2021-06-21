@@ -6,9 +6,12 @@ from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from email_client import send_confirmation_email, send_booking_email
 
-from main import main_setup, search_hawker
+from main import main_setup, search_hawker, search_booking
 
-# Set up database and flask app
+####################################
+#  Set up database and flask app   #
+####################################
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -47,16 +50,6 @@ def get_hawkers():
 @app.route('/search-booking', methods=['GET'])
 def search_training():
     """
-    Receives POST requests in the following format:
-        {
-            'id': int,
-            'startTime': datetime string
-        }
-
-    Datetime string formatted as YYYY-MM-DDThh:mm:ssZ
-
-    ---
-
     GET requests will return the following:
         [
             {
@@ -65,39 +58,18 @@ def search_training():
             }
         ]
             
-    Returns list of available slots for the next two weeks.
-    
+    Returns list of available slots for the next n weeks.
     """
 
-    booking_metadata = MetaData()
-    booking_table = Table('booking', booking_metadata, autoload_with=engine)
-
-    # Create datetime objects to use in query
-    today = DT.date.today()
-    booking_counts = []
-    max_bookings = 5
     weeks_in_advance = 3
-    
-    with Session(engine) as session:
-        for week in range(weeks_in_advance):
-            # Calculate datetimes for sat, sun and mon per week
-            sat_midnight = today + REL.relativedelta(days=1 + week * 7, weekday=REL.SA)
-            sun_midnight = sat_midnight + REL.relativedelta(days=1)
-            mon_midnight = sun_midnight + REL.relativedelta(days=1)
-
-            # Create queries on a per-week version
-            this_sat_query = select(['*']).where(and_(booking_table.c.datetime > sat_midnight, booking_table.c.datetime < sun_midnight))
-            this_sun_query = select(['*']).where(and_(booking_table.c.datetime > sun_midnight, booking_table.c.datetime < mon_midnight))
-
-            # Actually query database and build json return object
-            # Assume here that we have maximum of 5 slots and they are only available
-            # at 3pm on every sat and sun
-            booking_counts.append({'startTime': (sat_midnight + REL.relativedelta(hours=15)).isoformat(),
-                                'availability': max_bookings - len(session.execute(this_sat_query).all())})
-            booking_counts.append({'startTime': (sun_midnight + REL.relativedelta(hours=15)).isoformat(),
-                                'availability': max_bookings - len(session.execute(this_sun_query).all())})
+    max_number_per_booking = 5
+    booking_counts = search_booking(weeks_in_advance, max_number_per_booking)
 
     return jsonify(booking_counts)
+
+####################################
+#  Submission functions            #
+####################################
 
 @app.route('/suggest-hawker', methods=['POST'])
 def suggest_hawker():
@@ -154,10 +126,6 @@ def suggest_hawker():
             session.commit()
     except IntegrityError:
         return "2"
-
-####################################
-#  Submission functions            #
-####################################
 
 @app.route('/volunteer-signup', methods=['POST'])
 def assist_hawker():
