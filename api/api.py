@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from email_client import send_confirmation_email, send_booking_email
 
-from main import main_setup, search_hawker, search_booking
+from main import main_setup, search_hawker, search_booking, submit_new_hawker
 
 ####################################
 #  Set up database and flask app   #
@@ -106,26 +106,14 @@ def suggest_hawker():
     except KeyError as e:
         return "1"
 
-    metadata = MetaData()
-    hawkers_table = Table('hawker', metadata, autoload_with=engine)
-
-    stmt = insert(hawkers_table).values(
-        hname=hawker_name,
-        sname=store_name, 
-        phone_number=hawker_phone_number,
+    return submit_new_hawker(hawker_name=hawker_name,
+        store_name=store_name, 
+        hawker_phone_number=hawker_phone_number,
         reason_for_help=reason_for_help,
         languages=languages, 
         hawker_centre=hawker_centre,
         address=address,
-        region=region,
-        assigned=0)
-
-    try:
-        with Session(engine) as session:
-            session.execute(stmt)
-            session.commit()
-    except IntegrityError:
-        return "2"
+        region=region)
 
 @app.route('/volunteer-signup', methods=['POST'])
 def assist_hawker():

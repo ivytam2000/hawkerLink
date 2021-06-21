@@ -81,3 +81,28 @@ def search_booking(weeks_in_advance, max_number_per_booking):
                                 'availability': max_number_per_booking - len(session.execute(this_sun_query).all())})
 
     return booking_counts
+
+def submit_new_hawker(hawker_name, store_name, hawker_phone_number, reason_for_help, languages, hawker_centre, address, region):
+
+    metadata = MetaData()
+    hawkers_table = Table('hawker', metadata, autoload_with=engine)
+
+    stmt = insert(hawkers_table).values(
+        hname=hawker_name,
+        sname=store_name, 
+        phone_number=hawker_phone_number,
+        reason_for_help=reason_for_help,
+        languages=languages, 
+        hawker_centre=hawker_centre,
+        address=address,
+        region=region,
+        assigned=0)
+
+    try:
+        with Session(engine) as session:
+            session.execute(stmt)
+            session.commit()
+    except IntegrityError:
+        return "2"
+
+    return jsonify(success=True)
