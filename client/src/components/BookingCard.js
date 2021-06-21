@@ -134,8 +134,7 @@ export function BookingCard(props) {
     e.preventDefault();
     setModal(!modal);
     console.log({id}.id);
-    sendBookedSession({id}.id, isoStartTime);
-    window.location.href = '/';
+    sendBookedSession({id}.id, isoStartTime).then(() => {window.location.href = '/';});
   }
  
 

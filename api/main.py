@@ -30,10 +30,25 @@ def main_setup():
     engine = create_engine(DATABASE_URI)
 
 def search_hawker(language_query, region_query):
+    """
+    Searches database for any hawker who matches any combination of language and region provided.
+
+    Parameters:
+    language_query ([str]): List of languages to search for
+    region_query ([str]): List of languages to search for
+
+    Returns:
+    [{'id': str,
+      'storeName': str,
+      'location' : str
+      'language' : str}] : List of hawkers with specified information in a dict. 
+
+    """
     metadata = MetaData()
     hawker_table = Table('hawker', metadata, autoload_with=engine)
 
     # Create multiple queries to match on the cross product of languages and regions
+    # Ensure that we don't return any hawkers who are already assigned to volunteers.
     all_queries = []
     for language in language_query:
         for region in region_query:
@@ -54,6 +69,19 @@ def search_hawker(language_query, region_query):
     return hawkers
 
 def search_booking(weeks_in_advance, max_number_per_booking):
+    """
+    Searches database for available booking slots. Currently assumes that slots
+    are only available at 3pm on Saturdays and Sundays.
+
+    Parameters:
+    weeks_in_advance (int): Number of weeks in advance to search for
+    max_number_per_booking (int): Maximum number of slots allowed per booking
+
+    Returns:
+    [{'startTime': str,
+      'availability': int}] : List of available slots, with startTime formatted
+                              according to ISO 8601
+    """
     booking_metadata = MetaData()
     booking_table = Table('booking', booking_metadata, autoload_with=engine)
 
@@ -82,6 +110,23 @@ def search_booking(weeks_in_advance, max_number_per_booking):
     return booking_counts
 
 def submit_new_hawker(hawker_name, store_name, hawker_phone_number, reason_for_help, languages, hawker_centre, address, region):
+    """
+    Add new hawker details to the database.
+
+    Parameters:
+    hawker_name (str): Name of hawker
+    store_name (str): Hawker's store name
+    hawker_phone_number (str): Phone number of hawker
+    reason_for_help (str): A short text describing why the hawker needs help
+    languages ([str]): List of languages this hawker speaks
+    hawker_centre (str): Name of hawker centre store is located at
+    address (str): Actual address of store
+    region (str): North|South|East|West|Central
+
+    Returns:
+    int : 0 if adding to database is successful
+          1 if adding to database fails due to table constraints
+    """
 
     metadata = MetaData()
     hawkers_table = Table('hawker', metadata, autoload_with=engine)
@@ -102,11 +147,28 @@ def submit_new_hawker(hawker_name, store_name, hawker_phone_number, reason_for_h
             session.execute(stmt)
             session.commit()
     except IntegrityError:
-        return "2"
+        return 1
 
-    return jsonify(success=True)
+    return 0
 
 def volunteer_signup(name, email, phone_number, availability, comfortable, languages, hawker_ids):
+    """
+    Attempts to match a volunteer to a hawker. If successful, add volunteer's details to database.
+
+    Parameters:
+    name (str): Name of volunteer
+    email (str): Email of volunteer
+    phone_number (str): Phone number of volunteer
+    comfortable (str): Whether the volunteer wants to help other hawkers not matched by their criteria 
+    availability (str): Comma-seperated values of datetimes the volunteer is available
+    languages ([str]): List of languages this volunteer speaks
+    hawker_ids ([int]): List of hawker ids (as defined in the database) the volunteer intends to support
+    
+    Returns:
+    int : 0 if adding volunteer details to database is successful
+          1 if adding to database fails due to table constraints
+          2 if failed to find a suitable hawker for this volunteer
+    """
     hawker_metadata = MetaData()
     hawkers_table = Table('hawker', hawker_metadata, autoload_with=engine)
     
@@ -128,7 +190,7 @@ def volunteer_signup(name, email, phone_number, availability, comfortable, langu
     # If the hawker requested has already been taken and volunteer does not want
     # to be matched with other hawkers, return 2
     if not result:
-        return "2"
+        return 2
 
     # First cast our comfortable var to same type as the database, int
     if comfortable == "Yes":
@@ -156,17 +218,28 @@ def volunteer_signup(name, email, phone_number, availability, comfortable, langu
             session.commit()
 
         # Only send email if this is in production
-        # if PRODUCTION:
+        if PRODUCTION:
             vid = session.execute(search_stmt).first().id
             send_confirmation_email(email, vid, name, matched_hawker, result.sname, result.address, result.phone_number, result.reason_for_help)
         
     except IntegrityError:
-        return "3"
+        return 1
 
-    return "0"
+    return 0
 
 def book_training(id, start_time):
+    """
+    Attempts to add a booking to the database for a volunteer.
 
+    Parameters:
+    id (str): id of volunteer (as defined in the database)
+    start_time (str): Start time of requested slot, as defined by ISO 8601
+    
+    Returns:
+    int : 0 if adding volunteer's booking slot to database is successful
+          1 if adding to database fails due to table constraints
+          2 if failed to find a suitable hawker for this volunteer
+    """
     booking_metadata = MetaData()
     booking_table = Table('booking', booking_metadata, autoload_with=engine)
 
@@ -183,19 +256,23 @@ def book_training(id, start_time):
 
     volunteer_data_stmt = select([column('vname'), column('email')]).where(volunteer_table.c.id == id)
 
-    with Session(engine) as session:
-        results = session.execute(check_stmt).all()
+    try:
+        with Session(engine) as session:
+            results = session.execute(check_stmt).all()
 
-        # Update user's booking if already exists, if not insert new one
-        if results:
-            session.execute(update_stmt)
-        else:
-            session.execute(insert_stmt)
-        
-        session.commit()
+            # Update user's booking if already exists, if not insert new one
+            if results:
+                session.execute(update_stmt)
+            else:
+                session.execute(insert_stmt)
+            
+            session.commit()
+            
+    except IntegrityError:
+        return 1
 
-        if PRODUCTION:
-            volunteer_data = session.execute(volunteer_data_stmt).first()
-            send_booking_email(volunteer_data.email, id, volunteer_data.vname, start_time)
+    if PRODUCTION:
+        volunteer_data = session.execute(volunteer_data_stmt).first()
+        send_booking_email(volunteer_data.email, id, volunteer_data.vname, start_time)
 
-    return "0"
+    return 0

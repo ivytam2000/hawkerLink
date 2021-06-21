@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, request, abort
+import re
+from flask import Flask, json, jsonify, request, abort
 
 from main import main_setup, search_hawker, search_booking, submit_new_hawker, volunteer_signup, book_training
 
@@ -12,6 +13,14 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 @app.before_first_request
 def setup():
     main_setup()
+
+####################################
+#  Helper functions                #
+####################################
+
+def check_request_json(request):
+    if not request.json:
+        abort(400)
 
 ####################################
 #  Retrieval functions             #
@@ -32,8 +41,8 @@ def get_hawkers():
           'location': loc,
           'languages': [lang1, lang2]}]
     """
-    if not request.json:
-        abort(400)
+    check_request_json(request)
+
     language_query = request.json['languages']
     region_query = request.json['region']
 
@@ -85,9 +94,7 @@ def suggest_hawker():
     TODO: change to http error codes
     """
 
-    if not request.json:
-        abort(400)
-
+    check_request_json(request)
     try:
         store_name = request.json['storeName']
         hawker_centre = request.json['hawkerCentre']
@@ -97,10 +104,10 @@ def suggest_hawker():
         region = request.json['region']
         reason_for_help = request.json['reasonForHelp']
         languages = ", ".join(request.json['languages']) # Concat into a single string
-    except KeyError as e:
-        return "1"
+    except KeyError:
+        abort(400)
 
-    return submit_new_hawker(hawker_name=hawker_name,
+    success_code = submit_new_hawker(hawker_name=hawker_name,
         store_name=store_name, 
         hawker_phone_number=hawker_phone_number,
         reason_for_help=reason_for_help,
@@ -108,6 +115,11 @@ def suggest_hawker():
         hawker_centre=hawker_centre,
         address=address,
         region=region)
+
+    if success_code == 0:
+        return jsonify(success=True)
+    else:
+        return "Adding to database failed.", 400
 
 @app.route('/volunteer-signup', methods=['POST'])
 def assist_hawker():
@@ -129,9 +141,7 @@ def assist_hawker():
     TODO: change to http error codes
     """
 
-    if not request.json:
-        abort(400)
-
+    check_request_json(request)
     try:
         name = request.json['name']
         email = request.json['email']
@@ -141,9 +151,9 @@ def assist_hawker():
         languages = ", ".join(request.json['languages']) # Concat into a single string
         hawker_ids = request.json['hawkerIds']
     except KeyError:
-        return "1"
+        abort(400)
 
-    volunteer_signup(name=name,
+    success_code = volunteer_signup(name=name,
     email=email,
     phone_number=phone_number,
     availability=availability,
@@ -151,7 +161,12 @@ def assist_hawker():
     languages=languages,
     hawker_ids=hawker_ids)
 
-    return jsonify(success=True)
+    if success_code == 0:
+        return jsonify(success=True)
+    elif success_code == 1:
+        return "Failed to add to database", 400
+    else:
+        return "Failed to find suitable hawker", 400
 
 @app.route('/book-training', methods=['POST'])
 def book():
@@ -162,31 +177,18 @@ def book():
             'startTime': datetime string
         }
 
-    Datetime string formatted as YYYY-MM-DDThh:mm:ssZ
-
-    ---
-
-    GET requests will return the following:
-        [
-            {
-                'startTime': datetime string,
-                'availability': int
-            }
-        ]
-            
-    Returns list of available slots for the next two weeks.
-    
+    Datetime string formatted as YYYY-MM-DDThh:mm:ss
     """
 
-    if not request.json:
-        abort(400)
+    check_request_json(request)
 
     try:
         id = request.json['id']
         start_time = request.json['startTime']
     except KeyError:
-        return "1"
+        abort(400)
 
     book_training(id, start_time)
 
     return jsonify(success=True)
+
