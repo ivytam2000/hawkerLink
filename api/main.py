@@ -1,4 +1,3 @@
-import time
 import os
 import datetime as DT
 import dateutil.relativedelta as REL
@@ -106,3 +105,97 @@ def submit_new_hawker(hawker_name, store_name, hawker_phone_number, reason_for_h
         return "2"
 
     return jsonify(success=True)
+
+def volunteer_signup(name, email, phone_number, availability, comfortable, languages, hawker_ids):
+    hawker_metadata = MetaData()
+    hawkers_table = Table('hawker', hawker_metadata, autoload_with=engine)
+    
+    volunteer_metadata = MetaData()
+    volunteers_table = Table('volunteer', volunteer_metadata, autoload_with=engine)
+
+    # Try to match hawker to volunteer
+    result = ''
+    with Session(engine) as session:
+        search_stmt = select(['*']).where(and_(hawkers_table.c.id.in_(hawker_ids), hawkers_table.c.assigned != 1))
+        result = session.execute(search_stmt).first()
+        
+        if not result:
+            # Else find another hawker for the volunteer randomly
+            if comfortable == "Yes":
+                search_stmt = select(['*']).where(hawkers_table.c.assigned == 0)
+                result = session.execute(search_stmt).first()
+
+    # If the hawker requested has already been taken and volunteer does not want
+    # to be matched with other hawkers, return 2
+    if not result:
+        return "2"
+
+    # First cast our comfortable var to same type as the database, int
+    if comfortable == "Yes":
+        comfortable = 1
+    else:
+        comfortable = 0
+
+    matched_hawker = result.hname
+
+    update_stmt = update(hawkers_table).where(hawkers_table.c.hname == matched_hawker).values(assigned=1)
+    insert_stmt = insert(volunteers_table).values(
+        vname=name,
+        email=email,
+        availability=availability,
+        phone_number=phone_number,
+        comfortable=comfortable,
+        languages=languages,
+        hname=matched_hawker)
+    search_stmt = select([column('id')]).where(volunteers_table.c.vname == name)
+
+    try:
+        with Session(engine) as session:
+            session.execute(update_stmt)
+            session.execute(insert_stmt)
+            session.commit()
+
+        # Only send email if this is in production
+        # if PRODUCTION:
+            vid = session.execute(search_stmt).first().id
+            send_confirmation_email(email, vid, name, matched_hawker, result.sname, result.address, result.phone_number, result.reason_for_help)
+        
+    except IntegrityError:
+        return "3"
+
+    return "0"
+
+def book_training(id, start_time):
+
+    booking_metadata = MetaData()
+    booking_table = Table('booking', booking_metadata, autoload_with=engine)
+
+    volunteer_metadata = MetaData()
+    volunteer_table = Table('volunteer', volunteer_metadata, autoload_with=engine)
+
+    # Craft statements for checking, updating and inserting
+    check_stmt = select(['*']).where(booking_table.c.vid == id)
+    update_stmt = update(booking_table).where(booking_table.c.vid == id).values(datetime=start_time)
+    insert_stmt = insert(booking_table).values(
+        datetime=start_time,
+        vid=id
+    )
+
+    volunteer_data_stmt = select([column('vname'), column('email')]).where(volunteer_table.c.id == id)
+
+    with Session(engine) as session:
+        results = session.execute(check_stmt).all()
+
+        # Update user's booking if already exists, if not insert new one
+        if results:
+            session.execute(update_stmt)
+        else:
+            session.execute(insert_stmt)
+        
+        session.commit()
+
+        if PRODUCTION:
+            volunteer_data = session.execute(volunteer_data_stmt).first()
+            send_booking_email(volunteer_data.email, id, volunteer_data.vname, start_time)
+
+    return "0"
