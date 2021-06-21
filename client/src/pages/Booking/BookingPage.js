@@ -1,7 +1,7 @@
-import { GenericLayout } from './Layout';
-import { BookingSessions } from '../components/BookingSessions';
-import { getAvailableSessions } from '../services/Booking';
-import '../components/BookingCard.css'
+import { GenericLayout } from '../Sitewide/Layout';
+import { BookingSessions } from '../../components/Booking/BookingSessions';
+import { getAvailableSessions } from '../../services/Booking';
+import '../../components/Booking/BookingCard.css'
 
 export function BookingPage() {
 

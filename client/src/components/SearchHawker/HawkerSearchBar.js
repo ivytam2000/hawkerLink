@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import './HawkerSearchBar.css'
 import { Multiselect } from "multiselect-react-dropdown";
 import { HawkerSearchResults } from "./HawkerSearchResults";
-import { SearchHawker } from "../services/SearchHawker";
+import { SearchHawker } from "../../services/SearchHawker";
 
 const LOCATION_CACHE ="LOCATION_CACHE"
 const LANGUAGE_CACHE= "LANGUAGE_CACHE"

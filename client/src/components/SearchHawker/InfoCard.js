@@ -5,7 +5,6 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import {Link} from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -32,7 +31,7 @@ const useStyles = makeStyles({
 export function InfoCard(props) {
   const classes = useStyles();
 
-  const imageLink = "hawker_cards/" + props.id + ".jpg";
+  const imageLink = "./hawker_cards/" + props.id + ".jpg";
 
   var selected = false;
 
@@ -51,7 +50,6 @@ export function InfoCard(props) {
   }
 
   return (
-    // <Link style={{ textDecoration: 'none' }} to={{pathname:"/signup", id: props.id, storeName: props.storeName, userLanguages:props.userLanguages, selectedLanguages:props.selectedLanguages, resultsData:props.resultsData}}>
     <Card onClick={infoToSubmit} className={classes.root} id={props.id}>
       <CardActionArea>
         <CardMedia
@@ -72,6 +70,5 @@ export function InfoCard(props) {
         </CardContent>
       </CardActionArea>
     </Card>
-   //  </Link>
   );
 }

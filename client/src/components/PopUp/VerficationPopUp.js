@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./PopUp.css";
-import check from "../imgs/check.png";
-import { submitHawker } from "../services/SubmitHawkerSuggestion";
+import check from "./imgs/check.png";
+import { submitHawker } from "../../services/SubmitHawkerSuggestion";
 
 export function VerificationPopUp(props) {
   const [modal, setModal] = useState(true);

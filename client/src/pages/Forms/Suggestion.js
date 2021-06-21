@@ -1,8 +1,8 @@
-import { GenericLayout } from '../Layout';
+import {GenericLayout} from '../Sitewide/Layout';
 import './Form.css';
 import { Multiselect } from "multiselect-react-dropdown";
 import React, { useRef, useState } from "react";
-import SuggestPopUp from '../../components/SuggestPopUp';
+import SuggestPopUp from '../../components/PopUp/SuggestPopUp';
 
 export function SuggestionPage() {
   const languageChoices = [

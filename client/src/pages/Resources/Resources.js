@@ -1,12 +1,11 @@
-import { GenericLayout } from '../Layout';
+import {GenericLayout} from '../Sitewide/Layout';
 import { makeStyles } from '@material-ui/core/styles';
 
-import helping from './helping.png';
-import delivery from './delivery.png';
-import foodpanda from './foodpanda.png';
+import helping from './imgs/helping.png';
+import delivery from './imgs/delivery.png';
+import foodpanda from './imgs/foodpanda.png';
 import { Cip } from '../Forms/Cip';
-import faq from './FAQ.png'
-import { VerificationPopUp } from '../../components/VerficationPopUp';
+import faq from './imgs/FAQ.png'
 
 const useStyles = makeStyles({
 

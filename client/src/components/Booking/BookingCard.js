@@ -6,8 +6,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import {Link, useParams} from 'react-router-dom';
-import { sendBookedSession } from '../services/Booking';
-import "./PopUp.css";
+import { sendBookedSession } from '../../services/Booking';
+import "../PopUp/PopUp.css";
 import "./BookingCard.css";
 
 
