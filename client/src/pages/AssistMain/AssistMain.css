@@ -139,7 +139,7 @@ body
     margin-left: 15%;
     margin-right: 15%;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     text-align: center;
 }
 
@@ -149,6 +149,16 @@ body
 
 .bot-buffer {
     margin-bottom: 72px;
+}
+
+.subtitle {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 1.2rem;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: #c5343b;
+    background-color: white;
+    padding: 14px 20px;
 }
 
 /* .exp {

@@ -1,10 +1,12 @@
 import time
 import os
+import datetime as DT
+import dateutil.relativedelta as REL
 from flask import Flask, jsonify, request, abort
 from sqlalchemy import *
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
-from email_client import send_email
+from email_client import send_confirmation_email, send_booking_email
 
 # Environment variables
 POSTGRES_DB = os.environ.get('POSTGRES_DB')
@@ -211,7 +213,6 @@ def assist_hawker():
     matched_hawker = result.hname
 
     update_stmt = update(hawkers_table).where(hawkers_table.c.hname == matched_hawker).values(assigned=1)
-    
     insert_stmt = insert(volunteers_table).values(
         vname=name,
         email=email,
@@ -220,6 +221,7 @@ def assist_hawker():
         comfortable=comfortable,
         languages=languages,
         hname=matched_hawker)
+    search_stmt = select([column('id')]).where(volunteers_table.c.vname == name)
 
     try:
         with Session(engine) as session:
@@ -228,22 +230,108 @@ def assist_hawker():
             session.commit()
 
         # Only send email if this is in production
-        if PRODUCTION:
-            send_email(email, name, matched_hawker, result.sname, result.address, result.phone_number, result.reason_for_help)
+        # if PRODUCTION:
+            vid = session.execute(search_stmt).first().id
+            send_confirmation_email(email, vid, name, matched_hawker, result.sname, result.address, result.phone_number, result.reason_for_help)
         
     except IntegrityError:
         return "3"
 
-    return "0"
+    return jsonify(success=True)
 
-# if __name__ == "__main__":
-#     engine = create_engine(DATABASE_URI)
-#     hawker_metadata = MetaData()
-#     hawkers_table = Table('hawker', hawker_metadata, autoload_with=engine)
+@app.route('/booking', methods=['GET', 'POST'])
+def book_training():
+    """
+    Receives POST requests in the following format:
+        {
+            'id': int,
+            'startTime': datetime string
+        }
 
-#     search_stmt = select([column('hname')]).where(and_(hawkers_table.c.id.in_([1,2,3,4,5,6,7,8,9,10]), hawkers_table.c.assigned != 1))
-#     with Session(engine) as session:
-#         result = session.execute(search_stmt).first()
+    Datetime string formatted as YYYY-MM-DDThh:mm:ssZ
 
-#         if result:
-#             print(result[0])
+    ---
+
+    GET requests will return the following:
+        [
+            {
+                'startTime': datetime string,
+                'availability': int
+            }
+        ]
+            
+    Returns list of available slots for the next two weeks.
+    
+    """
+
+    booking_metadata = MetaData()
+    booking_table = Table('booking', booking_metadata, autoload_with=engine)
+
+    volunteer_metadata = MetaData()
+    volunteer_table = Table('volunteer', volunteer_metadata, autoload_with=engine)
+
+    if request.method == 'GET':
+
+        # Create datetime objects to use in query
+        today = DT.date.today()
+        booking_counts = []
+        max_bookings = 5
+        weeks_in_advance = 3
+        
+        with Session(engine) as session:
+            for week in range(weeks_in_advance):
+                # Calculate datetimes for sat, sun and mon per week
+                sat_midnight = today + REL.relativedelta(days=1 + week * 7, weekday=REL.SA)
+                sun_midnight = sat_midnight + REL.relativedelta(days=1)
+                mon_midnight = sun_midnight + REL.relativedelta(days=1)
+
+                # Create queries on a per-week version
+                this_sat_query = select(['*']).where(and_(booking_table.c.datetime > sat_midnight, booking_table.c.datetime < sun_midnight))
+                this_sun_query = select(['*']).where(and_(booking_table.c.datetime > sun_midnight, booking_table.c.datetime < mon_midnight))
+
+                # Actually query database and build json return object
+                # Assume here that we have maximum of 5 slots and they are only available
+                # at 3pm on every sat and sun
+                booking_counts.append({'startTime': (sat_midnight + REL.relativedelta(hours=15)).isoformat(),
+                                    'availability': max_bookings - len(session.execute(this_sat_query).all())})
+                booking_counts.append({'startTime': (sun_midnight + REL.relativedelta(hours=15)).isoformat(),
+                                    'availability': max_bookings - len(session.execute(this_sun_query).all())})
+
+        return jsonify(booking_counts)
+
+    elif request.method == 'POST':
+        if not request.json:
+            abort(400)
+
+        try:
+            id = request.json['id']
+            start_time = request.json['startTime']
+        except KeyError:
+            return "1"
+
+        # Craft statements for checking, updating and inserting
+        check_stmt = select(['*']).where(booking_table.c.vid == id)
+        update_stmt = update(booking_table).where(booking_table.c.vid == id).values(datetime=start_time)
+        insert_stmt = insert(booking_table).values(
+            datetime=start_time,
+            vid=id
+        )
+
+        volunteer_data_stmt = select([column('vname'), column('email')]).where(volunteer_table.c.id == id)
+
+        with Session(engine) as session:
+            results = session.execute(check_stmt).all()
+
+            # Update user's booking if already exists, if not insert new one
+            if results:
+                session.execute(update_stmt)
+            else:
+                session.execute(insert_stmt)
+            
+            session.commit()
+
+            # if PRODUCTION:
+            volunteer_data = session.execute(volunteer_data_stmt).first()
+            send_booking_email(volunteer_data.email, id, volunteer_data.vname, start_time)
+
+        return jsonify(success=True)

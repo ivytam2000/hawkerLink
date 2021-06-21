@@ -16,18 +16,23 @@ export const Item = () => {
 };
 
 export function SignUpPage(props) {
-  var defaultIdField = ""
-  if (props.location.id) {
-    defaultIdField = props.location.id + ' (' + props.location.storeName + ')';
-  }
 
-  var store = props.location.storeName ? 
-  [{
-    id: props.location.id,
-    language: "",
-    location: "",
-    storeName: props.location.storeName
-  }] : []
+  var store = [];
+
+  if (props.location.hasOwnProperty('ids')) {
+    if (props.location.ids.length > 0) {
+      var i, j = 0;
+      for (i = 0, j = props.location.ids.length; i < j; i++) {
+        console.log(props.location.ids[i]);
+        store.unshift({
+          id: props.location.ids[i],
+          language: "",
+          location: "",
+          storeName: props.location.storeNames[i]
+        });
+      }
+    }
+  }
 
   var resultsData=[]
 
@@ -113,7 +118,6 @@ export function SignUpPage(props) {
 
   const [selectedStore] = useState(store);
 
-
   const langRef = useRef(null);
   const storeRef= useRef(null);
   const availRef = useRef(null);
@@ -123,11 +127,12 @@ export function SignUpPage(props) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [number, setNumber] = useState("");
-    const [hawkerIds, setHawkerIds] = useState([props.location.id]);
+    const [hawkerIds, setHawkerIds] = useState(props.location.ids);
     const [languages, setLanguages] = useState(userLanguages);
     const [availability, setAvailability] = useState([]);
     const [comfortable, setComfortable] = useState(0);
-    const [checked, setChecked] = useState(false);
+    const [yesChecked, setYesChecked] = useState(false);
+    const [noChecked, setNoChecked] = useState(false);
 
 
   function clearFields() {
@@ -138,8 +143,8 @@ export function SignUpPage(props) {
     setLanguages([]);
     setAvailability([]);
     setComfortable("");
-    setChecked(false);
-
+    setYesChecked(false);
+    setNoChecked(false);
     resetValues();
   }
 
@@ -231,12 +236,12 @@ export function SignUpPage(props) {
           <p><span className="label" for="other">Are you comfortable with us asking you to help another hawker, if the hawkers you chose are unavailable?</span></p>
           <div>
             <div className="yn-radio">
-              <input type="radio" checked={checked} name="help"
-              onClick={() => setChecked(true)} onChange={(e) => setComfortable(e.target.value)} /> Yes
+              <input type="radio" checked={yesChecked} name="help"
+              onClick={() => setYesChecked(true)} onChange={(e) => setComfortable(e.target.value)} /> Yes
             </div>
             <div className="yn-radio">
-              <input type="radio" checked={checked}name="help" 
-               onClick={() => setChecked(true)}
+              <input type="radio" checked={noChecked} name="help" 
+               onClick={() => setNoChecked(true)}
                onChange={(e) => setComfortable(e.target.value)} /> No
             </div>
           </div>
@@ -250,7 +255,7 @@ export function SignUpPage(props) {
             clearFields={clearFields} />
         </form>
         <div>
-          <Link to="/assist"><button className="search-btn">
+          <Link to="/search"><button className="search-btn">
             Back to Search
             </button>  </Link>
         </div>

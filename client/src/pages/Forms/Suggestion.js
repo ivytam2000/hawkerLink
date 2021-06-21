@@ -35,7 +35,9 @@ export function SuggestionPage() {
   const [languages, setLanguages] = useState([]);
   const [reasonForHelp, setReasonForHelp] = useState("");
   const [otherReason, setOtherReason] = useState("");
-  const [checked, setChecked] = useState(false);
+  const [itChecked, setitChecked] = useState(false);
+  const [profChecked, setProfChecked] = useState(false);
+  const [otherChecked, setOtherChecked] = useState(false);
   const [othersFieldSelected, setOthersFieldSelected] = useState(false);
 
   function onSelectLanguages(selectedList, selectedItem) {
@@ -64,7 +66,9 @@ export function SuggestionPage() {
     setOtherReason("");
     langRef.current.resetSelectedValues();
     regionRef.current.resetSelectedValues();
-    setChecked(false);
+    setitChecked(false);
+    setProfChecked(false);
+    setOtherChecked(false);
 
   }
 
@@ -132,13 +136,13 @@ export function SuggestionPage() {
           </p>
 
           <div className="reason-radio">
-            <input type="radio" value="IT-illiterate" checked={checked} onClick={() => setChecked(true)} name="help" onChange={(e) => {setReasonForHelp(e.target.value); setOthersFieldSelected(false)}} /> IT-illiterate
+            <input type="radio" value="IT-illiterate" checked={itChecked} onClick={() => setitChecked(true)} name="help" onChange={(e) => {setReasonForHelp(e.target.value); setOthersFieldSelected(false)}} /> IT-illiterate
             </div>
           <div className="reason-radio">
-            <input type="radio" value="Lack of proficiency in English/Chinese to sign-up" checked={checked} onClick={() => setChecked(true)} name="help" onChange={(e) => {setReasonForHelp(e.target.value); setOthersFieldSelected(false)}} /> Lack of proficiency in English/Chinese to sign-up
+            <input type="radio" value="Lack of proficiency in English/Chinese to sign-up" checked={profChecked} onClick={() => setProfChecked(true)} name="help" onChange={(e) => {setReasonForHelp(e.target.value); setOthersFieldSelected(false)}} /> Lack of proficiency in English/Chinese to sign-up
             </div>
           <div className="reason-radio">
-            <input type="radio" checked={checked} onClick={() => setChecked(true)} name="help" onChange={() => setOthersFieldSelected(true)}/> Others
+            <input type="radio" checked={otherChecked} onClick={() => setOtherChecked(true)} name="help" onChange={() => setOthersFieldSelected(true)}/> Others
             </div>
 
           <p>
