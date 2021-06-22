@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 
     navText: {
         color: 'white',
-        fontFamily: "montserrat-bold",
+        fontFamily: "Helvetica",
         textTransform: "uppercase",
         textDecoration: 'none',
         fontSize: '20px',
@@ -36,13 +36,15 @@ const useStyles = makeStyles({
 
     secTitles: {
         color: 'white',
-        fontSize: '40px',
+        fontSize: '30px',
+        fontFamily: "Helvetica",
+        textAlign: 'center',
     },
 
     contentSect: {
         paddingTop: '6rem',
-        paddingLeft: '25%',
-        paddingRight: '23%',
+        paddingLeft: '30%',
+        paddingRight: '30%',
     }
 });
 
@@ -131,7 +133,7 @@ export function ResourcesVerificationPage() {
 
     return (
         <body>
-            <GenericLayout />
+            <GenericLayout id={3} />
             <NavigationBar />
             <MeetupSection />
             <DeliverySection />

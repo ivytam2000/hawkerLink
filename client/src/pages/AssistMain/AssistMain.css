@@ -36,6 +36,7 @@ body
     text-align: center;
     vertical-align: top;
     padding: 30px;
+    margin-bottom: 50px;
 }
 
 .expand {
@@ -57,6 +58,10 @@ body
 
 .arrow {
     width: 7%;
+}
+
+.main-pic {
+    border-radius: 50%;
 }
 
 .step {
@@ -88,9 +93,9 @@ body
 .step-nonclick {
     width: 90%;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
-    font-size: 0.8rem;
-    color: #c5343b;
-    background-color: #ffffff;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: transparent;
     border: none;
     border-radius: 20px;
     padding: 14px 20px;
@@ -140,6 +145,17 @@ body
     margin-right: 15%;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     font-size: 1.5rem;
+    padding: 100px;
+    text-align: center;
+}
+
+.desc-text {
+    color: #fff;
+    margin-left: 15%;
+    margin-right: 15%;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 1.5rem;
+    padding: 50px;
     text-align: center;
 }
 
@@ -152,15 +168,61 @@ body
 }
 
 .subtitle {
+    background-image: url("./imgs/assist.png");
+    background-size: cover;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
-    font-size: 1.2rem;
+    font-size: 5rem;
     margin-top: 30px;
     margin-bottom: 30px;
-    color: #c5343b;
-    background-color: white;
-    padding: 14px 20px;
+    color: white;
+    padding: 240px;
+    box-sizing: border-box;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    text-shadow: -1px 1px 2px #000,
+				  1px 1px 2px #000,
+				  1px -1px 0 #000,
+				  -1px -1px 0 #000;
 }
 
+.subtitle-s {
+    background-image: url("./imgs/suggest.png");
+    background-size: cover;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 5rem;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: white;
+    padding: 240px;
+    box-sizing: border-box;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    text-shadow: -1px 1px 2px #000,
+				  1px 1px 2px #000,
+				  1px -1px 0 #000,
+				  -1px -1px 0 #000;
+}
+
+.subtitle-h {
+    background-image: url("./imgs/hawkers.png");
+    background-size: cover;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 5rem;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: white;
+    padding: 240px;
+    box-sizing: border-box;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    text-shadow: -1px 1px 2px #000,
+				  1px 1px 2px #000,
+				  1px -1px 0 #000,
+				  -1px -1px 0 #000;
+}
 /* .exp {
     margin-top: 50px;
     margin-bottom: 100px;

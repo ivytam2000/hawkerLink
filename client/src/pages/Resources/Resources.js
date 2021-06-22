@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 
     navText: {
         color: 'white',
-        fontFamily: "montserrat-bold",
+        fontFamily: "Helvetica",
         textTransform: "uppercase",
         textDecoration: 'none',
         fontSize: '20px',
@@ -35,13 +35,15 @@ const useStyles = makeStyles({
 
     secTitles: {
         color: 'white',
-        fontSize: '40px',
+        fontSize: '30px',
+        fontFamily: "Helvetica",
+        textAlign: 'center',
     },
 
     contentSect: {
         paddingTop: '6rem',
-        paddingLeft: '25%',
-        paddingRight: '23%',
+        paddingLeft: '35%',
+        paddingRight: '25%',
     }
 });
 
@@ -92,8 +94,7 @@ function SignUpSection() {
     return (
         <div className={classes.contentSect}>
             <a className={classes.anchors} id='signup'></a>
-            <h1 className={classes.secTitles}> Signup Help </h1>
-            <h1 className={classes.secTitles}> FoodPanda </h1>
+            <h1 className={classes.secTitles}> Signup Help: FoodPanda </h1>
             <img src={foodpanda} width='100%'></img>
         </div>
     );
@@ -129,7 +130,7 @@ export function ResourcesPage() {
 
     return (
         <body>
-            <GenericLayout />
+            <GenericLayout id={3}/>
             <NavigationBar />
             <MeetupSection />
             <DeliverySection />
