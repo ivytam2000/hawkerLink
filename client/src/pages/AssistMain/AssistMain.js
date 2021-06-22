@@ -82,7 +82,7 @@ export function AssistMainPage() {
 
     return (
         <body>
-        <GenericLayout id={3} />
+        <GenericLayout id={0} />
 
         <div className="buffer"></div>
         <div className="about-text">

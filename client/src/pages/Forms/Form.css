@@ -19,9 +19,9 @@
     position: fixed;
     background-image: url("./imgs/hawker-duck-icon.png");
     background-color: black;
-    background-position: 50%;
+    background-position: 50% 5%;
     background-repeat: no-repeat;
-    background-size: contain, cover;
+    background-size: cover;
     overflow-x: hidden;
     padding: 20px;
     border-width: 0.3px;
