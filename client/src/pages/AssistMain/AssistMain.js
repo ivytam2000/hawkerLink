@@ -5,6 +5,8 @@ import {Link} from "react-router-dom";
 import arrow from './assist-icons/right-arrow.png'
 import bracket from './bracket.png'
 
+import assist from './imgs/assist.jpeg'
+
 import register from './assist-icons/register.png'
 import meet from './assist-icons/meet.png'
 import choose from './assist-icons/choose.png'
@@ -86,11 +88,15 @@ export function AssistMainPage() {
         <div className="about-text">
             <p>Hawkerlink is a service which links up tech-savvy volunteers 
                 to hawkers who need someone to help them register with food delivery services.</p>
-            <div className="subtitle">Assist a hawker</div>
+        </div>
+
+        <div className="subtitle">Assist a hawker</div>
+        <div className="desc-text">
+        <p>As a volunteer, you can help guide hawkers through the registration process of 
+                food delivery services to get them back on their feet.</p>
         </div>
 
         <table className="icons">
-        
             <tr className="main">
                 <td class="icon">
                     <img src={register} alt= "Register" width="100px" height="100px"></img>
@@ -204,8 +210,13 @@ export function AssistMainPage() {
             </tr>
         </table>
 
-        <div className="about-text">
-            <div className="subtitle">Suggest a hawker</div>
+        <div className="bot-buffer"></div>
+
+        <div className="subtitle-s">Suggest a hawker</div>
+
+        <div className="desc-text">
+        <p>Do you know a hawker that wants to get on delivery services but simply does not know how to? 
+                You can submit them to our database through "suggest a hawker".</p>
         </div>
 
         <table className="icons">
@@ -246,9 +257,12 @@ export function AssistMainPage() {
                 </td>
             </tr>
         </table>
+        <div className="bot-buffer"></div>
 
-        <div className="about-text">
-            <div className="subtitle">Hawkers</div>
+        <div className="subtitle-h">Hawkers</div>
+
+        <div className="desc-text">
+        <p>Your contributions will make a tangible difference in the lives of these hawkers through this process.</p>
         </div>
 
         <table className="icons">
