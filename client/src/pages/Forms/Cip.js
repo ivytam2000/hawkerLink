@@ -2,6 +2,7 @@ import {GenericLayout} from '../Sitewide/Layout';
 import { Link, useHistory } from "react-router-dom";
 import './Form.css';
 import React from "react";
+import { CipPopUp } from '../../components/PopUp/CIPPopUp';
 
 export function Cip(props) {
 
@@ -15,8 +16,6 @@ export function Cip(props) {
 
         <section className="cip-form-content"> 
             <form action="/action_page.php">
-            <p><span class="label" for="ID">ID(s) of hawkers you have helped</span>
-            <input type="form-text" id="ID" name="ID" ></input></p>
             <span class="label" for="name">Name</span>
             <input type="form-text" id="name" name="name"></input>
             <p><span class="label" for="contact">School</span>
@@ -26,12 +25,10 @@ export function Cip(props) {
             <p><span class="label" for="language">Hours Spent Helping Them</span>
             <input type="form-text" id="language" name="language"></input></p>
 
-            <p><span class="label" for="other">Email Address</span></p>
-            <p><input type="form-text" id="language" name="language"></input></p>
+            <p><span class="label" for="other">Email Address</span>
+            <input type="form-text" id="language" name="language"></input></p>
          
-          <Link to="/resources"><button className="search-btn">
-            Submit
-            </button>  </Link>
+            <CipPopUp />
             </form> 
             <div>
   </div>

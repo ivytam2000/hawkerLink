@@ -6,8 +6,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import {Link, useParams} from 'react-router-dom';
-import { sendBookedSession } from '../../services/Booking';
-import "../PopUp/PopUp.css";
+import { sendBookedSession } from '../services/Booking';
+import "./PopUp.css";
 import "./BookingCard.css";
 
 
@@ -92,7 +92,7 @@ export function BookingCard(props) {
             default:
             suffix = 'day'
         }
-        return weekday[day] + suffix + '(' + displayDate() + ')';
+        return weekday[day] + suffix + ' (' + displayDate() + ')';
     }
 
     function displayShortDayWithDate(){
@@ -121,7 +121,7 @@ export function BookingCard(props) {
     }
 
     const {id}= useParams();
-    const real_id = {id}.id;
+    console.log({id}.id);
 
     const [modal, setModal] = useState(false);
 
@@ -134,7 +134,8 @@ export function BookingCard(props) {
     e.preventDefault();
     setModal(!modal);
     console.log({id}.id);
-    sendBookedSession({id}.id, isoStartTime).then(() => {window.location.href = '/' + real_id + '/booking';});
+    sendBookedSession({id}.id, isoStartTime);
+    window.location.href = '/';
   }
  
 
