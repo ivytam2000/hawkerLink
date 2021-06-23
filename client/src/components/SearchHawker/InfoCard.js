@@ -31,7 +31,7 @@ const useStyles = makeStyles({
 export function InfoCard(props) {
   const classes = useStyles();
 
-  const imageLink = "./hawker_cards/" + props.id + ".jpg";
+  const imageLink = "hawker_cards/" + props.id + ".jpg";
 
   var selected = false;
 
