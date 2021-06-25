@@ -31,7 +31,14 @@ const useStyles = makeStyles({
 export function InfoCard(props) {
   const classes = useStyles();
 
-  const imageLink = "hawker_cards/" + props.id + ".jpg";
+  // Add default image if none is found (for all non-default hawkers for now)
+  let imageId = props.id;
+  if (imageId >= 13) {
+    const even = imageId % 2;
+    imageId = 13 + even;
+  }
+
+  const imageLink = "hawker_cards/" + imageId + ".jpg";
 
   var selected = false;
 
