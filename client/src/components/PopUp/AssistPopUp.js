@@ -7,6 +7,42 @@ export function AssistPopUp(props) {
 
   const toggleModal = (e) => {
     e.preventDefault();
+
+    if (typeof props.hawkerIds === 'undefined' || !Array.isArray(props.hawkerIds) || !props.hawkerIds.length) {
+      alert("Please select at least one hawker to help.");
+      return;
+    } 
+
+    if (!props.name) {
+      alert("Please enter your name.");
+      return;
+    } 
+
+    if (!props.email) {
+      alert("Please enter your email.");
+      return;
+    } 
+
+    if (!props.number) {
+      alert("Please enter your number.");
+      return;
+    } 
+
+    if (typeof props.availability === 'undefined' || !Array.isArray(props.availability) || !props.availability.length) {
+      alert("Please select your availability.");
+      return;
+    } 
+
+    if (typeof props.languages === 'undefined' || !Array.isArray(props.languages) || !props.languages.length) {
+      alert("Please select the languages you can speak.");
+      return;
+    } 
+
+    if (!props.comfortable) {
+      alert("Please select if you are comfortable helping other hawkers.");
+      return;
+    } 
+
     setModal(!modal);
     AssistHawker(
         props.name,
@@ -17,7 +53,6 @@ export function AssistPopUp(props) {
         props.languages,
         props.comfortable
       );
-
   };
 
   const toggleModalAndSubmit = (e) => {

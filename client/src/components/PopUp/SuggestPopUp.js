@@ -7,6 +7,46 @@ export default function SuggestPopUp(props) {
 
   const toggleModal = (e) => {
     e.preventDefault();
+    if (!props.storeName) {
+      alert("Please enter the store name.");
+      return;
+    } 
+
+    if (!props.hawkerCentre) {
+      alert("Please enter the hawker centre name.");
+      return;
+    } 
+
+    if (!props.address) {
+      alert("Please enter the stores's address.");
+      return;
+    } 
+
+    if (!props.region) {
+      alert("Please select a region.");
+      return;
+    } 
+
+    if (!props.hawkerName) {
+      alert("Please enter the hawker's name.");
+      return;
+    } 
+
+    if (!props.hawkerPhoneNumber) {
+      alert("Please enter the hawker's phone number.");
+      return;
+    } 
+
+    if (!props.reasonForHelp) {
+      alert("Please choose/enter a reason why this hawker would require our help.");
+      return;
+    } 
+
+    if (typeof props.languages === 'undefined' || !Array.isArray(props.languages) || !props.languages.length) {
+      alert("Please select the languages the hawker can speak.");
+      return;
+    } 
+
     setModal(!modal);
   };
 
