@@ -27,8 +27,6 @@ export function Cip(props) {
 
             <p><span class="label" for="other">Email Address</span>
             <input type="form-text" id="language" name="language"></input></p>
-         
-            <CipPopUp />
             </form> 
             <div>
   </div>
