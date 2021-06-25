@@ -27,6 +27,10 @@ export function Cip(props) {
 
             <p><span class="label" for="other">Email Address</span>
             <input type="form-text" id="language" name="language"></input></p>
+            <button className="submit-form">
+                Submit
+            </button>
+
             </form> 
             <div>
   </div>
